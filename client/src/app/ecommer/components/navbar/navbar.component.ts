@@ -12,4 +12,6 @@ export class NavbarComponent {
   });
 
   constructor(private fb: FormBuilder) {}
+
+  submitForm(e: Event): void {}
 }

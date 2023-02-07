@@ -4,5 +4,10 @@
     alt="icon page"
     class="icon"
   />
-  <form [formGroup]="searchForm"></form>
+  <form [formGroup]="searchForm" (ngSubmit)="submitForm($event)">
+    <input type="text" formControlName="searchValue" />
+    <button type="submit">Buscar</button>
+  </form>
+  <button class="cartButton">Carrito</button>
+  <button class="userButton">Usuario</button>
 </div>

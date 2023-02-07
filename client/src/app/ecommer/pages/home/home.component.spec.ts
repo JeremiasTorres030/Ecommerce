@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
     }).compileComponents();
   });
 
-  it('should render the HomeComponent', () => {
+  it('should create the HomeComponent', () => {
     const fixture = TestBed.createComponent(HomeComponent);
     const homeComponent = fixture.componentInstance;
     expect(homeComponent).toBeTruthy();
