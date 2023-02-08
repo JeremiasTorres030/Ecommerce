@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { EcommerService } from '../../service/ecommer.service';
 
 @Component({
   selector: 'app-navbar',

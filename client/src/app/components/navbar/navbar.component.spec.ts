@@ -12,13 +12,13 @@ describe('NavbarComponent', () => {
     }).compileComponents();
   });
 
-  it('should create the NavbarComponent', () => {
+  it('should be created', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     const navbarComponent = fixture.componentInstance;
     expect(navbarComponent).toBeTruthy();
   });
 
-  it('should have a primary div with the class navbarComponent', () => {
+  it('should have a primary div', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
