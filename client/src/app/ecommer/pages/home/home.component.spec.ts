@@ -2,11 +2,13 @@ import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { HomeComponent } from './home.component';
 import { CategoryCardComponent } from '../../components/category-card/category-card.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [HomeComponent, CategoryCardComponent],
+      imports: [RouterTestingModule],
     }).compileComponents();
   });
 
@@ -54,16 +56,46 @@ describe('HomeComponent', () => {
   });
 
   it('should render all items from the categoriesList in app-category-card elements', () => {
+    const categoriesListValues = [
+      'Ropa',
+      'Tecnologia',
+      'Computacion',
+      'Deportes',
+      'Electrodomesticos',
+      'Instrumentos',
+    ];
     const fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement;
-    const component = fixture.componentInstance;
-    const categoriesList = component.categoriesList;
     const categoryCard = compiled.queryAll(By.css('app-category-card'));
-    expect(categoryCard.length).toEqual(categoriesList.length);
+    expect(categoryCard.length).toEqual(categoriesListValues.length);
     categoryCard.forEach((element, index) => {
       const childrenHtml: string = element.children[0].nativeElement.innerHTML;
-      expect(childrenHtml).toEqual(categoriesList[index]);
+      expect(childrenHtml).toEqual(categoriesListValues[index]);
+    });
+  });
+
+  it('should render app-category-card routerLink attribute with the correct category name', () => {
+    const categoriesListValues = [
+      'Ropa',
+      'Tecnologia',
+      'Computacion',
+      'Deportes',
+      'Electrodomesticos',
+      'Instrumentos',
+    ];
+    const fixture = TestBed.createComponent(HomeComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement;
+    const categoryCard = compiled.queryAll(By.css('app-category-card'));
+    categoryCard.forEach((element, index) => {
+      const nativeElement: HTMLElement = element.nativeElement;
+      const routerLink = nativeElement
+        .getAttribute('ng-reflect-router-link')
+        ?.split(',');
+      expect(routerLink ? routerLink[1] : '').toEqual(
+        categoriesListValues[index]
+      );
     });
   });
 });

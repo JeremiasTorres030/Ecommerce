@@ -3,6 +3,7 @@
     <app-category-card
       *ngFor="let categoryName of categoriesList"
       [categorieName]="categoryName"
+      [routerLink]="['category', categoryName]"
     ></app-category-card>
   </div>
   <div class="lastVisiteds"></div>
