@@ -1,5 +1,8 @@
 from django.urls import path
-from api.views import ProductView, CategoryView
+from api.views import ProductView, CategoryView, ProductAllView
 
-urlpatterns = [path("product/",ProductView.as_view()),
-path("category/<str:categoryName>",CategoryView.as_view())]
+urlpatterns = [
+    path("product/getAll/",ProductAllView.as_view()),
+    path("category/<str:categoryName>",CategoryView.as_view()),
+    path("product/<str:productId>",ProductView.as_view()),
+    ]

@@ -5,13 +5,18 @@ from rest_framework.response import Response
 # Create your views here.
 
 
-class ProductView(APIView):
+class ProductAllView(APIView):
     def get(self,request,format=None):
         producto = ProductModel.objects.all()
         serializer = ProductSerializer(producto,many=True)
         return Response(serializer.data)
 
 
+class ProductView(APIView):
+    def get(self,request,format=None, productId=""):
+        producto = ProductModel.objects.filter(id=productId)
+        serializer = ProductSerializer(producto,many=True)
+        return Response(serializer.data)
 
 class CategoryView(APIView):
     def get(self,request,format=None , categoryName=""):

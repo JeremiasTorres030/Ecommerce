@@ -1,10 +1,6 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { EcommerService } from '../../service/ecommer.service';
 
@@ -12,7 +8,6 @@ import { CategoryComponent } from './category.component';
 
 describe('CategoryComponent', () => {
   let ecommerService: EcommerService;
-  let httpMock: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -21,7 +16,6 @@ describe('CategoryComponent', () => {
     }).compileComponents();
 
     ecommerService = TestBed.inject(EcommerService);
-    httpMock = TestBed.inject(HttpTestingController);
   });
 
   it('should be created', () => {
@@ -68,17 +62,4 @@ describe('CategoryComponent', () => {
     fixture.detectChanges();
     expect(ecommerSpy).toHaveBeenCalledTimes(1);
   });
-
-  // it('should render the title variable with the value of url category name', () => {
-  //   const fixture = TestBed.createComponent(CategoryComponent);
-  //   fixture.detectChanges();
-  //   const component = fixture.componentInstance;
-  //   let categoryNameUrl = '';
-  //   activedRoute.params.subscribe(({ categoryName }) => {
-  //     categoryNameUrl = categoryName;
-  //   });
-  //   console.log(categoryNameUrl);
-  //   console.log(component.title);
-  //   expect(component.title).toEqual(categoryNameUrl);
-  // });
 });

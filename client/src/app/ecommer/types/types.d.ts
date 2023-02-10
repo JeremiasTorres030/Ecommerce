@@ -6,3 +6,11 @@ export interface Product {
   category: string;
   seller: number;
 }
+
+export type Category =
+  | 'Ropa'
+  | 'Tecnologia'
+  | 'Computacion'
+  | 'Deportes'
+  | 'Electrodomesticos'
+  | 'Instrumentos';

@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { EcommerService } from './ecommer.service';
 import { environment } from 'src/environments/environment.development';
+import { Category } from '../types/types';
 
 describe('EcommerService', () => {
   let service: EcommerService;
@@ -61,7 +62,52 @@ describe('EcommerService', () => {
       },
     });
 
-    const req = httpMock.expectOne(`${environment.API_URL}product/`);
+    const req = httpMock.expectOne(`${environment.API_URL}product/getAll/`);
+    req.flush(expectedResponse);
+  });
+
+  it('getProductsByCategory should return an array of Ropa products', () => {
+    const expectedResponse = [
+      {
+        id: 3,
+        name: 'Objeto ropa',
+        price: 123123,
+        image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
+        category: 'Ropa',
+        seller: 1,
+      },
+      {
+        id: 4,
+        name: 'Objeto ropa',
+        price: 123123,
+        image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
+        category: 'Ropa',
+        seller: 1,
+      },
+      {
+        id: 5,
+        name: 'Objeto ropa',
+        price: 123123,
+        image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
+        category: 'Ropa',
+        seller: 1,
+      },
+    ];
+
+    const categoryName: Category = 'Ropa';
+
+    service.getProductsByCategory(categoryName).subscribe({
+      next: (res) => {
+        expect(res).toEqual(expectedResponse);
+        res.forEach(({ category }) => {
+          expect(category).toEqual(categoryName);
+        });
+      },
+    });
+
+    const req = httpMock.expectOne(
+      `${environment.API_URL}category/${categoryName}`
+    );
     req.flush(expectedResponse);
   });
 });
