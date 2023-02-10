@@ -62,7 +62,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-   'http://localhost:4200'
+   'http://localhost:4200',
 ]
 
 ROOT_URLCONF = 'server.urls'

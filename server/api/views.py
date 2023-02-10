@@ -10,3 +10,11 @@ class ProductView(APIView):
         producto = ProductModel.objects.all()
         serializer = ProductSerializer(producto,many=True)
         return Response(serializer.data)
+
+
+
+class CategoryView(APIView):
+    def get(self,request,format=None , categoryName=""):
+        producto = ProductModel.objects.filter(category = categoryName)
+        serializer = ProductSerializer(producto,many=True)
+        return Response(serializer.data)

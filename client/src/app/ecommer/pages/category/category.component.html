@@ -1,3 +1,13 @@
 <div class="categoryComponent">
   <h1 class="title">{{ title }}</h1>
+  <div class="products">
+    <app-product-card
+      *ngFor="let product of productsList"
+      [id]="product.id"
+      [name]="product.name"
+      [image]="product.image"
+      [price]="product.price"
+      [seller]="product.seller"
+    ></app-product-card>
+  </div>
 </div>
