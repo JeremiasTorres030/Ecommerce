@@ -6,9 +6,19 @@ import { CategoryCardComponent } from './components/category-card/category-card.
 import { CategoryComponent } from './pages/category/category.component';
 import { ProductCardComponent } from './components/product-card/product-card.component';
 import { ProductComponent } from './pages/product/product.component';
+import { CartComponent } from './pages/cart/cart.component';
+import { LongProductCardComponent } from './components/long-product-card/long-product-card.component';
 
 @NgModule({
-  declarations: [HomeComponent, CategoryCardComponent, CategoryComponent, ProductCardComponent, ProductComponent],
+  declarations: [
+    HomeComponent,
+    CategoryCardComponent,
+    CategoryComponent,
+    ProductCardComponent,
+    ProductComponent,
+    CartComponent,
+    LongProductCardComponent,
+  ],
   imports: [CommonModule, EcommerRoutingModule],
 })
 export class EcommerModule {}

@@ -1,1 +1,8 @@
-<h1>{{ name }}</h1>
+<div class="productComponent" *ngIf="!cargando">
+  <h1 class="productName">{{ product.name }}</h1>
+  <img [src]="product.image" [alt]="product.name" />
+  <p class="productSeller">{{ product.seller }}</p>
+  <p class="productPrice">{{ product.price }}</p>
+  <button class="addToCart">Add to cart</button>
+  <button class="buyNow">Buy</button>
+</div>

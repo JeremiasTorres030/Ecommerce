@@ -57,8 +57,8 @@ describe('CategoryComponent', () => {
   });
 
   it('should call getProductsByCategory once ', () => {
-    const fixture = TestBed.createComponent(CategoryComponent);
     const ecommerSpy = spyOn(ecommerService, 'getProductsByCategory');
+    const fixture = TestBed.createComponent(CategoryComponent);
     fixture.detectChanges();
     expect(ecommerSpy).toHaveBeenCalledTimes(1);
   });
