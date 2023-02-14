@@ -2,14 +2,20 @@ import { CommonModule } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
+  let router: Router;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent],
-      imports: [ReactiveFormsModule, CommonModule],
+      imports: [ReactiveFormsModule, CommonModule, RouterTestingModule],
     }).compileComponents();
+
+    router = TestBed.inject(Router);
   });
 
   it('should be created', () => {
@@ -98,5 +104,14 @@ describe('NavbarComponent', () => {
     const compiled = fixture.debugElement;
     compiled.query(By.css('form')).triggerEventHandler('ngSubmit');
     expect(navbar.submitForm).toHaveBeenCalled();
+  });
+
+  it('the cart button should navigate to /cart', () => {
+    const spyNavigate = spyOn(router, 'navigateByUrl');
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    const compiled = fixture.debugElement;
+    compiled.query(By.css('.cartButton')).triggerEventHandler('click');
+    expect(spyNavigate).toHaveBeenCalled();
   });
 });

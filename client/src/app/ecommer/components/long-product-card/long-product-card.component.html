@@ -1,1 +1,6 @@
-<div class="longProductCard"></div>
+<div class="longProductCard">
+  <h1 class="productName">{{ product.name }}</h1>
+  <img [src]="product.image" [alt]="product.name" />
+  <p class="productSeller">{{ product.seller }}</p>
+  <p class="productPrice">{{ product.price }}</p>
+</div>

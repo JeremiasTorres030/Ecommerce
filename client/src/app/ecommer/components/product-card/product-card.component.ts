@@ -8,11 +8,11 @@ import { Product } from '../../types/types';
 })
 export class ProductCardComponent {
   @Input() product: Product = {
-    name: '',
-    category: '',
+    category: 'Ropa',
     id: 0,
-    image: '',
-    price: 0,
+    image: 'imagen.png',
+    name: 'Pantalon gris largo',
+    price: 150,
     seller: 0,
   };
 }

@@ -2,6 +2,14 @@ import { TestBed } from '@angular/core/testing';
 import { LongProductCardComponent } from './long-product-card.component';
 
 describe('LongProductCardComponent', () => {
+  const productTest = {
+    category: 'Ropa',
+    id: 0,
+    image: 'imagen.png',
+    name: 'Pantalon gris largo',
+    price: '150',
+    seller: '1',
+  };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LongProductCardComponent],
@@ -17,7 +25,7 @@ describe('LongProductCardComponent', () => {
   it('should have a primary div', () => {
     const fixture = TestBed.createComponent(LongProductCardComponent);
     const compiled = fixture.nativeElement as HTMLElement;
-    const div = compiled.querySelector('div.longProductComponent');
+    const div = compiled.querySelector('div.longProductCard');
     expect(div).toBeTruthy();
   });
 
@@ -26,5 +34,44 @@ describe('LongProductCardComponent', () => {
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component.product).toBeDefined();
+  });
+
+  it('should have a product variable', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.product).toBeDefined();
+  });
+
+  it('should render the name of the product', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const productName = compiled.querySelector('h1.productName')?.innerHTML;
+    expect(productName).toEqual(productTest.name);
+  });
+
+  it('should render the image of the product ', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const productImg = compiled.querySelector('img')?.getAttribute('src');
+    expect(productImg).toEqual(productTest.image);
+  });
+
+  it('should render the price of the product', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const productPrice = compiled.querySelector('p.productPrice')?.innerHTML;
+    expect(productPrice).toEqual(productTest.price);
+  });
+
+  it('should render the seller of the product', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const productSeller = compiled.querySelector('p.productSeller')?.innerHTML;
+    expect(productSeller).toEqual(productTest.seller);
   });
 });

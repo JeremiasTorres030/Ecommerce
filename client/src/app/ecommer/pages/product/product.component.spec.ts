@@ -39,7 +39,6 @@ describe('ProductComponent', () => {
 
   it('should have a product variable', () => {
     const fixture = TestBed.createComponent(ProductComponent);
-    fixture.componentInstance.cargando = false;
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component.product).toBeDefined();
