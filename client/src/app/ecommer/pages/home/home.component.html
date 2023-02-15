@@ -1,9 +1,10 @@
-<div class="homeComponent">
-  <div class="categories">
+<div class="homeComponent flex flex-col">
+  <h1 class="mx-auto mt-5 font-semibold text-2xl">Categorias</h1>
+  <div class="categories flex flex-wrap items-center justify-center">
     <app-category-card
-      *ngFor="let categoryName of categoriesList"
-      [categorieName]="categoryName"
-      [routerLink]="['category', categoryName]"
+      *ngFor="let category of categoriesList"
+      [category]="category"
+      [routerLink]="['category', category.categoryName]"
     ></app-category-card>
   </div>
   <div class="lastVisiteds"></div>

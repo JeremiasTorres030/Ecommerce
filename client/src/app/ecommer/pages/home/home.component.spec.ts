@@ -41,12 +41,31 @@ describe('HomeComponent', () => {
 
   it('should have a categoriesList variable whith 6 elements', () => {
     const categoriesListValues = [
-      'Ropa',
-      'Tecnologia',
-      'Computacion',
-      'Deportes',
-      'Electrodomesticos',
-      'Instrumentos',
+      {
+        categoryName: 'Ropa',
+        categoryImg: '../../../assets/icons/clothes-svgrepo-com.svg',
+      },
+      {
+        categoryName: 'Celulares',
+        categoryImg: '../../../assets/icons/technology-svgrepo-com.svg',
+      },
+      {
+        categoryName: 'Computacion',
+        categoryImg: '../../../assets/icons/computer-svgrepo-com.svg',
+      },
+      {
+        categoryName: 'Deportes',
+        categoryImg:
+          '../../../assets/icons/sport-recreation-football-activity-ball-svgrepo-com.svg',
+      },
+      {
+        categoryName: 'Electrodomesticos',
+        categoryImg: '../../../assets/icons/laundry-svgrepo-com.svg',
+      },
+      {
+        categoryName: 'Instrumentos',
+        categoryImg: '../../../assets/icons/guitar-svgrepo-com.svg',
+      },
     ];
     const fixture = TestBed.createComponent(HomeComponent);
     fixture.detectChanges();
@@ -58,7 +77,7 @@ describe('HomeComponent', () => {
   it('should render all items from the categoriesList in app-category-card elements', () => {
     const categoriesListValues = [
       'Ropa',
-      'Tecnologia',
+      'Celulares',
       'Computacion',
       'Deportes',
       'Electrodomesticos',
@@ -70,7 +89,7 @@ describe('HomeComponent', () => {
     const categoryCard = compiled.queryAll(By.css('app-category-card'));
     expect(categoryCard.length).toEqual(categoriesListValues.length);
     categoryCard.forEach((element, index) => {
-      const childrenHtml: string = element.children[0].nativeElement.innerHTML;
+      const childrenHtml: string = element.children[0].nativeElement.innerText;
       expect(childrenHtml).toEqual(categoriesListValues[index]);
     });
   });
@@ -78,7 +97,7 @@ describe('HomeComponent', () => {
   it('should render app-category-card routerLink attribute with the correct category name', () => {
     const categoriesListValues = [
       'Ropa',
-      'Tecnologia',
+      'Celulares',
       'Computacion',
       'Deportes',
       'Electrodomesticos',

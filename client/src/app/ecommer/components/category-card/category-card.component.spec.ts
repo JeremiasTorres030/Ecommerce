@@ -14,17 +14,25 @@ describe('categorieCardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have a categorieName variable', () => {
+  it('should have a primary div', () => {
+    const fixture = TestBed.createComponent(CategoryCardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const div = compiled.querySelector('div.categoryCard');
+    expect(div).toBeTruthy();
+  });
+
+  it('should have a category variable', () => {
     const fixture = TestBed.createComponent(CategoryCardComponent);
     fixture.detectChanges();
     const compiled = fixture.componentInstance;
-    expect(compiled.categorieName).toBeDefined();
+    expect(compiled.category).toBeDefined();
   });
 
   it('should have and render a h1 with the category name', () => {
     const fixture = TestBed.createComponent(CategoryCardComponent);
     const component = fixture.componentInstance;
-    const categoryName = (component.categorieName = 'Test');
+    const categoryName = (component.category.categoryName = 'Test');
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const h1 = compiled.querySelector('h1');

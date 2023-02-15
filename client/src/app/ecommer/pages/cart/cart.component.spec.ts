@@ -29,6 +29,13 @@ describe('CartComponent', () => {
     expect(component.listOfProducts).toBeDefined();
   });
 
+  it('should have a getListFromLocal function', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.getListFromLocal).toBeDefined();
+  });
+
   it('should call getItem of localstorage once', () => {
     const spy = spyOn(localStorage, 'getItem');
     const fixture = TestBed.createComponent(CartComponent);

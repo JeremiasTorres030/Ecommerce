@@ -19,7 +19,8 @@ export class ProductComponent implements OnInit {
     seller: 1,
   };
 
-  public cargando: boolean = true;
+  public loading: boolean = true;
+  public inCart: boolean = false;
 
   constructor(
     private ecommerService: EcommerService,
@@ -32,11 +33,61 @@ export class ProductComponent implements OnInit {
           this.ecommerService.getProduct(productId).subscribe({
             next: (res) => {
               this.product = res;
-              this.cargando = false;
+              this.inCartCheck();
+              this.loading = false;
             },
           });
         })
       )
       .subscribe();
+  }
+
+  addToCart(): void {
+    const cartListLocal: string | null = localStorage.getItem('cartList');
+    let cartList: Array<Product> = [];
+    if (cartListLocal) {
+      cartList = JSON.parse(cartListLocal);
+      const exist = cartList.find(({ id }) => {
+        return id == this.product.id;
+      });
+      if (exist === undefined) {
+        cartList.push(this.product);
+        localStorage.setItem('cartList', JSON.stringify(cartList));
+        this.inCart = true;
+        return;
+      }
+      return;
+    }
+    cartList.push(this.product);
+    localStorage.setItem('cartList', JSON.stringify(cartList));
+    this.inCart = true;
+  }
+
+  removeFromCart(): void {
+    const cartListLocal: string | null = localStorage.getItem('cartList');
+    let cartList: Array<Product> = [];
+    if (cartListLocal) {
+      cartList = JSON.parse(cartListLocal);
+      const index = cartList.findIndex(({ id }) => {
+        return id == this.product.id;
+      });
+      cartList.splice(index, 1);
+      localStorage.setItem('cartList', JSON.stringify(cartList));
+      this.inCart = false;
+    }
+  }
+
+  inCartCheck(): void {
+    const cartListLocal: string | null = localStorage.getItem('cartList');
+    let cartList: Array<Product> = [];
+    if (cartListLocal) {
+      cartList = JSON.parse(cartListLocal);
+      const exist = cartList.find(({ id }) => {
+        return id == this.product.id;
+      });
+      if (exist !== undefined) {
+        this.inCart = true;
+      }
+    }
   }
 }

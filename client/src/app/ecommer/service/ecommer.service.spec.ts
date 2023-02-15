@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 import { EcommerService } from './ecommer.service';
 import { environment } from 'src/environments/environment.development';
-import { Category } from '../types/types';
+import { Categories } from '../types/types';
 
 describe('EcommerService', () => {
   let service: EcommerService;
@@ -94,7 +94,7 @@ describe('EcommerService', () => {
       },
     ];
 
-    const categoryName: Category = 'Ropa';
+    const categoryName: Categories = 'Ropa';
 
     service.getProductsByCategory(categoryName).subscribe({
       next: (res) => {

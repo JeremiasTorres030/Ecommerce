@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { map, Observable } from 'rxjs';
-import { Category, Product } from '../types/types';
+import { Categories, Product } from '../types/types';
 @Injectable({
   providedIn: 'root',
 })
@@ -14,7 +14,7 @@ export class EcommerService {
     return this.http.get(`${this.API_URL}product/getAll/`);
   }
 
-  getProductsByCategory(categoryName: Category): Observable<Array<Product>> {
+  getProductsByCategory(categoryName: Categories): Observable<Array<Product>> {
     return this.http.get<Array<Product>>(
       `${this.API_URL}category/${categoryName}`
     );

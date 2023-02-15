@@ -7,9 +7,14 @@ export interface Product {
   seller: number;
 }
 
-export type Category =
+export interface Category {
+  categoryImg: string;
+  categoryName: string;
+}
+
+export type Categories =
   | 'Ropa'
-  | 'Tecnologia'
+  | 'Celulares'
   | 'Computacion'
   | 'Deportes'
   | 'Electrodomesticos'

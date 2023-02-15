@@ -96,6 +96,13 @@ describe('NavbarComponent', () => {
     expect(navbar.submitForm).toBeDefined();
   });
 
+  it('should be have a cart function', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    const navbar = fixture.componentInstance;
+    expect(navbar.cart).toBeDefined();
+  });
+
   it('should call submitForm when the form is submitted', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
@@ -112,6 +119,6 @@ describe('NavbarComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.debugElement;
     compiled.query(By.css('.cartButton')).triggerEventHandler('click');
-    expect(spyNavigate).toHaveBeenCalled();
+    expect(spyNavigate).toHaveBeenCalledTimes(1);
   });
 });

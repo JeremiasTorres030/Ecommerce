@@ -14,7 +14,7 @@ class ProductModel (models.Model):
 
     categories=(
         ("Ropa","Ropa"),
-        ("Tecnologia","Tecnologia"),
+        ("Celulares","Celulares"),
         ("Computacion","Computacion"),
         ("Deportes","Deportes"),
         ("Electrodomesticos","Electrodomesticos"),

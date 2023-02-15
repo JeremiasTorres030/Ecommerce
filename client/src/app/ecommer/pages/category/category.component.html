@@ -1,6 +1,6 @@
 <div class="categoryComponent">
-  <h1 class="title">{{ title }}</h1>
-  <div class="products">
+  <h1 class="title font-semibold text-2xl mt-5">{{ title }}</h1>
+  <div class="products mt-6 flex items-center justify-start">
     <app-product-card
       *ngFor="let product of productsList"
       [product]="product"

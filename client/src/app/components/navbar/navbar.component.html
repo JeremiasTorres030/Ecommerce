@@ -1,13 +1,28 @@
-<div class="navbarComponent">
+<div
+  class="navbarComponent flex justify-center items-center bg-slate-800 space-x-2"
+>
   <img
     src="../../../../assets/images/Amazon_icon.png"
     alt="icon page"
-    class="icon"
+    class="icon w-20 h-20 cursor-pointer"
+    [routerLink]="['/']"
   />
-  <form [formGroup]="searchForm" (ngSubmit)="submitForm($event)">
-    <input type="text" formControlName="searchValue" />
-    <button type="submit">Buscar</button>
+  <form
+    [formGroup]="searchForm"
+    (ngSubmit)="submitForm($event)"
+    class="relative"
+  >
+    <input
+      type="text"
+      formControlName="searchValue"
+      class="h-10 rounded-md px-2 w-44 focus:outline-none"
+    />
+    <button type="submit" class="text-black bg-white h-10 rounded-md px-1">
+      Buscar
+    </button>
   </form>
-  <button class="cartButton" (click)="cart()">Carrito</button>
-  <button class="userButton">Usuario</button>
+  <div>
+    <button class="cartButton text-white" (click)="cart()">Carrito</button>
+    <button class="userButton text-white ml-2">Usuario</button>
+  </div>
 </div>

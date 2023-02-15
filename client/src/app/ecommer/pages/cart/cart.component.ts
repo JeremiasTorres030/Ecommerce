@@ -9,10 +9,14 @@ import { Product } from '../../types/types';
 export class CartComponent implements OnInit {
   public listOfProducts: Array<Product> = [];
   ngOnInit(): void {
-    let localCartJson = localStorage.getItem('localCart');
-    if (localCartJson) {
-      const localCart: Array<Product> = JSON.parse(localCartJson);
-      this.listOfProducts = localCart;
+    this.getListFromLocal();
+  }
+
+  getListFromLocal(): void {
+    let cartListJson = localStorage.getItem('cartList');
+    if (cartListJson) {
+      const cartList: Array<Product> = JSON.parse(cartListJson);
+      this.listOfProducts = cartList;
     }
   }
 }

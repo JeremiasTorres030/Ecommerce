@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../../types/types';
 
 @Component({
@@ -7,6 +7,8 @@ import { Product } from '../../types/types';
   styleUrls: ['./long-product-card.component.css'],
 })
 export class LongProductCardComponent {
+  @Output() updateCartList = new EventEmitter();
+
   @Input() product: Product = {
     category: 'Ropa',
     id: 0,
@@ -15,4 +17,19 @@ export class LongProductCardComponent {
     price: 150,
     seller: 1,
   };
+
+  removeProduct(): void {
+    const cartListLocal: string | null = localStorage.getItem('cartList');
+    let cartList: Array<Product> = [];
+    if (cartListLocal) {
+      cartList = JSON.parse(cartListLocal);
+      const index = cartList.findIndex(({ id }) => {
+        return id == this.product.id;
+      });
+      cartList.splice(index, 1);
+      localStorage.setItem('cartList', JSON.stringify(cartList));
+
+      this.updateCartList.emit();
+    }
+  }
 }

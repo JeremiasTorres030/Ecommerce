@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { LongProductCardComponent } from './long-product-card.component';
 
 describe('LongProductCardComponent', () => {
@@ -27,13 +28,6 @@ describe('LongProductCardComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const div = compiled.querySelector('div.longProductCard');
     expect(div).toBeTruthy();
-  });
-
-  it('should have a product variable', () => {
-    const fixture = TestBed.createComponent(LongProductCardComponent);
-    fixture.detectChanges();
-    const component = fixture.componentInstance;
-    expect(component.product).toBeDefined();
   });
 
   it('should have a product variable', () => {
@@ -73,5 +67,39 @@ describe('LongProductCardComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const productSeller = compiled.querySelector('p.productSeller')?.innerHTML;
     expect(productSeller).toEqual(productTest.seller);
+  });
+
+  it('should render remove from cart button', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const removeButton = compiled.querySelector('button.removeProduct');
+    expect(removeButton).toBeTruthy();
+  });
+
+  it('should have a updateCartList eventEmitter', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.updateCartList).toBeDefined();
+  });
+
+  it('should have a removeProduct function', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.removeProduct).toBeDefined();
+  });
+
+  it('should call removeProduct once when the remove product from cart button is clicked', () => {
+    const fixture = TestBed.createComponent(LongProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    const spyRemoveFunction = spyOn(component, 'removeProduct');
+
+    const debug = fixture.debugElement;
+    debug.query(By.css('.removeProduct')).triggerEventHandler('click');
+
+    expect(spyRemoveFunction).toHaveBeenCalledTimes(1);
   });
 });

@@ -2,5 +2,6 @@
   <app-long-product-card
     *ngFor="let product of listOfProducts"
     [product]="product"
+    (updateCartList)="getListFromLocal()"
   ></app-long-product-card>
 </div>
