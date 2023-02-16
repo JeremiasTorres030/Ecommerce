@@ -15,7 +15,7 @@ export class LongProductCardComponent {
     image: 'imagen.png',
     name: 'Pantalon gris largo',
     price: 150,
-    seller: 1,
+    seller: '',
   };
 
   removeProduct(): void {
@@ -31,5 +31,10 @@ export class LongProductCardComponent {
 
       this.updateCartList.emit();
     }
+  }
+
+  removeAll(): void {
+    localStorage.setItem('cartList', JSON.stringify([]));
+    this.updateCartList.emit();
   }
 }

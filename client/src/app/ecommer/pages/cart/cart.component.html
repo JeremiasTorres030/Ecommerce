@@ -1,7 +1,20 @@
-<div class="cartComponent">
+<div class="cartComponent py-10 px-20">
   <app-long-product-card
     *ngFor="let product of listOfProducts"
     [product]="product"
     (updateCartList)="getListFromLocal()"
   ></app-long-product-card>
+  <button
+    class="removeAll p-2 rounded-md bg-blue-400 text-white mr-5"
+    (click)="removeAll()"
+    [disabled]="listOfProducts.length === 0"
+  >
+    Remove all
+  </button>
+  <button
+    class="buy p-2 rounded-md bg-blue-400 text-white"
+    [disabled]="listOfProducts.length === 0"
+  >
+    Buy
+  </button>
 </div>

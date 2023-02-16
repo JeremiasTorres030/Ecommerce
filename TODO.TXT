@@ -1,0 +1,3 @@
+Agregar que se pueda ir al producto desde el carrito
+
+test render inputs register form

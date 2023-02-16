@@ -13,6 +13,6 @@ export class ProductCardComponent {
     image: 'imagen.png',
     name: 'Pantalon gris largo',
     price: 150,
-    seller: 0,
+    seller: '',
   };
 }

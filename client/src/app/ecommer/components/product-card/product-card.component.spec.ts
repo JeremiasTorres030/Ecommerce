@@ -8,7 +8,7 @@ describe('ProductCardComponent', () => {
     id: 0,
     image: 'imagen.png',
     name: 'Pantalon gris largo',
-    price: '150',
+    price: '$150',
     seller: '1',
   };
   beforeEach(async () => {
@@ -34,7 +34,7 @@ describe('ProductCardComponent', () => {
     const fixture = TestBed.createComponent(ProductCardComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const productName = compiled.querySelector('h1.productName')?.innerHTML;
+    const productName = compiled.querySelector('h2.productName')?.innerHTML;
     expect(productName).toEqual(productTest.name);
   });
 
@@ -50,7 +50,7 @@ describe('ProductCardComponent', () => {
     const fixture = TestBed.createComponent(ProductCardComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const productPrice = compiled.querySelector('p.productPrice')?.innerHTML;
+    const productPrice = compiled.querySelector('h1.productPrice')?.innerHTML;
     expect(productPrice).toEqual(productTest.price);
   });
 });

@@ -1,5 +1,10 @@
-<div class="productCardComponent border w-40 h-30 mr-6">
-  <img [src]="product.image" [alt]="product.name" />
-  <h1 class="productName">{{ product.name }}</h1>
-  <p class="productPrice">{{ product.price }}</p>
+<div class="productCardComponent mr-6 border-2 rounded-md p-3 cursor-pointer">
+  <img
+    [src]="product.image"
+    [alt]="product.name"
+    class="w-full max-w-[200px] h-[300px] rounded-md"
+  />
+
+  <h1 class="productPrice text-2xl font-semibold">${{ product.price }}</h1>
+  <h2 class="productName text-lg">{{ product.name }}</h2>
 </div>

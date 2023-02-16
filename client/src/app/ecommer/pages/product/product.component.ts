@@ -16,7 +16,7 @@ export class ProductComponent implements OnInit {
     image: 'imagen.png',
     name: 'Pantalon gris largo',
     price: 150,
-    seller: 1,
+    seller: '',
   };
 
   public loading: boolean = true;

@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { CartComponent } from './cart.component';
 
 describe('CartComponent', () => {
@@ -36,10 +37,43 @@ describe('CartComponent', () => {
     expect(component.getListFromLocal).toBeDefined();
   });
 
+  it('should have a removeAll function', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.removeAll).toBeDefined();
+  });
+
   it('should call getItem of localstorage once', () => {
     const spy = spyOn(localStorage, 'getItem');
     const fixture = TestBed.createComponent(CartComponent);
     fixture.detectChanges();
     expect(spy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should call removeAll once when the remove all from cart button is clicked', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    const spyRemoveFunction = spyOn(component, 'removeAll');
+    const debug = fixture.debugElement;
+    debug.query(By.css('.removeAll')).triggerEventHandler('click');
+    expect(spyRemoveFunction).toHaveBeenCalledTimes(1);
+  });
+
+  it('should render the buy button', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const button = compiled.querySelector('button.buy');
+    expect(button).toBeTruthy();
+  });
+
+  it('should render the remove all button', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const button = compiled.querySelector('button.removeAll');
+    expect(button).toBeTruthy();
   });
 });

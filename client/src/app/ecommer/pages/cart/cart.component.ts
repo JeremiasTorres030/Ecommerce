@@ -19,4 +19,9 @@ export class CartComponent implements OnInit {
       this.listOfProducts = cartList;
     }
   }
+
+  removeAll(): void {
+    localStorage.setItem('cartList', JSON.stringify([]));
+    this.getListFromLocal();
+  }
 }

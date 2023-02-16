@@ -1,0 +1,14 @@
+<div class="registerComponent">
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <input type="text" placeholder="username" formControlName="username" />
+    <input type="email" placeholder="email" formControlName="email" />
+    <input type="password" placeholder="password" formControlName="password" />
+    <input
+      type="password"
+      placeholder="confirmPassword"
+      formControlName="confirmPassword"
+    />
+
+    <button type="submit" [disabled]="registerForm.invalid">Enviar</button>
+  </form>
+</div>

@@ -44,9 +44,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'rest_framework',
     'api',
-    'corsheaders'
+    'corsheaders',
+    'knox',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +67,10 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
    'http://localhost:4200',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+}
 
 ROOT_URLCONF = 'server.urls'
 
@@ -137,3 +144,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': env("CLOUDINARY_URL")
+}
+
+MEDIA_URL = '/ecommer/'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+
+REST_KNOX ={
+    'TOKEN_TTL': None,
+}

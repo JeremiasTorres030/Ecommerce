@@ -12,8 +12,8 @@ describe('ProductComponent', () => {
     id: 0,
     image: 'imagen.png',
     name: 'Pantalon gris largo',
-    price: '150',
-    seller: '1',
+    price: '$150',
+    seller: '  ',
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
