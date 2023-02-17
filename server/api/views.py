@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.contrib.auth.models import User  
 from django.contrib.auth.hashers import make_password
+from rest_framework.permissions import IsAuthenticated
+from knox.auth import TokenAuthentication
 # Create your views here.
 
 
@@ -13,7 +15,7 @@ class ProductAllView(APIView):
     def get(self,request,format=None):
         producto = ProductModel.objects.all()
         serializer = ProductSerializer(producto,many=True)
-        if serializer.is_valid():
+        if serializer.is_valid:
             return Response(serializer.data)
 
 
@@ -21,21 +23,21 @@ class ProductView(APIView):
     def get(self,request,format=None, productId=""):
         producto = ProductModel.objects.filter(id=productId)
         serializer = ProductSerializer(producto,many=True)
-        if serializer.is_valid():
+        if serializer.is_valid:
             return Response(serializer.data)
 
 class CategoryView(APIView):
     def get(self,request,format=None , categoryName=""):
         producto = ProductModel.objects.filter(category = categoryName)
         serializer = ProductSerializer(producto,many=True)
-        if serializer.is_valid():
+        if serializer.is_valid:
             return Response(serializer.data)
 
 class UnicUserView(APIView):
     def get(self,request,format=None,userId=""):
         user = User.objects.filter(id = userId)
         serializer = UnicUserSerializer(user,many=True)
-        if serializer.is_valid():
+        if serializer.is_valid:
             return Response(serializer.data)
 
 class UserView(APIView):
@@ -75,3 +77,13 @@ class UserLoginView(APIView):
                     "token":token
                 })
         
+class UserTokenView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def get(self,request,format=None):
+        print(request.user.last_name)
+        return Response({
+                    "username":request.user.username,
+                    "id":request.user.id
+                })
+      

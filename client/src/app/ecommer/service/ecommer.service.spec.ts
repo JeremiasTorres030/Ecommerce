@@ -10,6 +10,7 @@ import {
   genericResponse,
   loginResponse,
   User,
+  UserData,
   userForm,
   userFormRegister,
 } from '../types/types';
@@ -55,6 +56,14 @@ describe('EcommerService', () => {
     expect(service.loginUser).toBeDefined();
   });
 
+  it('should have a tokenVerification function', () => {
+    expect(service.tokenVerification).toBeDefined();
+  });
+
+  it('should have a logOutUser function', () => {
+    expect(service.logOutUser).toBeDefined();
+  });
+
   it('getAllProducts should return an array of products', () => {
     const expectedResponse = [
       {
@@ -81,7 +90,7 @@ describe('EcommerService', () => {
       },
     });
 
-    const req = httpMock.expectOne(`${environment.API_URL}product/getAll/`);
+    const req = httpMock.expectOne(`${environment.API_URL}product/get/all`);
     req.flush(expectedResponse);
   });
 
@@ -161,6 +170,8 @@ describe('EcommerService', () => {
       email: 'test@test.com',
       password: 'test',
       username: 'test',
+      first_name: 'test',
+      last_name: 'test',
     };
 
     service.registerUser(registerUserData).subscribe({
@@ -193,7 +204,23 @@ describe('EcommerService', () => {
       },
     });
 
-    const req = httpMock.expectOne(`${environment.API_URL}userlogin/`);
+    const req = httpMock.expectOne(`${environment.API_URL}user/login/`);
+    req.flush(expectedResponse);
+  });
+
+  it('tokenVerification should return a UserData ', () => {
+    const expectedResponse: UserData = {
+      id: 0,
+      username: 'test',
+    };
+
+    service.tokenVerification('testToken').subscribe({
+      next: (res) => {
+        expect(res).toEqual(expectedResponse);
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.API_URL}user/token/`);
     req.flush(expectedResponse);
   });
 });

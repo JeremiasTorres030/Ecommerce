@@ -7,11 +7,7 @@
     class="icon w-20 h-20 cursor-pointer"
     [routerLink]="['/']"
   />
-  <form
-    [formGroup]="searchForm"
-    (ngSubmit)="submitForm($event)"
-    class="relative"
-  >
+  <form [formGroup]="searchForm" (ngSubmit)="submitForm()" class="relative">
     <input
       type="text"
       formControlName="searchValue"
@@ -23,6 +19,26 @@
   </form>
   <div>
     <button class="cartButton text-white" (click)="cart()">Carrito</button>
-    <button class="userButton text-white ml-2">Usuario</button>
+    <button
+      class="userButton text-white ml-2"
+      (click)="login()"
+      *ngIf="token === ''"
+    >
+      Usuario
+    </button>
+    <button
+      class="userButton text-white ml-2"
+      *ngIf="token !== ''"
+      (click)="profile()"
+    >
+      Profile
+    </button>
+    <button
+      class="logOut text-white ml-2"
+      *ngIf="token !== ''"
+      (click)="logOut()"
+    >
+      Log Out
+    </button>
   </div>
 </div>

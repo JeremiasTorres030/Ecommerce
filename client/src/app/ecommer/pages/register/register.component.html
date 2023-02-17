@@ -1,5 +1,7 @@
 <div class="registerComponent">
   <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+    <input type="text" placeholder="firstName" formControlName="first_name" />
+    <input type="text" placeholder="lastName" formControlName="last_name" />
     <input type="text" placeholder="username" formControlName="username" />
     <input type="email" placeholder="email" formControlName="email" />
     <input type="password" placeholder="password" formControlName="password" />
@@ -11,4 +13,5 @@
 
     <button type="submit" [disabled]="registerForm.invalid">Enviar</button>
   </form>
+  <a [routerLink]="['/user/login']">Login</a>
 </div>

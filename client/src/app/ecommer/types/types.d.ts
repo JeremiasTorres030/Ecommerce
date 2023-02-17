@@ -18,7 +18,6 @@ export interface User {
 
 export interface UserData extends User {
   id: number;
-  token: string;
 }
 
 export interface genericResponse {
@@ -41,6 +40,8 @@ export interface userForm {
 
 export interface userFormRegister extends userForm {
   email: string;
+  first_name: string;
+  last_name: string;
 }
 
 export type Categories =

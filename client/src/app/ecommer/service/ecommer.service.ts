@@ -1,5 +1,5 @@
-import { Injectable, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { EventEmitter, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 import { map, Observable, tap } from 'rxjs';
 import {
@@ -16,16 +16,18 @@ import {
   providedIn: 'root',
 })
 export class EcommerService {
-  private API_URL = environment.API_URL;
+  private API_URL: string = environment.API_URL;
   private user: UserData = {
     id: 0,
-    token: '',
     username: '',
   };
+
+  public loginEvent = new EventEmitter();
+
   constructor(private http: HttpClient) {}
 
   getAllProducts() {
-    return this.http.get(`${this.API_URL}product/getAll/`);
+    return this.http.get(`${this.API_URL}product/get/all`);
   }
 
   getProductsByCategory(categoryName: Categories): Observable<Array<Product>> {
@@ -68,16 +70,40 @@ export class EcommerService {
 
   loginUser(userLogin: userForm): Observable<loginResponse> {
     return this.http
-      .post<loginResponse>(`${this.API_URL}userlogin/`, userLogin)
+      .post<loginResponse>(`${this.API_URL}user/login/`, userLogin)
       .pipe(
         tap((res) => {
           this.user = {
             id: res.user.id,
-            token: res.token,
             username: res.user.username,
           };
           localStorage.setItem('token', res.token);
+          this.loginEvent.emit(res.token);
         })
       );
+  }
+
+  tokenVerification(token: string): Observable<UserData> {
+    const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http
+      .get<UserData>(`${this.API_URL}user/token/`, {
+        headers: HttpHeader,
+      })
+      .pipe(
+        tap((res) => {
+          this.user = res;
+        })
+      );
+  }
+
+  logOutUser(token: string) {
+    const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.post<UserData>(
+      `${this.API_URL}user/logout/`,
+      {},
+      {
+        headers: HttpHeader,
+      }
+    );
   }
 }
