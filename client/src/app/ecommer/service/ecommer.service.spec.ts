@@ -143,11 +143,15 @@ describe('EcommerService', () => {
     const serverResponse = [
       {
         username: 'test',
+        first_name: 'test',
+        last_name: 'test',
       },
     ];
 
     const expectedResponse: User = {
       username: 'test',
+      first_name: 'test',
+      last_name: 'test',
     };
 
     service.getUser('1').subscribe({
@@ -212,6 +216,8 @@ describe('EcommerService', () => {
     const expectedResponse: UserData = {
       id: 0,
       username: 'test',
+      first_name: 'test',
+      last_name: 'test',
     };
 
     service.tokenVerification('testToken').subscribe({

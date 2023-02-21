@@ -14,7 +14,8 @@ export class NavbarComponent implements OnInit {
   });
 
   public token: string = '';
-
+  public timer!: ReturnType<typeof setTimeout>;
+  public activateUseMenu: boolean = false;
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -46,6 +47,7 @@ export class NavbarComponent implements OnInit {
 
   cart(): void {
     this.router.navigateByUrl('/cart');
+    this.activateUseMenu = false;
   }
 
   login(): void {
@@ -54,11 +56,20 @@ export class NavbarComponent implements OnInit {
 
   logOut(): void {
     this.ecommerService.logOutUser(this.token).subscribe();
-
     localStorage.removeItem('token');
     this.token = '';
+    this.activateUseMenu = false;
   }
   profile(): void {
+    this.activateUseMenu = false;
     this.router.navigateByUrl('/user/profile');
+  }
+
+  userMenu(): void {
+    this.activateUseMenu = !this.activateUseMenu;
+    clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      this.activateUseMenu = false;
+    }, 10000);
   }
 }

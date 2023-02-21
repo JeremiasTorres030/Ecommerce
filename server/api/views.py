@@ -46,7 +46,6 @@ class UserView(APIView):
         user_username = User.objects.filter(username=request.data['username'])
         user_email = User.objects.filter(email=request.data['email'])
         if user_username.__len__() != 0:
-            print(user_username)
             return Response({
                 "ok":False,
                 "msg":"El nombre de usuario ya existe."
@@ -81,7 +80,6 @@ class UserTokenView(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     def get(self,request,format=None):
-        print(request.user.last_name)
         return Response({
                     "username":request.user.username,
                     "id":request.user.id

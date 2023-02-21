@@ -20,7 +20,13 @@ export class EcommerService {
   private user: UserData = {
     id: 0,
     username: '',
+    first_name: '',
+    last_name: '',
   };
+
+  get userGet() {
+    return this.user;
+  }
 
   public loginEvent = new EventEmitter();
 
@@ -52,7 +58,7 @@ export class EcommerService {
           let productTransform = product[0];
           this.getUser(productTransform.seller).subscribe({
             next: (res) => {
-              productTransform.seller = res.username;
+              productTransform.seller = `${res.first_name} ${res.last_name}`;
             },
           });
 
@@ -76,6 +82,8 @@ export class EcommerService {
           this.user = {
             id: res.user.id,
             username: res.user.username,
+            first_name: '',
+            last_name: '',
           };
           localStorage.setItem('token', res.token);
           this.loginEvent.emit(res.token);

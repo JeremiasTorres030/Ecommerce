@@ -1,12 +1,37 @@
-<div class="loginComponent">
-  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
-    <input type="text" formControlName="username" placeholder="username" />
+<div class="loginComponent flex flex-col items-center justify-center">
+  <h1 class="mt-5 font-semibold text-3xl">Iniciar sesion</h1>
+  <form
+    [formGroup]="loginForm"
+    (ngSubmit)="submitForm()"
+    class="flex flex-col gap-2 mt-3"
+  >
+    <label
+      *ngIf="
+        loginForm.get('username')?.errors && loginForm.get('username')?.touched
+      "
+      >Ingrese un nombre de usuario</label
+    >
     <input
+      type="text"
+      formControlName="username"
+      placeholder="Nombre de usuario"
+      class="w-full border-2 rounded-lg p-1"
+    />
+    <label
+      *ngIf="
+        loginForm.get('password')?.errors && loginForm.get('password')?.touched
+      "
+      >Ingrese una contraseña</label
+    >
+    <input
+      class="w-full border-2 rounded-lg p-1"
       type="password"
       formControlName="password"
-      placeholder="contraseña"
+      placeholder="Contraseña"
     />
-    <button type="submit">Enviar</button>
+    <button type="submit" class="p-2 rounded-md bg-blue-400 text-white my-1">
+      Iniciar sesion
+    </button>
   </form>
-  <a [routerLink]="['/user/register']">Register</a>
+  <a [routerLink]="['/user/register']" class="underline">Crear cuenta</a>
 </div>

@@ -1,1 +1,44 @@
-<div class="profileComponent"></div>
+<div class="profileComponent flex flex-col items-center justify-center p-4">
+  <h1 class="text-3xl font-medium">Editar Perfil</h1>
+  <form [formGroup]="editForm" class="flex flex-col">
+    <div class="flex gap-5 mt-3">
+      <input
+        type="text"
+        formControlName="first_name"
+        placeholder="Nombre"
+        class="w-52 border-2 rounded-lg p-1"
+      />
+      <input
+        type="text"
+        formControlName="last_name"
+        placeholder="Apellido"
+        class="w-52 border-2 rounded-lg p-1"
+      />
+    </div>
+    <input
+      type="text"
+      formControlName="username"
+      placeholder="Nombre de usuario"
+      class="w-full border-2 mt-3 rounded-lg p-1"
+    />
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Correo electronico"
+      class="w-full border-2 mt-3 rounded-lg p-1"
+    />
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Contraseña"
+      class="w-full border-2 mt-3 rounded-lg p-1"
+    />
+    <button
+      type="submit"
+      class="ml-auto p-2 rounded-md bg-blue-400 text-white my-1"
+      [disabled]="editForm.invalid"
+    >
+      Editar
+    </button>
+  </form>
+</div>

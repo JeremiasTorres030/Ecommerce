@@ -11,7 +11,7 @@ class ProductSerializer (ModelSerializer):
 class UnicUserSerializer (ModelSerializer):
     class Meta:
         model=User
-        fields = ['username']
+        fields = ['first_name','last_name']
 
 class UserSerializer (ModelSerializer):
     class Meta:

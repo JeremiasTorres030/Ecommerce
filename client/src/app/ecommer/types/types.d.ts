@@ -14,6 +14,8 @@ export interface Category {
 
 export interface User {
   username: string;
+  first_name: string;
+  last_name: string;
 }
 
 export interface UserData extends User {
