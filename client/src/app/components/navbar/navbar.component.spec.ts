@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of } from 'rxjs';
 import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
 import { NavbarComponent } from './navbar.component';
 
@@ -96,6 +95,7 @@ describe('NavbarComponent', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     const component = fixture.componentInstance;
     component.token = 'test';
+    component.activateUseMenu = true;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const logOutButton = compiled.querySelector('button.logOut');
@@ -185,23 +185,10 @@ describe('NavbarComponent', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     const component = fixture.componentInstance;
     component.token = 'test';
+    component.activateUseMenu = true;
     fixture.detectChanges();
     const compiled = fixture.debugElement;
     compiled.query(By.css('.logOut')).triggerEventHandler('click');
     expect(component.token).toBe('');
   });
-
-  // it('should call tokenVerification once', () => {
-  //   const spy = spyOn(service, 'tokenVerification').and.returnValue(
-  //     of({
-  //       id: 0,
-  //       username: 'Test',
-  //     })
-  //   );
-  //   const fixture = TestBed.createComponent(NavbarComponent);
-  //   const component = fixture.componentInstance;
-  //   fixture.detectChanges();
-  //   component.token = 'test';
-  //   expect(spy).toHaveBeenCalledTimes(1);
-  // });
 });
