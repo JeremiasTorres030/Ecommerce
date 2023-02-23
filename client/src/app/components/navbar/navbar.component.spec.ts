@@ -5,16 +5,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
+import { LoginComponent } from 'src/app/ecommer/pages/login/login.component';
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
   let router: Router;
-  let service: EcommerService;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NavbarComponent],
+      declarations: [NavbarComponent, LoginComponent],
       imports: [
         ReactiveFormsModule,
         CommonModule,
@@ -24,7 +22,6 @@ describe('NavbarComponent', () => {
     }).compileComponents();
 
     router = TestBed.inject(Router);
-    service = TestBed.inject(EcommerService);
   });
 
   it('should be created', () => {
@@ -79,7 +76,7 @@ describe('NavbarComponent', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const cartButton = compiled.querySelector('button.cartButton');
+    const cartButton = compiled.querySelector('a.cartButton');
     expect(cartButton).toBeTruthy();
   });
 
@@ -87,7 +84,7 @@ describe('NavbarComponent', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const userButton = compiled.querySelector('button.userButton');
+    const userButton = compiled.querySelector('a.userButton');
     expect(userButton).toBeTruthy();
   });
 
@@ -123,20 +120,6 @@ describe('NavbarComponent', () => {
     expect(navbar.submitForm).toBeDefined();
   });
 
-  it('should be have a cart function', () => {
-    const fixture = TestBed.createComponent(NavbarComponent);
-    fixture.detectChanges();
-    const navbar = fixture.componentInstance;
-    expect(navbar.cart).toBeDefined();
-  });
-
-  it('should be have a user function', () => {
-    const fixture = TestBed.createComponent(NavbarComponent);
-    fixture.detectChanges();
-    const navbar = fixture.componentInstance;
-    expect(navbar.login).toBeDefined();
-  });
-
   it('should be have a logOut function', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
@@ -162,23 +145,21 @@ describe('NavbarComponent', () => {
   });
 
   it('the cart button should navigate to /cart', () => {
-    const spyNavigate = spyOn(router, 'navigateByUrl');
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement;
-    compiled.query(By.css('.cartButton')).triggerEventHandler('click');
-    expect(spyNavigate).toHaveBeenCalledTimes(1);
+    const url = compiled.query(By.css('.cartButton')).attributes['routerLink'];
+    expect(url).toEqual('/cart');
   });
 
   it('the user button should navigate to /user/login', () => {
-    const spyNavigate = spyOn(router, 'navigateByUrl');
     const fixture = TestBed.createComponent(NavbarComponent);
     const component = fixture.componentInstance;
     component.token = '';
     fixture.detectChanges();
     const compiled = fixture.debugElement;
-    compiled.query(By.css('.userButton')).triggerEventHandler('click');
-    expect(spyNavigate).toHaveBeenCalledTimes(1);
+    const url = compiled.query(By.css('.userButton')).attributes['routerLink'];
+    expect(url).toEqual('/user/login');
   });
 
   it('the logout button should clean token', () => {

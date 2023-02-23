@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { Category } from '../../types/types';
+import { Component, OnInit } from '@angular/core';
+import { Category, Product } from '../../types/types';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
-  categoriesList: Array<Category> = [
+export class HomeComponent implements OnInit {
+  public categoriesList: Array<Category> = [
     {
       categoryName: 'Ropa',
       categoryImg: '../../../assets/icons/clothes-svgrepo-com.svg',
@@ -34,6 +34,17 @@ export class HomeComponent {
       categoryImg: '../../../assets/icons/guitar-svgrepo-com.svg',
     },
   ];
-
+  public lastVisited: Array<Product> = [];
   constructor() {}
+  ngOnInit(): void {
+    this.getLastFromLocal();
+  }
+
+  getLastFromLocal(): void {
+    let lastVisitedJson = localStorage.getItem('lastVisited');
+    if (lastVisitedJson) {
+      const lastVisitedList: Array<Product> = JSON.parse(lastVisitedJson);
+      this.lastVisited = lastVisitedList;
+    }
+  }
 }

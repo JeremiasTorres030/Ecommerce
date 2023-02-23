@@ -1,3 +1,11 @@
-Agregar que se pueda ir al producto desde el carrito
-test render inputs register form
-hacer toda la seccion de usuario
+-Agregar articulo debajo del producto con su subcategoria
+-Agregar subcategorias (Ropa: -Zapatos , -Camisas, etc)
+-Agregar la subida de articulos, edicion y eliminar
+-Agregar una pequeña descripcion en los articulos 
+-ir al perfil del creador del articulo donde se muestren todos los articulos relacionados a el
+-pagina de compra
+-editar perfil
+-imagen del vendedor
+-buscador
+
+-estilizar

@@ -1,0 +1,11 @@
+<div *ngIf="moreProducts.length !== 0">
+  <h1 class="text-center my-2 font-semibold text-2xl">
+    Mas {{ categoryName | lowercase }}
+  </h1>
+  <div class="carouselComponent flex">
+    <app-product-card
+      *ngFor="let product of moreProducts"
+      [product]="product"
+    ></app-product-card>
+  </div>
+</div>

@@ -35,6 +35,7 @@ export class ProductComponent implements OnInit {
               this.product = res;
               this.inCartCheck();
               this.loading = false;
+              this.addTo('lastVisited');
             },
           });
         })
@@ -42,25 +43,33 @@ export class ProductComponent implements OnInit {
       .subscribe();
   }
 
-  addToCart(): void {
-    const cartListLocal: string | null = localStorage.getItem('cartList');
-    let cartList: Array<Product> = [];
-    if (cartListLocal) {
-      cartList = JSON.parse(cartListLocal);
-      const exist = cartList.find(({ id }) => {
+  addTo(list: string = 'cartList'): void {
+    const localList: string | null = localStorage.getItem(list);
+    let localProducts: Array<Product> = [];
+    if (localList) {
+      localProducts = JSON.parse(localList);
+      const exist = localProducts.find(({ id }) => {
         return id == this.product.id;
       });
       if (exist === undefined) {
-        cartList.push(this.product);
-        localStorage.setItem('cartList', JSON.stringify(cartList));
+        if (list === 'lastVisited' && localProducts.length === 5) {
+          localProducts.shift();
+          localProducts.push(this.product);
+          localStorage.setItem(list, JSON.stringify(localProducts));
+          return;
+        }
+        localProducts.push(this.product);
+        localStorage.setItem(list, JSON.stringify(localProducts));
         this.inCart = true;
         return;
       }
       return;
     }
-    cartList.push(this.product);
-    localStorage.setItem('cartList', JSON.stringify(cartList));
-    this.inCart = true;
+    localProducts.push(this.product);
+    localStorage.setItem(list, JSON.stringify(localProducts));
+    if (list === 'cartList') {
+      this.inCart = true;
+    }
   }
 
   removeFromCart(): void {

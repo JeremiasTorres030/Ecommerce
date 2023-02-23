@@ -2,6 +2,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { ProductCarouselComponent } from '../../components/product-carousel/product-carousel.component';
 import { EcommerService } from '../../service/ecommer.service';
 import { ProductComponent } from './product.component';
 
@@ -17,7 +19,11 @@ describe('ProductComponent', () => {
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProductComponent],
+      declarations: [
+        ProductComponent,
+        ProductCarouselComponent,
+        ProductCardComponent,
+      ],
       imports: [HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
     ecommerService = TestBed.inject(EcommerService);
@@ -130,11 +136,11 @@ describe('ProductComponent', () => {
     expect(spyService).toHaveBeenCalledTimes(1);
   });
 
-  it('should have a addToCart function', () => {
+  it('should have a addTo function', () => {
     const fixture = TestBed.createComponent(ProductComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
-    expect(component.addToCart).toBeDefined();
+    expect(component.addTo).toBeDefined();
   });
 
   it('should have a removeFromCart function', () => {
@@ -156,7 +162,7 @@ describe('ProductComponent', () => {
     const component = fixture.componentInstance;
     component.loading = false;
     fixture.detectChanges();
-    const spy = spyOn(component, 'addToCart');
+    const spy = spyOn(component, 'addTo');
     fixture.debugElement
       .query(By.css('.addToCart'))
       .triggerEventHandler('click');

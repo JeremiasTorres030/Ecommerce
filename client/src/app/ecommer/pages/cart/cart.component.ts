@@ -8,6 +8,8 @@ import { Product } from '../../types/types';
 })
 export class CartComponent implements OnInit {
   public listOfProducts: Array<Product> = [];
+  public totalPrice: number = 0;
+
   ngOnInit(): void {
     this.getListFromLocal();
   }
@@ -17,11 +19,20 @@ export class CartComponent implements OnInit {
     if (cartListJson) {
       const cartList: Array<Product> = JSON.parse(cartListJson);
       this.listOfProducts = cartList;
+      this.calculatePrice(cartList.map(({ price }) => price));
     }
   }
 
   removeAll(): void {
     localStorage.setItem('cartList', JSON.stringify([]));
     this.getListFromLocal();
+  }
+
+  calculatePrice(prices: Array<number>): void {
+    let price = 0;
+    for (let i = 0; i < prices.length; i++) {
+      price += prices[i];
+    }
+    this.totalPrice = price;
   }
 }

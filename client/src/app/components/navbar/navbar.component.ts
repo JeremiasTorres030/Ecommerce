@@ -45,20 +45,12 @@ export class NavbarComponent implements OnInit {
 
   submitForm(): void {}
 
-  cart(): void {
-    this.router.navigateByUrl('/cart');
-    this.activateUseMenu = false;
-  }
-
-  login(): void {
-    this.router.navigateByUrl('/user/login');
-  }
-
   logOut(): void {
     this.ecommerService.logOutUser(this.token).subscribe();
     localStorage.removeItem('token');
     this.token = '';
     this.activateUseMenu = false;
+    this.router.navigateByUrl('/');
   }
   profile(): void {
     this.activateUseMenu = false;

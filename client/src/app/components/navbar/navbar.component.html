@@ -18,14 +18,14 @@
     </button>
   </form>
   <div class="flex">
-    <button class="cartButton text-white" (click)="cart()">Carrito</button>
-    <button
+    <a class="cartButton text-white" routerLink="/cart">Carrito</a>
+    <a
       class="userButton text-white ml-2"
-      (click)="login()"
       *ngIf="token === ''"
+      routerLink="/user/login"
     >
       Iniciar Sesion
-    </button>
+    </a>
     <div class="relative">
       <button class="text-white ml-2" (click)="userMenu()" *ngIf="token !== ''">
         User

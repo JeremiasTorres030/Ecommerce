@@ -3,11 +3,16 @@ import { By } from '@angular/platform-browser';
 import { HomeComponent } from './home.component';
 import { CategoryCardComponent } from '../../components/category-card/category-card.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ProductCardComponent } from '../../components/product-card/product-card.component';
 
 describe('HomeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [HomeComponent, CategoryCardComponent],
+      declarations: [
+        HomeComponent,
+        CategoryCardComponent,
+        ProductCardComponent,
+      ],
       imports: [RouterTestingModule],
     }).compileComponents();
   });
@@ -34,6 +39,16 @@ describe('HomeComponent', () => {
 
   it('should have a last items visiteds div', () => {
     const fixture = TestBed.createComponent(HomeComponent);
+    const component = fixture.componentInstance;
+    component.lastVisited.push({
+      category: 'test',
+      id: 0,
+      image: 'test',
+      name: 'test',
+      price: 0,
+      seller: 'test',
+    });
+    fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const div = compiled.querySelector('div.lastVisiteds');
     expect(div).toBeTruthy();

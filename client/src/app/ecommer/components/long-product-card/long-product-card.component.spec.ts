@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
 import { LongProductCardComponent } from './long-product-card.component';
 
 describe('LongProductCardComponent', () => {
@@ -14,6 +15,7 @@ describe('LongProductCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [LongProductCardComponent],
+      imports: [RouterTestingModule],
     }).compileComponents();
   });
 
@@ -41,7 +43,7 @@ describe('LongProductCardComponent', () => {
     const fixture = TestBed.createComponent(LongProductCardComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const productName = compiled.querySelector('h1.productName')?.innerHTML;
+    const productName = compiled.querySelector('a.productName')?.innerHTML;
     expect(productName).toEqual(productTest.name);
   });
 

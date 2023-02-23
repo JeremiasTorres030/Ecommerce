@@ -30,6 +30,13 @@ describe('CartComponent', () => {
     expect(component.listOfProducts).toBeDefined();
   });
 
+  it('should have a totalPrice variable', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.totalPrice).toBeDefined();
+  });
+
   it('should have a getListFromLocal function', () => {
     const fixture = TestBed.createComponent(CartComponent);
     fixture.detectChanges();
@@ -42,6 +49,13 @@ describe('CartComponent', () => {
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component.removeAll).toBeDefined();
+  });
+
+  it('should have a calculatePrice function', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.calculatePrice).toBeDefined();
   });
 
   it('should call getItem of localstorage once', () => {
@@ -75,5 +89,13 @@ describe('CartComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const button = compiled.querySelector('button.removeAll');
     expect(button).toBeTruthy();
+  });
+
+  it('should render the total price', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const price = compiled.querySelector('h1.totalPrice');
+    expect(price).toBeTruthy();
   });
 });

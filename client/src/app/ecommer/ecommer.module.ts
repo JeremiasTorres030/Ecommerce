@@ -12,6 +12,7 @@ import { LongProductCardComponent } from './components/long-product-card/long-pr
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
+    ProductCarouselComponent,
   ],
   imports: [CommonModule, EcommerRoutingModule, ReactiveFormsModule],
 })

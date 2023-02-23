@@ -8,7 +8,6 @@ import { Product } from '../../types/types';
 })
 export class LongProductCardComponent {
   @Output() updateCartList = new EventEmitter();
-
   @Input() product: Product = {
     category: 'Ropa',
     id: 0,
@@ -28,7 +27,6 @@ export class LongProductCardComponent {
       });
       cartList.splice(index, 1);
       localStorage.setItem('cartList', JSON.stringify(cartList));
-
       this.updateCartList.emit();
     }
   }
