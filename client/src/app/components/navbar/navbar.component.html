@@ -22,7 +22,7 @@
     <a
       class="userButton text-white ml-2"
       *ngIf="token === ''"
-      routerLink="/user/login"
+      routerLink="/login"
     >
       Iniciar Sesion
     </a>
@@ -35,14 +35,21 @@
         *ngIf="activateUseMenu"
       >
         <button class="userButton p-1" *ngIf="token !== ''" (click)="profile()">
-          Profile
+          Perfil
+        </button>
+        <button
+          class="createButton p-1 border-t-[1px] border-t-gray-500"
+          *ngIf="token !== ''"
+          (click)="createProduct()"
+        >
+          Crear producto
         </button>
         <button
           class="logOut p-1 border-t-[1px] border-t-gray-500"
           *ngIf="token !== ''"
           (click)="logOut()"
         >
-          Log Out
+          Cerra sesion
         </button>
       </div>
     </div>

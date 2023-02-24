@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import IsAuthenticated
 from knox.auth import TokenAuthentication
+from rest_framework.parsers import MultiPartParser , JSONParser, FileUploadParser
 # Create your views here.
 
 
@@ -19,7 +20,7 @@ class ProductAllView(APIView):
             return Response(serializer.data)
 
 
-class ProductView(APIView):
+class UnicProductView(APIView):
     def get(self,request,format=None, productId=""):
         producto = ProductModel.objects.filter(id=productId)
         serializer = ProductSerializer(producto,many=True)
@@ -84,4 +85,15 @@ class UserTokenView(APIView):
                     "username":request.user.username,
                     "id":request.user.id
                 })
-      
+class ProductView(APIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    parser_classes = [MultiPartParser]
+    def post(self,request,format=None):
+        serializer = ProductSerializer(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response({
+                'ok':True,
+                "msg":"Producto creado con exito"
+        })

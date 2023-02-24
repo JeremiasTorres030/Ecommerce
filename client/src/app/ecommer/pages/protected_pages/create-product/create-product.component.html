@@ -1,0 +1,50 @@
+<div class="createProduct flex flex-col items-center justify-center">
+  <h1>Publicar producto</h1>
+  <form
+    [formGroup]="createForm"
+    class="flex flex-col"
+    (ngSubmit)="submitForm()"
+  >
+    <input
+      class="nameInput"
+      type="text"
+      formControlName="name"
+      placeholder="Nombre del producto"
+    />
+    <input
+      class="fileInput"
+      type="file"
+      placeholder="Imagen del producto"
+      (change)="onChangeFile($event)"
+    />
+
+    <select
+      class="categoryInput"
+      formControlName="category"
+      aria-placeholder="Categoria del producto"
+    >
+      <option value="">--- Seleccione una categoria ---</option>
+      <option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+    <select
+      class="subCategoryInput"
+      formControlName="sub_category"
+      aria-placeholder="sub categoria del producto"
+    >
+      <option value="">--- Seleccione una sub categoria ---</option>
+      <option *ngFor="let subCategory of subCategories" [value]="subCategory">
+        {{ subCategory }}
+      </option>
+    </select>
+
+    <input
+      class="priceInput"
+      type="number"
+      formControlName="price"
+      placeholder="Precio del producto"
+    />
+    <button type="submit">Crear</button>
+  </form>
+</div>

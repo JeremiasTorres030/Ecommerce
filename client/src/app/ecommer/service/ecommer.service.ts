@@ -104,7 +104,7 @@ export class EcommerService {
       );
   }
 
-  logOutUser(token: string) {
+  logOutUser(token: string): Observable<UserData> {
     const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
     return this.http.post<UserData>(
       `${this.API_URL}user/logout/`,
@@ -113,5 +113,13 @@ export class EcommerService {
         headers: HttpHeader,
       }
     );
+  }
+
+  createProduct(data: Product): Observable<genericResponse> {
+    const token = localStorage.getItem('token');
+    const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.post<genericResponse>(`${this.API_URL}product/`, data, {
+      headers: HttpHeader,
+    });
   }
 }

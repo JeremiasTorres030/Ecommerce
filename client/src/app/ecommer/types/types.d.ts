@@ -48,7 +48,7 @@ export interface userFormRegister extends userForm {
 
 export type Categories =
   | 'Ropa'
-  | 'Celulares'
+  | 'Muebles'
   | 'Computacion'
   | 'Deportes'
   | 'Electrodomesticos'

@@ -152,14 +152,14 @@ describe('NavbarComponent', () => {
     expect(url).toEqual('/cart');
   });
 
-  it('the user button should navigate to /user/login', () => {
+  it('the user button should navigate to /login', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     const component = fixture.componentInstance;
     component.token = '';
     fixture.detectChanges();
     const compiled = fixture.debugElement;
     const url = compiled.query(By.css('.userButton')).attributes['routerLink'];
-    expect(url).toEqual('/user/login');
+    expect(url).toEqual('/login');
   });
 
   it('the logout button should clean token', () => {

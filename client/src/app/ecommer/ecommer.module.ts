@@ -11,8 +11,10 @@ import { CartComponent } from './pages/cart/cart.component';
 import { LongProductCardComponent } from './components/long-product-card/long-product-card.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
-import { ProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './pages/protected_pages/profile/profile.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
+import { CreateProductComponent } from './pages/protected_pages/create-product/create-product.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ProductCarouselComponent } from './components/product-carousel/product-
     LoginComponent,
     ProfileComponent,
     ProductCarouselComponent,
+    CreateProductComponent,
+    UserComponent,
   ],
   imports: [CommonModule, EcommerRoutingModule, ReactiveFormsModule],
 })

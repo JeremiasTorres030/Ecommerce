@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
       categoryImg: '../../../assets/icons/clothes-svgrepo-com.svg',
     },
     {
-      categoryName: 'Celulares',
+      categoryName: 'Muebles',
       categoryImg: '../../../assets/icons/technology-svgrepo-com.svg',
     },
     {

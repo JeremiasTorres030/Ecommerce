@@ -61,7 +61,7 @@ describe('HomeComponent', () => {
         categoryImg: '../../../assets/icons/clothes-svgrepo-com.svg',
       },
       {
-        categoryName: 'Celulares',
+        categoryName: 'Muebles',
         categoryImg: '../../../assets/icons/technology-svgrepo-com.svg',
       },
       {
@@ -92,7 +92,7 @@ describe('HomeComponent', () => {
   it('should render all items from the categoriesList in app-category-card elements', () => {
     const categoriesListValues = [
       'Ropa',
-      'Celulares',
+      'Muebles',
       'Computacion',
       'Deportes',
       'Electrodomesticos',
@@ -112,7 +112,7 @@ describe('HomeComponent', () => {
   it('should render app-category-card routerLink attribute with the correct category name', () => {
     const categoriesListValues = [
       'Ropa',
-      'Celulares',
+      'Muebles',
       'Computacion',
       'Deportes',
       'Electrodomesticos',
