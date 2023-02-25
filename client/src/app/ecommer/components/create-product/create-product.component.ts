@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
-import { Categories, Product } from 'src/app/ecommer/types/types';
+import { EcommerService } from '../../service/ecommer.service';
+import { Categories, Product } from '../../types/types';
 
 @Component({
   selector: 'app-create-product',
@@ -10,6 +10,16 @@ import { Categories, Product } from 'src/app/ecommer/types/types';
   styleUrls: ['./create-product.component.css'],
 })
 export class CreateProductComponent implements OnInit {
+  @Input() editForm: boolean = false;
+  @Input() product: Product = {
+    category: '',
+    id: 0,
+    image: '',
+    name: '',
+    price: 0,
+    seller: '',
+    sub_category: '',
+  };
   public createForm = this.fb.group({
     name: ['', [Validators.required]],
     price: [0, [Validators.required]],
@@ -30,6 +40,12 @@ export class CreateProductComponent implements OnInit {
 
   public subCategories: Array<string> = [];
 
+  constructor(
+    private fb: FormBuilder,
+    private ecommerService: EcommerService,
+    private router: Router
+  ) {}
+
   ngOnInit(): void {
     this.createForm.get('category')?.valueChanges.subscribe((value) => {
       this.createForm.get('sub_category')?.setValue('');
@@ -42,7 +58,7 @@ export class CreateProductComponent implements OnInit {
           'Auriculares',
           'Computadoras',
         ],
-        Deportes: ['Pelotas', 'Pesos', 'Barras', 'Bancas', 'Suplementos'],
+        Deportes: ['Pelotas', 'Pesos', 'Maquinas', 'Bancas', 'Suplementos'],
         Electrodomesticos: [
           'Microondas',
           'Lavarropas',
@@ -63,13 +79,15 @@ export class CreateProductComponent implements OnInit {
         this.subCategories = subCategoryValues[value];
       }
     });
-  }
 
-  constructor(
-    private fb: FormBuilder,
-    private ecommerService: EcommerService,
-    private router: Router
-  ) {}
+    if (this.editForm) {
+      this.createForm.get('name')?.setValue(this.product.name);
+      this.createForm.get('category')?.setValue(this.product.category);
+      this.createForm.get('sub_category')?.setValue(this.product.sub_category);
+      this.createForm.get('price')?.setValue(this.product.price);
+      return;
+    }
+  }
 
   onChangeFile(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
@@ -101,6 +119,19 @@ export class CreateProductComponent implements OnInit {
         'seller',
         this.createForm.get('seller')?.value?.toString()!
       );
+
+      if (this.editForm) {
+        formData.append('id', this.product.id.toString());
+        this.ecommerService
+          .editProduct(formData as unknown as Product)
+          .subscribe({
+            next: (res) => {
+              console.log(res);
+            },
+          });
+
+        return;
+      }
 
       this.ecommerService
         .createProduct(formData as unknown as Product)

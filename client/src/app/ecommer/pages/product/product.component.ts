@@ -12,6 +12,7 @@ import { Product } from '../../types/types';
 export class ProductComponent implements OnInit {
   public product: Product = {
     category: 'Ropa',
+    sub_category: '',
     id: 0,
     image: 'imagen.png',
     name: 'Pantalon gris largo',
@@ -21,7 +22,6 @@ export class ProductComponent implements OnInit {
 
   public loading: boolean = true;
   public inCart: boolean = false;
-
   constructor(
     private ecommerService: EcommerService,
     private activatedRoute: ActivatedRoute
@@ -96,7 +96,9 @@ export class ProductComponent implements OnInit {
       });
       if (exist !== undefined) {
         this.inCart = true;
+        return;
       }
+      this.inCart = false;
     }
   }
 }

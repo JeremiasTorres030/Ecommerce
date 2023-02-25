@@ -62,7 +62,7 @@ describe('HomeComponent', () => {
       },
       {
         categoryName: 'Muebles',
-        categoryImg: '../../../assets/icons/technology-svgrepo-com.svg',
+        categoryImg: '../../../assets/icons/bed-queen-svgrepo-com.svg',
       },
       {
         categoryName: 'Computacion',

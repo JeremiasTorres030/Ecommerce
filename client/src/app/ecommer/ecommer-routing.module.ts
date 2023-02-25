@@ -7,7 +7,7 @@ import { CategoryComponent } from './pages/category/category.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProductComponent } from './pages/product/product.component';
-import { CreateProductComponent } from './pages/protected_pages/create-product/create-product.component';
+import { MyProductsComponent } from './pages/protected_pages/my-products/my-products.component';
 import { ProfileComponent } from './pages/protected_pages/profile/profile.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { UserComponent } from './pages/user/user.component';
@@ -32,7 +32,7 @@ const routes: Routes = [
     path: 'profile',
     children: [
       { path: 'view', component: ProfileComponent },
-      { path: 'create-product', component: CreateProductComponent },
+      { path: 'my-products', component: MyProductsComponent },
     ],
     canMatch: [
       () => {
@@ -54,6 +54,13 @@ const routes: Routes = [
   {
     path: 'category/:categoryName',
     component: CategoryComponent,
+  },
+  {
+    path: 'sub-category/:categoryName',
+    component: CategoryComponent,
+    data: {
+      subCategory: true,
+    },
   },
   {
     path: 'product/:productId',

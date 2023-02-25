@@ -57,9 +57,9 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/profile/view');
   }
 
-  createProduct(): void {
+  myProducts(): void {
     this.activateUseMenu = false;
-    this.router.navigateByUrl('/profile/create-product');
+    this.router.navigateByUrl('/profile/my-products');
   }
 
   userMenu(): void {

@@ -1,5 +1,12 @@
 <div class="categoryComponent px-10">
   <h1 class="title font-semibold text-3xl mt-5">{{ title }}</h1>
+  <div class="subCategories flex items-center justify-center flex-wrap">
+    <app-category-card
+      *ngFor="let subCategory of subCategories"
+      [category]="subCategory"
+      [routerLink]="['/sub-category', subCategory.categoryName]"
+    ></app-category-card>
+  </div>
   <div class="products mt-6 flex items-center justify-start">
     <app-product-card
       *ngFor="let product of productsList"

@@ -34,6 +34,21 @@ class CategoryView(APIView):
         if serializer.is_valid:
             return Response(serializer.data)
 
+class SubCategoryView(APIView):
+    def get(self,request,format=None , subCategoryName=""):
+        producto = ProductModel.objects.filter(sub_category = subCategoryName)
+        serializer = ProductSerializer(producto,many=True)
+        if serializer.is_valid:
+            return Response(serializer.data)
+
+class UserProductsView(APIView):
+    def get(self,request,format=None , userId=""):
+        producto = ProductModel.objects.filter(seller = userId)
+        serializer = ProductSerializer(producto,many=True)
+        if serializer.is_valid:
+            return Response(serializer.data)
+
+
 class UnicUserView(APIView):
     def get(self,request,format=None,userId=""):
         user = User.objects.filter(id = userId)
@@ -96,4 +111,10 @@ class ProductView(APIView):
             return Response({
                 'ok':True,
                 "msg":"Producto creado con exito"
-        })
+            })
+
+    def put(self,request,format=None):        
+            return Response({
+                "ok":True,
+                "msg":"Producto editado con exito"
+            })

@@ -36,9 +36,23 @@ export class EcommerService {
     return this.http.get(`${this.API_URL}product/get/all`);
   }
 
+  getProductsByUser(userId: number): Observable<Array<Product>> {
+    return this.http.get<Array<Product>>(
+      `${this.API_URL}user/products/${userId}`
+    );
+  }
+
   getProductsByCategory(categoryName: Categories): Observable<Array<Product>> {
     return this.http.get<Array<Product>>(
       `${this.API_URL}category/${categoryName}`
+    );
+  }
+
+  getProductsBySubCategory(
+    SubCategoryName: string
+  ): Observable<Array<Product>> {
+    return this.http.get<Array<Product>>(
+      `${this.API_URL}sub-category/${SubCategoryName}`
     );
   }
 
@@ -119,6 +133,13 @@ export class EcommerService {
     const token = localStorage.getItem('token');
     const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
     return this.http.post<genericResponse>(`${this.API_URL}product/`, data, {
+      headers: HttpHeader,
+    });
+  }
+  editProduct(data: Product): Observable<genericResponse> {
+    const token = localStorage.getItem('token');
+    const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.put<genericResponse>(`${this.API_URL}product/`, data, {
       headers: HttpHeader,
     });
   }

@@ -6,6 +6,7 @@
     <app-product-card
       *ngFor="let product of moreProducts"
       [product]="product"
+      [routerLink]="['/product', product.id]"
     ></app-product-card>
   </div>
 </div>

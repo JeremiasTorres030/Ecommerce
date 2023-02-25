@@ -1,7 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateProductComponent } from './create-product.component';
+import { CreateProductComponent } from './my-products.component';
 
 describe('CreateProductComponent', () => {
   beforeEach(async () => {

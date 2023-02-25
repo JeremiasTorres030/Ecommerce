@@ -13,8 +13,9 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProfileComponent } from './pages/protected_pages/profile/profile.component';
 import { ProductCarouselComponent } from './components/product-carousel/product-carousel.component';
-import { CreateProductComponent } from './pages/protected_pages/create-product/create-product.component';
+import { MyProductsComponent } from './pages/protected_pages/my-products/my-products.component';
 import { UserComponent } from './pages/user/user.component';
+import { CreateProductComponent } from './components/create-product/create-product.component';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,9 @@ import { UserComponent } from './pages/user/user.component';
     LoginComponent,
     ProfileComponent,
     ProductCarouselComponent,
-    CreateProductComponent,
+    MyProductsComponent,
     UserComponent,
+    CreateProductComponent,
   ],
   imports: [CommonModule, EcommerRoutingModule, ReactiveFormsModule],
 })

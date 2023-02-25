@@ -15,6 +15,7 @@ export class LongProductCardComponent {
     name: 'Pantalon gris largo',
     price: 150,
     seller: '',
+    sub_category: '',
   };
 
   removeProduct(): void {
