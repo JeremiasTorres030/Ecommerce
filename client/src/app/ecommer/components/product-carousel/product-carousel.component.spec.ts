@@ -1,5 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { EcommerService } from '../../service/ecommer.service';
 import { ProductCardComponent } from '../product-card/product-card.component';
@@ -12,7 +13,7 @@ describe('ProductCarouselComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProductCarouselComponent, ProductCardComponent],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, RouterTestingModule],
     }).compileComponents();
     service = TestBed.inject(EcommerService);
   });
@@ -27,12 +28,13 @@ describe('ProductCarouselComponent', () => {
   it('should have a primary div', () => {
     const fixture = TestBed.createComponent(ProductCarouselComponent);
     fixture.componentInstance.moreProducts.push({
-      category: '',
+      category: 'test',
       id: 0,
-      image: '',
-      name: '',
+      image: 'test',
+      name: 'test',
       price: 0,
-      seller: '',
+      seller: 'test',
+      sub_category: 'test',
     });
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -47,11 +49,37 @@ describe('ProductCarouselComponent', () => {
     expect(component.categoryName).toBeDefined();
   });
 
+  it('should render the category name "Mas ropa"', () => {
+    const fixture = TestBed.createComponent(ProductCarouselComponent);
+    const component = fixture.componentInstance;
+    component.moreProducts.push({
+      category: 'test',
+      id: 0,
+      image: 'test',
+      name: 'test',
+      price: 0,
+      seller: 'test',
+      sub_category: 'test',
+    });
+    component.categoryName = 'Ropa';
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const h1 = compiled.querySelector('h1.categoryTitle');
+    expect(h1?.innerHTML).toEqual(' Mas ropa ');
+  });
+
   it('should have a productId variable', () => {
     const fixture = TestBed.createComponent(ProductCarouselComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component.productId).toBeDefined();
+  });
+
+  it('should have a subCategory variable', () => {
+    const fixture = TestBed.createComponent(ProductCarouselComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.subCategory).toBeDefined();
   });
 
   it('should have a moreProducts variable', () => {
@@ -68,6 +96,20 @@ describe('ProductCarouselComponent', () => {
     component.categoryName = 'Ropa';
     component.productId = 1;
     fixture.detectChanges();
+    component.ngOnChanges();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+  it('should call getProductsBySubCategory once', () => {
+    const fixture = TestBed.createComponent(ProductCarouselComponent);
+    const spy = spyOn(service, 'getProductsBySubCategory').and.returnValue(
+      of()
+    );
+    const component = fixture.componentInstance;
+    component.categoryName = 'Ropa';
+    component.productId = 1;
+    component.subCategory = true;
+    fixture.detectChanges();
+    component.ngOnChanges();
     expect(spy).toHaveBeenCalledTimes(1);
   });
 });

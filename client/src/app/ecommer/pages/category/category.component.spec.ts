@@ -45,13 +45,20 @@ describe('CategoryComponent', () => {
     expect(component.productsList).toBeDefined();
   });
 
+  it('should have a subCategories variable', () => {
+    const fixture = TestBed.createComponent(CategoryComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.subCategories).toBeDefined();
+  });
+
   it('should render Ropa as title', () => {
     const fixture = TestBed.createComponent(CategoryComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
     component.title = 'Ropa';
     const compiled = fixture.nativeElement as HTMLElement;
-    const h1 = compiled.querySelector('h1.title');
+    const h1 = compiled.querySelector('h1.categoryTitle');
     h1 ? (h1.innerHTML = component.title) : '';
     expect(h1?.innerHTML).toEqual(component.title);
   });
@@ -61,5 +68,21 @@ describe('CategoryComponent', () => {
     const fixture = TestBed.createComponent(CategoryComponent);
     fixture.detectChanges();
     expect(ecommerSpy).toHaveBeenCalledTimes(1);
+  });
+
+  it('should render sub categories div', () => {
+    const fixture = TestBed.createComponent(CategoryComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const div = compiled.querySelector('div.subCategories');
+    expect(div).toBeTruthy();
+  });
+
+  it('should render products div', () => {
+    const fixture = TestBed.createComponent(CategoryComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const div = compiled.querySelector('div.products');
+    expect(div).toBeTruthy();
   });
 });

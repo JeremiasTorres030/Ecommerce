@@ -7,21 +7,24 @@ import {
   genericResponse,
   loginResponse,
   Product,
+  ProductResponse,
+  ProductWithSellerId,
   User,
-  UserData,
   userForm,
   userFormRegister,
+  UserResponse,
 } from '../types/types';
 @Injectable({
   providedIn: 'root',
 })
 export class EcommerService {
   private API_URL: string = environment.API_URL;
-  private user: UserData = {
+  private user: User = {
     id: 0,
     username: '',
     first_name: '',
     last_name: '',
+    email: '',
   };
 
   get userGet() {
@@ -32,50 +35,62 @@ export class EcommerService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts() {
-    return this.http.get(`${this.API_URL}product/get/all`);
+  getAllProducts(): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(`${this.API_URL}product/get/all`);
   }
 
-  getProductsByUser(userId: number): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>(
+  getProductsByUser(userId: number): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(
       `${this.API_URL}user/products/${userId}`
     );
   }
 
-  getProductsByCategory(categoryName: Categories): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>(
+  getProductsByCategory(categoryName: Categories): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(
       `${this.API_URL}category/${categoryName}`
     );
   }
 
   getProductsBySubCategory(
     SubCategoryName: string
-  ): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>(
+  ): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(
       `${this.API_URL}sub-category/${SubCategoryName}`
     );
   }
 
   getUser(userId: string): Observable<User> {
-    return this.http.get<Array<User>>(`${this.API_URL}user/${userId}`).pipe(
-      map((user) => {
-        return user[0];
+    return this.http.get<UserResponse>(`${this.API_URL}user/${userId}`).pipe(
+      map((res) => {
+        if (res.ok) {
+          return res.data[0];
+        }
+        return {
+          username: '',
+          email: '',
+          first_name: '',
+          id: 0,
+          last_name: '',
+        };
       })
     );
   }
 
-  getProduct(productId: number): Observable<Product> {
+  getProduct(productId: number): Observable<ProductWithSellerId> {
     return this.http
-      .get<Array<Product>>(`${this.API_URL}product/${productId}`)
+      .get<ProductResponse>(`${this.API_URL}product/${productId}`)
       .pipe(
-        map((product) => {
-          let productTransform = product[0];
+        map((res) => {
+          let product = res.data[0];
+          let productTransform: ProductWithSellerId = {
+            ...product,
+            sellerId: product.seller,
+          };
           this.getUser(productTransform.seller).subscribe({
             next: (res) => {
               productTransform.seller = `${res.first_name} ${res.last_name}`;
             },
           });
-
           return productTransform;
         })
       );
@@ -96,8 +111,9 @@ export class EcommerService {
           this.user = {
             id: res.user.id,
             username: res.user.username,
-            first_name: '',
-            last_name: '',
+            first_name: res.user.first_name,
+            last_name: res.user.last_name,
+            email: res.user.email,
           };
           localStorage.setItem('token', res.token);
           this.loginEvent.emit(res.token);
@@ -105,10 +121,10 @@ export class EcommerService {
       );
   }
 
-  tokenVerification(token: string): Observable<UserData> {
+  tokenVerification(token: string): Observable<User> {
     const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
     return this.http
-      .get<UserData>(`${this.API_URL}user/token/`, {
+      .get<User>(`${this.API_URL}user/token/`, {
         headers: HttpHeader,
       })
       .pipe(
@@ -118,9 +134,9 @@ export class EcommerService {
       );
   }
 
-  logOutUser(token: string): Observable<UserData> {
+  logOutUser(token: string): Observable<User> {
     const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
-    return this.http.post<UserData>(
+    return this.http.post<User>(
       `${this.API_URL}user/logout/`,
       {},
       {
@@ -142,5 +158,28 @@ export class EcommerService {
     return this.http.put<genericResponse>(`${this.API_URL}product/`, data, {
       headers: HttpHeader,
     });
+  }
+
+  deleteProduct(productId: string): Observable<genericResponse> {
+    const token = localStorage.getItem('token');
+    const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.delete<genericResponse>(
+      `${this.API_URL}product/${productId}`,
+      {
+        headers: HttpHeader,
+      }
+    );
+  }
+
+  editUser(data: User): Observable<genericResponse> {
+    const token = localStorage.getItem('token');
+    const HttpHeader = new HttpHeaders().set('Authorization', `Token ${token}`);
+    return this.http.put<genericResponse>(
+      `${this.API_URL}user/${this.userGet.id}`,
+      data,
+      {
+        headers: HttpHeader,
+      }
+    );
   }
 }

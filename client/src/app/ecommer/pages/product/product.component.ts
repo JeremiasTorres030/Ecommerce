@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { EcommerService } from '../../service/ecommer.service';
-import { Product } from '../../types/types';
+import { Product, ProductWithSellerId } from '../../types/types';
 
 @Component({
   selector: 'app-product',
@@ -10,7 +10,7 @@ import { Product } from '../../types/types';
   styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
-  public product: Product = {
+  public product: ProductWithSellerId = {
     category: 'Ropa',
     sub_category: '',
     id: 0,
@@ -18,13 +18,15 @@ export class ProductComponent implements OnInit {
     name: 'Pantalon gris largo',
     price: 150,
     seller: '',
+    sellerId: '',
   };
 
   public loading: boolean = true;
   public inCart: boolean = false;
   constructor(
     private ecommerService: EcommerService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.activatedRoute.params
@@ -36,6 +38,11 @@ export class ProductComponent implements OnInit {
               this.inCartCheck();
               this.loading = false;
               this.addTo('lastVisited');
+            },
+            error: (res) => {
+              if (res.ok === false) {
+                this.router.navigateByUrl('');
+              }
             },
           });
         })

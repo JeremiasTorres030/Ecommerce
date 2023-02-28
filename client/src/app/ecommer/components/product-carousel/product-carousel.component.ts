@@ -11,9 +11,7 @@ export class ProductCarouselComponent implements OnChanges {
   @Input() public categoryName: string = '';
   @Input() public productId: number = 0;
   @Input() public subCategory: boolean = false;
-
   public moreProducts: Array<Product> = [];
-
   constructor(private ecommerService: EcommerService) {}
 
   ngOnChanges(): void {
@@ -22,7 +20,9 @@ export class ProductCarouselComponent implements OnChanges {
         .getProductsBySubCategory(this.categoryName)
         .subscribe({
           next: (res) => {
-            this.moreProducts = res.filter(({ id }) => id !== this.productId);
+            this.moreProducts = res.data.filter(
+              ({ id }) => id !== this.productId
+            );
           },
         });
       return;
@@ -32,7 +32,9 @@ export class ProductCarouselComponent implements OnChanges {
       .getProductsByCategory(this.categoryName as Categories)
       .subscribe({
         next: (res) => {
-          this.moreProducts = res.filter(({ id }) => id !== this.productId);
+          this.moreProducts = res.data.filter(
+            ({ id }) => id !== this.productId
+          );
         },
       });
   }

@@ -9,6 +9,7 @@ import {
   Categories,
   genericResponse,
   loginResponse,
+  Product,
   User,
   UserData,
   userForm,
@@ -95,29 +96,32 @@ describe('EcommerService', () => {
   });
 
   it('getProductsByCategory should return an array of Ropa products', () => {
-    const expectedResponse = [
+    const expectedResponse: Array<Product> = [
       {
-        id: 3,
-        name: 'Objeto ropa',
-        price: 123123,
-        image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
+        id: 0,
+        name: 'test',
+        price: 0,
+        image: 'test',
         category: 'Ropa',
+        sub_category: 'test',
         seller: 'test',
       },
       {
-        id: 4,
-        name: 'Objeto ropa',
-        price: 123123,
-        image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
+        id: 0,
+        name: 'test',
+        price: 0,
+        image: 'test',
         category: 'Ropa',
+        sub_category: 'test',
         seller: 'test',
       },
       {
-        id: 5,
-        name: 'Objeto ropa',
-        price: 123123,
-        image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
+        id: 0,
+        name: 'test',
+        price: 0,
+        image: 'test',
         category: 'Ropa',
+        sub_category: 'test',
         seller: 'test',
       },
     ];
@@ -227,6 +231,112 @@ describe('EcommerService', () => {
     });
 
     const req = httpMock.expectOne(`${environment.API_URL}user/token/`);
+    req.flush(expectedResponse);
+  });
+
+  it('getProductsByUser should return a array of products ', () => {
+    const userId = 0;
+
+    const expectedResponse: Array<Product> = [
+      {
+        id: 0,
+        category: '',
+        image: '',
+        name: '',
+        price: 0,
+        seller: '',
+        sub_category: '',
+      },
+    ];
+
+    service.getProductsByUser(0).subscribe({
+      next: (res) => {
+        expect(res).toEqual(expectedResponse);
+      },
+    });
+
+    const req = httpMock.expectOne(
+      `${environment.API_URL}user/products/${userId}`
+    );
+    req.flush(expectedResponse);
+  });
+
+  it('getProductsBySubCategory should return a array of products ', () => {
+    const SubCategoryName = 'Mouse';
+
+    const expectedResponse: Array<Product> = [
+      {
+        id: 0,
+        category: '',
+        image: '',
+        name: '',
+        price: 0,
+        seller: '',
+        sub_category: '',
+      },
+    ];
+
+    service.getProductsBySubCategory(SubCategoryName).subscribe({
+      next: (res) => {
+        expect(res).toEqual(expectedResponse);
+      },
+    });
+
+    const req = httpMock.expectOne(
+      `${environment.API_URL}sub-category/${SubCategoryName}`
+    );
+    req.flush(expectedResponse);
+  });
+
+  it('createProduct should return a generic response ', () => {
+    const expectedResponse: genericResponse = {
+      msg: 'test',
+      ok: true,
+    };
+
+    const formDataMock: Product = {
+      category: 'test',
+      id: 0,
+      image: 'test',
+      name: 'test',
+      price: 0,
+      seller: 'test',
+      sub_category: 'test',
+    };
+
+    service.createProduct(formDataMock).subscribe({
+      next: (res) => {
+        expect(res).toEqual(expectedResponse);
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.API_URL}product/`);
+    req.flush(expectedResponse);
+  });
+
+  it('editProduct should return a generic response ', () => {
+    const expectedResponse: genericResponse = {
+      msg: 'test',
+      ok: true,
+    };
+
+    const formDataMock: Product = {
+      category: 'test',
+      id: 0,
+      image: 'test',
+      name: 'test',
+      price: 0,
+      seller: 'test',
+      sub_category: 'test',
+    };
+
+    service.editProduct(formDataMock).subscribe({
+      next: (res) => {
+        expect(res).toEqual(expectedResponse);
+      },
+    });
+
+    const req = httpMock.expectOne(`${environment.API_URL}product/`);
     req.flush(expectedResponse);
   });
 });

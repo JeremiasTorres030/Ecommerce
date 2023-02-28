@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Product } from '../../types/types';
+import { Product, ProductWithSellerId } from '../../types/types';
 
 @Component({
   selector: 'app-long-product-card',
@@ -8,7 +8,7 @@ import { Product } from '../../types/types';
 })
 export class LongProductCardComponent {
   @Output() updateCartList = new EventEmitter();
-  @Input() product: Product = {
+  @Input() product: ProductWithSellerId = {
     category: 'Ropa',
     id: 0,
     image: 'imagen.png',
@@ -16,6 +16,7 @@ export class LongProductCardComponent {
     price: 150,
     seller: '',
     sub_category: '',
+    sellerId: '',
   };
 
   removeProduct(): void {

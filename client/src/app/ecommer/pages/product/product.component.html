@@ -12,7 +12,10 @@
       class="border-2 rounded-lg rounded-tl-none rounded-bl-none text-center p-4"
     >
       <h1 class="productName text-4xl font-bold">{{ product.name }}</h1>
-      <p class="productSeller font-medium text-lg my-2">
+      <p
+        class="productSeller font-medium text-lg my-2"
+        [routerLink]="['/user', product.sellerId]"
+      >
         {{ product.seller }}
       </p>
       <p class="productPrice font-semibold text-3xl">${{ product.price }}</p>

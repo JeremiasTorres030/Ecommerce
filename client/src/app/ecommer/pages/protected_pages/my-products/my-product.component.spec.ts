@@ -1,111 +1,84 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateProductComponent } from './my-products.component';
+import { MyProductsComponent } from './my-products.component';
 
-describe('CreateProductComponent', () => {
+describe('MyProductsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CreateProductComponent],
+      declarations: [MyProductsComponent],
       imports: [ReactiveFormsModule, HttpClientTestingModule],
     }).compileComponents();
   });
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 
   it('should have a primary div', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const div = compiled.querySelector('div.createProduct');
+    const div = compiled.querySelector('div.myProductsComponent');
     expect(div).toBeTruthy();
   });
 
+  it('should have a userProducts variable', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.userProducts).toBeDefined();
+  });
+
   it('should have a createForm variable', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component.createForm).toBeDefined();
   });
 
-  it('should have a categories variable', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+  it('should have a editForm variable', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
-    expect(component.categories).toBeDefined();
+    expect(component.editForm).toBeDefined();
   });
 
-  it('should have a subCategories variable', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+  it('should have a product variable', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
-    expect(component.subCategories).toBeDefined();
+    expect(component.product).toBeDefined();
   });
 
-  it('should have a onChangeFile function', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+  it('should have a createFormButton function', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
-    expect(component.onChangeFile).toBeDefined();
+    expect(component.createFormButton).toBeDefined();
   });
 
-  it('should have a submitForm function', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+  it('should have a eventProduct function', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
-    expect(component.submitForm).toBeDefined();
+    expect(component.eventProduct).toBeDefined();
   });
 
-  it('should have and render a from element', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
+  it('should have a editProduct function', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    const form = compiled.querySelector('form');
-    expect(form).toBeTruthy();
+    const component = fixture.componentInstance;
+    expect(component.editProduct).toBeDefined();
   });
 
-  it('should render the name product input', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
-    fixture.detectChanges;
-    const compiled = fixture.nativeElement as HTMLElement;
-    const input = compiled.querySelector('input.nameInput');
-    expect(input).toBeTruthy();
-  });
-
-  it('should render the image product input', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
-    fixture.detectChanges;
-    const compiled = fixture.nativeElement as HTMLElement;
-    const input = compiled.querySelector('input.fileInput');
-    expect(input).toBeTruthy();
-  });
-
-  it('should render the category product input', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
-    fixture.detectChanges;
-    const compiled = fixture.nativeElement as HTMLElement;
-    const input = compiled.querySelector('select.categoryInput');
-    expect(input).toBeTruthy();
-  });
-
-  it('should render the sub category product input', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
-    fixture.detectChanges;
-    const compiled = fixture.nativeElement as HTMLElement;
-    const input = compiled.querySelector('select.subCategoryInput');
-    expect(input).toBeTruthy();
-  });
-
-  it('should render the price of the product input', () => {
-    const fixture = TestBed.createComponent(CreateProductComponent);
-    fixture.detectChanges;
-    const compiled = fixture.nativeElement as HTMLElement;
-    const input = compiled.querySelector('input.priceInput');
-    expect(input).toBeTruthy();
+  it('should have a deleteProduct function', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.deleteProduct).toBeDefined();
   });
 });

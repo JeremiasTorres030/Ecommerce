@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EcommerService } from '../../service/ecommer.service';
 import { Category, Product } from '../../types/types';
 
 @Component({
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
     },
   ];
   public lastVisited: Array<Product> = [];
-  constructor() {}
+  constructor(private ecommerService: EcommerService) {}
   ngOnInit(): void {
     this.getLastFromLocal();
   }
@@ -43,7 +44,20 @@ export class HomeComponent implements OnInit {
   getLastFromLocal(): void {
     let lastVisitedJson = localStorage.getItem('lastVisited');
     if (lastVisitedJson) {
-      const lastVisitedList: Array<Product> = JSON.parse(lastVisitedJson);
+      let lastVisitedList: Array<Product> = JSON.parse(lastVisitedJson);
+      lastVisitedList.forEach(({ id }) => {
+        this.ecommerService.getProduct(id).subscribe({
+          error: () => {
+            this.lastVisited = lastVisitedList.filter(
+              (product) => product.id !== id
+            );
+            localStorage.setItem(
+              'lastVisited',
+              JSON.stringify(this.lastVisited)
+            );
+          },
+        });
+      });
       this.lastVisited = lastVisitedList;
     }
   }

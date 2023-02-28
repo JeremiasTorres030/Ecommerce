@@ -8,6 +8,15 @@ export interface Product {
   seller: string;
 }
 
+export interface ProductResponse {
+  data: Array<Product>;
+  ok: boolean;
+}
+
+export interface ProductWithSellerId extends Product {
+  sellerId: string;
+}
+
 export interface Category {
   categoryImg: string;
   categoryName: string;
@@ -17,10 +26,13 @@ export interface User {
   username: string;
   first_name: string;
   last_name: string;
+  id: number;
+  email: string;
 }
 
-export interface UserData extends User {
-  id: number;
+export interface UserResponse {
+  data: Array<User>;
+  ok: boolean;
 }
 
 export interface genericResponse {
@@ -29,10 +41,7 @@ export interface genericResponse {
 }
 
 export interface loginResponse {
-  user: {
-    username: string;
-    id: number;
-  };
+  user: User;
   token: string;
 }
 

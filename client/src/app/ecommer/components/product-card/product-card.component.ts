@@ -17,9 +17,7 @@ export class ProductCardComponent {
     seller: '',
   };
   @Input() userButtons: boolean = false;
-
   @Output() userButtonClicked = new EventEmitter();
-
   editButton(): void {
     this.userButtonClicked.emit({
       type: 'Edit',

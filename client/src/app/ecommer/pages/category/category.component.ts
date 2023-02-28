@@ -29,7 +29,7 @@ export class CategoryComponent implements OnInit {
                 categoryName
               ).subscribe({
                 next: (res) => {
-                  this.productsList = res;
+                  this.productsList = res.data;
                 },
               });
             })
@@ -44,7 +44,7 @@ export class CategoryComponent implements OnInit {
           tap(({ categoryName }) => {
             this.EcommerService.getProductsByCategory(categoryName).subscribe({
               next: (res) => {
-                this.productsList = res;
+                this.productsList = res.data;
               },
             });
           })

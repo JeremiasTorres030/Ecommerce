@@ -46,6 +46,7 @@ describe('HomeComponent', () => {
       image: 'test',
       name: 'test',
       price: 0,
+      sub_category: 'test',
       seller: 'test',
     });
     fixture.detectChanges();

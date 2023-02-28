@@ -1,4 +1,4 @@
-<div class="myProducts flex flex-col">
+<div class="myProductsComponent flex flex-col">
   <h1 class="text-center mt-5 font-semibold text-2xl">Mis productos</h1>
   <app-create-product *ngIf="createForm && !editForm"></app-create-product>
   <app-create-product
@@ -8,7 +8,20 @@
   ></app-create-product>
   <div class="productsList flex flex-wrap items-center justify-center">
     <div>
-      <button (click)="createFormButton()">Añadir producto</button>
+      <button
+        (click)="openFormButton()"
+        class="p-2 rounded-md bg-blue-400 text-white m-2"
+        *ngIf="!editForm && !createForm"
+      >
+        Añadir producto
+      </button>
+      <button
+        (click)="closeFormButton()"
+        class="p-2 rounded-md bg-red-400 text-white m-2"
+        *ngIf="editForm || createForm"
+      >
+        Cerrar Formulario
+      </button>
     </div>
     <app-product-card
       *ngFor="let product of userProducts"

@@ -24,17 +24,26 @@ export class MyProductsComponent implements OnInit {
   constructor(private ecommerService: EcommerService) {}
 
   ngOnInit(): void {
+    this.getProducts();
+  }
+
+  getProducts(): void {
     this.ecommerService
       .getProductsByUser(this.ecommerService.userGet.id)
       .subscribe({
         next: (res) => {
-          this.userProducts = res;
+          this.userProducts = res.data;
         },
       });
   }
 
-  createFormButton(): void {
-    this.createForm = !this.createForm;
+  openFormButton(): void {
+    this.createForm = true;
+    this.editForm = false;
+  }
+
+  closeFormButton(): void {
+    this.createForm = false;
     this.editForm = false;
   }
 
@@ -52,5 +61,13 @@ export class MyProductsComponent implements OnInit {
     this.product = product;
   }
 
-  deleteProduct(id: string): void {}
+  deleteProduct(id: string): void {
+    this.ecommerService.deleteProduct(id).subscribe({
+      next: (res) => {
+        if (res.ok) {
+          this.getProducts();
+        }
+      },
+    });
+  }
 }

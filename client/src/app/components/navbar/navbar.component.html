@@ -20,7 +20,7 @@
   <div class="flex">
     <a class="cartButton text-white" routerLink="/cart">Carrito</a>
     <a
-      class="userButton text-white ml-2"
+      class="loginButton text-white ml-2"
       *ngIf="token === ''"
       routerLink="/login"
     >
@@ -34,19 +34,15 @@
         class="userMenu absolute bg-slate-200 text-black flex flex-col w-32 mt-1 -left-10 border-2 rounded-md"
         *ngIf="activateUseMenu"
       >
-        <button class="userButton p-1" *ngIf="token !== ''" (click)="profile()">
-          Perfil
-        </button>
+        <button class="profileButton p-1" (click)="profile()">Perfil</button>
         <button
-          class="createButton p-1 border-t-[1px] border-t-gray-500"
-          *ngIf="token !== ''"
+          class="myProductsButton p-1 border-t-[1px] border-t-gray-500"
           (click)="myProducts()"
         >
           Mis productos
         </button>
         <button
-          class="logOut p-1 border-t-[1px] border-t-gray-500"
-          *ngIf="token !== ''"
+          class="logOutButton p-1 border-t-[1px] border-t-gray-500"
           (click)="logOut()"
         >
           Cerra sesion

@@ -3,13 +3,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from 'src/app/ecommer/pages/login/login.component';
 import { NavbarComponent } from './navbar.component';
 
 describe('NavbarComponent', () => {
-  let router: Router;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [NavbarComponent, LoginComponent],
@@ -20,8 +18,6 @@ describe('NavbarComponent', () => {
         HttpClientTestingModule,
       ],
     }).compileComponents();
-
-    router = TestBed.inject(Router);
   });
 
   it('should be created', () => {
@@ -34,8 +30,8 @@ describe('NavbarComponent', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const primaryDiv = compiled.querySelector('div.navbarComponent');
-    expect(primaryDiv).toBeTruthy();
+    const div = compiled.querySelector('div.navbarComponent');
+    expect(div).toBeTruthy();
   });
 
   it('should render an image element with the page icon', () => {
@@ -56,7 +52,7 @@ describe('NavbarComponent', () => {
     expect(form).toBeTruthy();
   });
 
-  it('should have and render a input element', () => {
+  it('should render a input element', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -64,7 +60,7 @@ describe('NavbarComponent', () => {
     expect(input).toBeTruthy();
   });
 
-  it('should have and render a submit button', () => {
+  it('should render a submit button', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -72,7 +68,7 @@ describe('NavbarComponent', () => {
     expect(submitButton).toBeTruthy();
   });
 
-  it('should have and render a cart button', () => {
+  it('should render a cart button', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
@@ -80,23 +76,42 @@ describe('NavbarComponent', () => {
     expect(cartButton).toBeTruthy();
   });
 
-  it('should have and render a user button', () => {
+  it('should render a login button', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const userButton = compiled.querySelector('a.userButton');
+    const userButton = compiled.querySelector('a.loginButton');
     expect(userButton).toBeTruthy();
   });
 
-  it('should have and render a logOut button if user is logged', () => {
+  it('should render a logOut button if user is logged', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     const component = fixture.componentInstance;
-    component.token = 'test';
     component.activateUseMenu = true;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const logOutButton = compiled.querySelector('button.logOut');
+    const logOutButton = compiled.querySelector('button.logOutButton');
     expect(logOutButton).toBeTruthy();
+  });
+
+  it('should render a profile button if user is logged', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    const component = fixture.componentInstance;
+    component.activateUseMenu = true;
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const profileButton = compiled.querySelector('button.profileButton');
+    expect(profileButton).toBeTruthy();
+  });
+
+  it('should render a my products button if user is logged', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    const component = fixture.componentInstance;
+    component.activateUseMenu = true;
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const myProductsButton = compiled.querySelector('button.myProductsButton');
+    expect(myProductsButton).toBeTruthy();
   });
 
   it('should have a reactiveForm variable', () => {
@@ -134,6 +149,13 @@ describe('NavbarComponent', () => {
     expect(navbar.profile).toBeDefined();
   });
 
+  it('should be have a myProducts function', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    const navbar = fixture.componentInstance;
+    expect(navbar.myProducts).toBeDefined();
+  });
+
   it('should call submitForm when the form is submitted', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();
@@ -158,18 +180,17 @@ describe('NavbarComponent', () => {
     component.token = '';
     fixture.detectChanges();
     const compiled = fixture.debugElement;
-    const url = compiled.query(By.css('.userButton')).attributes['routerLink'];
+    const url = compiled.query(By.css('.loginButton')).attributes['routerLink'];
     expect(url).toEqual('/login');
   });
 
   it('the logout button should clean token', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     const component = fixture.componentInstance;
-    component.token = 'test';
     component.activateUseMenu = true;
     fixture.detectChanges();
     const compiled = fixture.debugElement;
-    compiled.query(By.css('.logOut')).triggerEventHandler('click');
+    compiled.query(By.css('.logOutButton')).triggerEventHandler('click');
     expect(component.token).toBe('');
   });
 });

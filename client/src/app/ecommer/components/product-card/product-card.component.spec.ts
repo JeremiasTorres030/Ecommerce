@@ -30,6 +30,34 @@ describe('ProductCardComponent', () => {
     expect(component.product).toBeDefined();
   });
 
+  it('should have a userButtons variable', () => {
+    const fixture = TestBed.createComponent(ProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.userButtons).toBeDefined();
+  });
+
+  it('should have a userButtonClicked variable', () => {
+    const fixture = TestBed.createComponent(ProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.userButtonClicked).toBeDefined();
+  });
+
+  it('should have a editButton function', () => {
+    const fixture = TestBed.createComponent(ProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.editButton).toBeDefined();
+  });
+
+  it('should have a deleteButton function', () => {
+    const fixture = TestBed.createComponent(ProductCardComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.deleteButton).toBeDefined();
+  });
+
   it('should render the name of the product', () => {
     const fixture = TestBed.createComponent(ProductCardComponent);
     fixture.detectChanges();
@@ -52,5 +80,26 @@ describe('ProductCardComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const productPrice = compiled.querySelector('h1.productPrice')?.innerHTML;
     expect(productPrice).toEqual(productTest.price);
+  });
+
+  it('should render editButton if userButtons is true', () => {
+    const fixture = TestBed.createComponent(ProductCardComponent);
+    const component = fixture.componentInstance;
+    component.userButtons = true;
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const editButton = compiled.querySelector('button.editButton')?.innerHTML;
+    expect(editButton).toBeTruthy();
+  });
+  it('should render deleteButton if userButtons is true', () => {
+    const fixture = TestBed.createComponent(ProductCardComponent);
+    const component = fixture.componentInstance;
+    component.userButtons = true;
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const deleteButton = compiled.querySelector(
+      'button.deleteButton'
+    )?.innerHTML;
+    expect(deleteButton).toBeTruthy();
   });
 });

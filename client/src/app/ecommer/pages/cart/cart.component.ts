@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../types/types';
+import { ProductWithSellerId } from '../../types/types';
 
 @Component({
   selector: 'app-cart',
@@ -7,7 +7,7 @@ import { Product } from '../../types/types';
   styleUrls: ['./cart.component.css'],
 })
 export class CartComponent implements OnInit {
-  public listOfProducts: Array<Product> = [];
+  public listOfProducts: Array<ProductWithSellerId> = [];
   public totalPrice: number = 0;
 
   ngOnInit(): void {
@@ -17,7 +17,7 @@ export class CartComponent implements OnInit {
   getListFromLocal(): void {
     let cartListJson = localStorage.getItem('cartList');
     if (cartListJson) {
-      const cartList: Array<Product> = JSON.parse(cartListJson);
+      const cartList: Array<ProductWithSellerId> = JSON.parse(cartListJson);
       this.listOfProducts = cartList;
       this.calculatePrice(cartList.map(({ price }) => price));
     }
