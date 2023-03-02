@@ -1,5 +1,5 @@
 from django.urls import path
-from api.views import UnicProductView, CategoryView, ProductAllView,UnicUserView , UserView,UserLoginView, UserTokenView, ProductView, SubCategoryView,UserProductsView, CustomView
+from api.views import UnicProductView, CategoryView, ProductAllView,UnicUserView , UserView,UserLoginView, UserTokenView, ProductView, SubCategoryView,UserProductsView
 from knox.views import LogoutView
 
 urlpatterns = [
@@ -14,7 +14,6 @@ urlpatterns = [
     path("user/login/",UserLoginView.as_view()),
     path("user/token/",UserTokenView.as_view()),
     path("user/logout",LogoutView.as_view()),
-    path("custom",CustomView.as_view()),
 
 
 

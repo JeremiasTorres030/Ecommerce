@@ -1,11 +1,14 @@
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LongProductCardComponent } from '../../components/long-product-card/long-product-card.component';
 import { CartComponent } from './cart.component';
 
 describe('CartComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CartComponent],
+      declarations: [CartComponent, LongProductCardComponent],
+      imports: [RouterTestingModule],
     }).compileComponents();
   });
 
@@ -35,6 +38,13 @@ describe('CartComponent', () => {
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component.totalPrice).toBeDefined();
+  });
+
+  it('should have a removeButtons variable', () => {
+    const fixture = TestBed.createComponent(CartComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.removeButtons).toBeDefined();
   });
 
   it('should have a getListFromLocal function', () => {
@@ -67,8 +77,19 @@ describe('CartComponent', () => {
 
   it('should call removeAll once when the remove all from cart button is clicked', () => {
     const fixture = TestBed.createComponent(CartComponent);
-    fixture.detectChanges();
     const component = fixture.componentInstance;
+    component.listOfProducts.push({
+      category: '',
+      id: 0,
+      image: '',
+      name: '',
+      price: 0,
+      seller: '',
+      sellerId: '',
+      sub_category: '',
+    });
+
+    fixture.detectChanges();
     const spyRemoveFunction = spyOn(component, 'removeAll');
     const debug = fixture.debugElement;
     debug.query(By.css('.removeAll')).triggerEventHandler('click');
@@ -77,6 +98,17 @@ describe('CartComponent', () => {
 
   it('should render the buy button', () => {
     const fixture = TestBed.createComponent(CartComponent);
+    const component = fixture.componentInstance;
+    component.listOfProducts.push({
+      category: '',
+      id: 0,
+      image: '',
+      name: '',
+      price: 0,
+      seller: '',
+      sellerId: '',
+      sub_category: '',
+    });
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const button = compiled.querySelector('button.buy');
@@ -85,6 +117,18 @@ describe('CartComponent', () => {
 
   it('should render the remove all button', () => {
     const fixture = TestBed.createComponent(CartComponent);
+    const component = fixture.componentInstance;
+    component.listOfProducts.push({
+      category: '',
+      id: 0,
+      image: '',
+      name: '',
+      price: 0,
+      seller: '',
+      sellerId: '',
+      sub_category: '',
+    });
+
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const button = compiled.querySelector('button.removeAll');

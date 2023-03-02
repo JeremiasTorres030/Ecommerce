@@ -10,10 +10,11 @@ import {
   genericResponse,
   loginResponse,
   Product,
+  ProductResponse,
   User,
-  UserData,
   userForm,
   userFormRegister,
+  UserResponse,
 } from '../types/types';
 
 describe('EcommerService', () => {
@@ -66,24 +67,29 @@ describe('EcommerService', () => {
   });
 
   it('getAllProducts should return an array of products', () => {
-    const expectedResponse = [
-      {
-        id: 3,
-        name: 'Objeto ropa',
-        price: 123123,
-        image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
-        category: 'Ropa',
-        seller: 1,
-      },
-      {
-        id: 4,
-        name: 'Objeto Computacion',
-        price: 123123,
-        image: '/images/1641232063339_400x400.jpg',
-        category: 'Computacion',
-        seller: 1,
-      },
-    ];
+    const expectedResponse: ProductResponse = {
+      data: [
+        {
+          id: 3,
+          name: 'Objeto ropa',
+          price: 123123,
+          image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
+          category: 'Ropa',
+          seller: 'test',
+          sub_category: 'test',
+        },
+        {
+          id: 4,
+          name: 'Objeto Computacion',
+          price: 123123,
+          image: '/images/1641232063339_400x400.jpg',
+          category: 'Computacion',
+          seller: 'test',
+          sub_category: 'test',
+        },
+      ],
+      ok: true,
+    };
 
     service.getAllProducts().subscribe({
       next: (res) => {
@@ -96,42 +102,45 @@ describe('EcommerService', () => {
   });
 
   it('getProductsByCategory should return an array of Ropa products', () => {
-    const expectedResponse: Array<Product> = [
-      {
-        id: 0,
-        name: 'test',
-        price: 0,
-        image: 'test',
-        category: 'Ropa',
-        sub_category: 'test',
-        seller: 'test',
-      },
-      {
-        id: 0,
-        name: 'test',
-        price: 0,
-        image: 'test',
-        category: 'Ropa',
-        sub_category: 'test',
-        seller: 'test',
-      },
-      {
-        id: 0,
-        name: 'test',
-        price: 0,
-        image: 'test',
-        category: 'Ropa',
-        sub_category: 'test',
-        seller: 'test',
-      },
-    ];
+    const expectedResponse: ProductResponse = {
+      data: [
+        {
+          id: 0,
+          name: 'test',
+          price: 0,
+          image: 'test',
+          category: 'Ropa',
+          sub_category: 'test',
+          seller: 'test',
+        },
+        {
+          id: 0,
+          name: 'test',
+          price: 0,
+          image: 'test',
+          category: 'Ropa',
+          sub_category: 'test',
+          seller: 'test',
+        },
+        {
+          id: 0,
+          name: 'test',
+          price: 0,
+          image: 'test',
+          category: 'Ropa',
+          sub_category: 'test',
+          seller: 'test',
+        },
+      ],
+      ok: true,
+    };
 
     const categoryName: Categories = 'Ropa';
 
     service.getProductsByCategory(categoryName).subscribe({
       next: (res) => {
         expect(res).toEqual(expectedResponse);
-        res.forEach(({ category }) => {
+        res.data.forEach(({ category }) => {
           expect(category).toEqual(categoryName);
         });
       },
@@ -143,23 +152,31 @@ describe('EcommerService', () => {
     req.flush(expectedResponse);
   });
 
-  it('getProducts should return a product', () => {
-    const serverResponse = [
-      {
-        username: 'test',
-        first_name: 'test',
-        last_name: 'test',
-      },
-    ];
+  it('getUser should return a user', () => {
+    const serverResponse: UserResponse = {
+      data: [
+        {
+          username: 'test',
+          first_name: 'test',
+          last_name: 'test',
+          email: 'test',
+          id: 0,
+        },
+      ],
+      ok: true,
+    };
 
     const expectedResponse: User = {
       username: 'test',
       first_name: 'test',
       last_name: 'test',
+      email: 'test',
+      id: 0,
     };
 
     service.getUser('1').subscribe({
       next: (res) => {
+        console.log(res);
         expect(res).toEqual(expectedResponse);
       },
     });
@@ -198,6 +215,9 @@ describe('EcommerService', () => {
       user: {
         id: 1,
         username: 'test',
+        email: 'test',
+        first_name: 'test',
+        last_name: 'test',
       },
     };
 
@@ -217,11 +237,12 @@ describe('EcommerService', () => {
   });
 
   it('tokenVerification should return a UserData ', () => {
-    const expectedResponse: UserData = {
+    const expectedResponse: User = {
       id: 0,
       username: 'test',
       first_name: 'test',
       last_name: 'test',
+      email: 'test',
     };
 
     service.tokenVerification('testToken').subscribe({
@@ -237,17 +258,20 @@ describe('EcommerService', () => {
   it('getProductsByUser should return a array of products ', () => {
     const userId = 0;
 
-    const expectedResponse: Array<Product> = [
-      {
-        id: 0,
-        category: '',
-        image: '',
-        name: '',
-        price: 0,
-        seller: '',
-        sub_category: '',
-      },
-    ];
+    const expectedResponse: ProductResponse = {
+      data: [
+        {
+          id: 0,
+          category: '',
+          image: '',
+          name: '',
+          price: 0,
+          seller: '',
+          sub_category: '',
+        },
+      ],
+      ok: true,
+    };
 
     service.getProductsByUser(0).subscribe({
       next: (res) => {
@@ -264,17 +288,20 @@ describe('EcommerService', () => {
   it('getProductsBySubCategory should return a array of products ', () => {
     const SubCategoryName = 'Mouse';
 
-    const expectedResponse: Array<Product> = [
-      {
-        id: 0,
-        category: '',
-        image: '',
-        name: '',
-        price: 0,
-        seller: '',
-        sub_category: '',
-      },
-    ];
+    const expectedResponse: ProductResponse = {
+      data: [
+        {
+          id: 0,
+          category: '',
+          image: '',
+          name: '',
+          price: 0,
+          seller: '',
+          sub_category: '',
+        },
+      ],
+      ok: true,
+    };
 
     service.getProductsBySubCategory(SubCategoryName).subscribe({
       next: (res) => {

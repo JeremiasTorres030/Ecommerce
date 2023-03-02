@@ -1,5 +1,5 @@
 <div
-  class="navbarComponent flex justify-center items-center bg-slate-800 space-x-2"
+  class="navbarComponent flex justify-center items-center bg-slate-800 max-w-full"
 >
   <img
     src="../../../../assets/images/Amazon_icon.png"
@@ -28,7 +28,7 @@
     </a>
     <div class="relative">
       <button class="text-white ml-2" (click)="userMenu()" *ngIf="token !== ''">
-        User
+        {{ username }}
       </button>
       <div
         class="userMenu absolute bg-slate-200 text-black flex flex-col w-32 mt-1 -left-10 border-2 rounded-md"

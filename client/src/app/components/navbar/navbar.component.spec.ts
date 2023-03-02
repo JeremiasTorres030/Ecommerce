@@ -128,6 +128,13 @@ describe('NavbarComponent', () => {
     expect(navbar.token).toBeDefined();
   });
 
+  it('should have a username variable', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    const navbar = fixture.componentInstance;
+    expect(navbar.username).toBeDefined();
+  });
+
   it('should be have a submitForm function', () => {
     const fixture = TestBed.createComponent(NavbarComponent);
     fixture.detectChanges();

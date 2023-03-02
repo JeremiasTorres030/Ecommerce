@@ -13,6 +13,10 @@ export class CategoryComponent implements OnInit {
   public title: string = '';
   public productsList: Array<Product> = [];
   public subCategories: Array<Category> = [];
+  public goBack: Category = {
+    categoryName: 'Volver',
+    categoryImg: '../../../assets/icons/left-arrow-svgrepo-com.svg',
+  };
 
   constructor(
     private activeRoute: ActivatedRoute,

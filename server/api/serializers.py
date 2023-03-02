@@ -1,4 +1,4 @@
-from api.models import ProductModel, CustomUserModel
+from api.models import ProductModel
 from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
 class ProductSerializer (ModelSerializer):
@@ -16,7 +16,3 @@ class UserSerializer (ModelSerializer):
         model=User
         fields = "__all__"
 
-class CustomUserSerializer (ModelSerializer):
-    class Meta:
-        model=CustomUserModel
-        fields = "__all__"

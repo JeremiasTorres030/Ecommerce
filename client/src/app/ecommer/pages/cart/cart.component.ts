@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductWithSellerId } from '../../types/types';
 
 @Component({
@@ -9,6 +9,7 @@ import { ProductWithSellerId } from '../../types/types';
 export class CartComponent implements OnInit {
   public listOfProducts: Array<ProductWithSellerId> = [];
   public totalPrice: number = 0;
+  @Input() removeButtons: boolean = false;
 
   ngOnInit(): void {
     this.getListFromLocal();

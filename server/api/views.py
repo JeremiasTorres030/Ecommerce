@@ -1,5 +1,5 @@
-from api.models import ProductModel,CustomUserModel
-from api.serializers import ProductSerializer , UnicUserSerializer,UserSerializer, CustomUserSerializer
+from api.models import ProductModel
+from api.serializers import ProductSerializer , UnicUserSerializer,UserSerializer
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken
 from rest_framework.views import APIView
@@ -181,15 +181,6 @@ class ProductView(APIView):
             },status=status.HTTP_200_OK)
 
 
-class CustomView(APIView):
-    def get(self,request,format =None):
-        customUser = CustomUserModel.objects.filter(id=1) 
-        serializer = CustomUserSerializer(data=customUser)
-        if serializer.is_valid():
-            return Response(serializer.data)
-        return Response({
-            "msg":"no valido"
-        })
 
 
 

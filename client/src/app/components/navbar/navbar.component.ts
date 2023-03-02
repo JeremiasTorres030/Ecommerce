@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   public token: string = '';
   public timer!: ReturnType<typeof setTimeout>;
   public activateUseMenu: boolean = false;
+  public username: string = '';
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -34,6 +35,7 @@ export class NavbarComponent implements OnInit {
     this.ecommerService.tokenVerification(localToken).subscribe({
       next: (res) => {
         if (res.username) {
+          this.username = res.first_name;
           this.token = localToken;
         }
       },

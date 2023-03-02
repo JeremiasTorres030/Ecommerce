@@ -22,7 +22,7 @@ export class CreateProductComponent implements OnInit {
   };
   public createForm = this.fb.group({
     name: ['', [Validators.required]],
-    price: [0, [Validators.required]],
+    price: [0, [Validators.required, Validators.min(1)]],
     image: [null, [Validators.required]],
     category: ['', [Validators.required]],
     sub_category: ['', [Validators.required]],

@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { CategoryCardComponent } from '../../components/category-card/category-card.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HomeComponent', () => {
   beforeEach(async () => {
@@ -13,7 +14,7 @@ describe('HomeComponent', () => {
         CategoryCardComponent,
         ProductCardComponent,
       ],
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, HttpClientTestingModule],
     }).compileComponents();
   });
 

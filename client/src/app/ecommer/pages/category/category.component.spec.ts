@@ -1,6 +1,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CategoryCardComponent } from '../../components/category-card/category-card.component';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { EcommerService } from '../../service/ecommer.service';
 
@@ -11,7 +12,11 @@ describe('CategoryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CategoryComponent, ProductCardComponent],
+      declarations: [
+        CategoryComponent,
+        ProductCardComponent,
+        CategoryCardComponent,
+      ],
       imports: [RouterTestingModule, HttpClientTestingModule],
     }).compileComponents();
 
@@ -50,6 +55,13 @@ describe('CategoryComponent', () => {
     fixture.detectChanges();
     const component = fixture.componentInstance;
     expect(component.subCategories).toBeDefined();
+  });
+
+  it('should have a goBack variable', () => {
+    const fixture = TestBed.createComponent(CategoryComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.goBack).toBeDefined();
   });
 
   it('should render Ropa as title', () => {

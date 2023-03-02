@@ -1,4 +1,16 @@
-<div class="cartComponent py-10 px-20 flex flex-col gap-2">
+<div
+  class="cartComponent py-10 px-20 flex flex-col gap-2"
+  *ngIf="listOfProducts.length === 0"
+>
+  <h1 class="totalPrice text-2xl mr-auto">Agrega productos...</h1>
+  <a routerLink="" class="p-2 rounded-md bg-blue-400 text-white mr-auto"
+    >Ir al inicio</a
+  >
+</div>
+<div
+  class="cartComponent py-10 px-20 flex flex-col gap-2"
+  *ngIf="listOfProducts.length !== 0"
+>
   <app-long-product-card
     *ngFor="let product of listOfProducts"
     [product]="product"
@@ -7,17 +19,19 @@
   <h1 class="totalPrice text-2xl ml-auto">
     Precio total: <b> ${{ totalPrice }}</b>
   </h1>
-  <button
-    class="removeAll p-2 rounded-md bg-blue-400 text-white ml-auto"
-    (click)="removeAll()"
-    [disabled]="listOfProducts.length === 0"
-  >
-    Remove all
-  </button>
-  <button
-    class="buy p-2 rounded-md bg-blue-400 text-white ml-auto"
-    [disabled]="listOfProducts.length === 0"
-  >
-    Buy
-  </button>
+  <div *ngIf="!removeButtons" class="ml-auto flex gap-2">
+    <button
+      class="removeAll p-2 rounded-md bg-blue-400 text-white"
+      (click)="removeAll()"
+      [disabled]="listOfProducts.length === 0"
+    >
+      Quitar todo
+    </button>
+    <button
+      class="buy p-2 rounded-md bg-blue-400 text-white"
+      [disabled]="listOfProducts.length === 0"
+    >
+      Comprar
+    </button>
+  </div>
 </div>

@@ -1,5 +1,5 @@
 <div class="homeComponent flex flex-col">
-  <h1 class="text-center mt-5 font-semibold text-2xl">Categorias</h1>
+  <h1 class="text-center mt-3 font-semibold text-2xl">Categorias</h1>
   <div class="categories flex flex-wrap items-center justify-center">
     <app-category-card
       class="categoryCard"
@@ -9,11 +9,11 @@
     ></app-category-card>
   </div>
   <div *ngIf="lastVisited.length !== 0">
-    <h1 class="text-center mt-5 font-semibold text-2xl">
+    <h1 class="text-center mt-3 font-semibold text-2xl">
       Ultimos productos vistos
     </h1>
     <div
-      class="lastVisiteds flex flex-wrap items-center justify-center mt-6"
+      class="lastVisiteds flex flex-wrap items-center justify-center mt-4"
       *ngIf="lastVisited.length !== 0"
     >
       <app-product-card

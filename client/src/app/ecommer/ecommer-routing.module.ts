@@ -2,6 +2,7 @@ import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { map } from 'rxjs';
 import { onErrorResumeNext } from 'rxjs/operators';
+import { BuyComponent } from './pages/buy/buy.component';
 import { CartComponent } from './pages/cart/cart.component';
 import { CategoryComponent } from './pages/category/category.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
+  },
+  {
+    path: 'buy',
+    component: BuyComponent,
   },
   {
     path: 'login',

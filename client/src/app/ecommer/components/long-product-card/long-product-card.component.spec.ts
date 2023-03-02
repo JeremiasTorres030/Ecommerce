@@ -10,7 +10,7 @@ describe('LongProductCardComponent', () => {
     image: 'imagen.png',
     name: 'Pantalon gris largo',
     price: '$150',
-    seller: '',
+    seller: '  ',
   };
   beforeEach(async () => {
     await TestBed.configureTestingModule({

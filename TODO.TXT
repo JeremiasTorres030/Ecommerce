@@ -1,5 +1,4 @@
 -Agregar la edicion 
--pagina de compra
 -imagen del vendedor Custom user
 -buscador
 -estilizar

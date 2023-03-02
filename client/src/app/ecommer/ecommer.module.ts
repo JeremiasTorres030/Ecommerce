@@ -16,6 +16,7 @@ import { ProductCarouselComponent } from './components/product-carousel/product-
 import { MyProductsComponent } from './pages/protected_pages/my-products/my-products.component';
 import { UserComponent } from './pages/user/user.component';
 import { CreateProductComponent } from './components/create-product/create-product.component';
+import { BuyComponent } from './pages/buy/buy.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { CreateProductComponent } from './components/create-product/create-produ
     MyProductsComponent,
     UserComponent,
     CreateProductComponent,
+    BuyComponent,
   ],
   imports: [CommonModule, EcommerRoutingModule, ReactiveFormsModule],
 })

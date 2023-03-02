@@ -54,11 +54,18 @@ describe('MyProductsComponent', () => {
     expect(component.product).toBeDefined();
   });
 
-  it('should have a createFormButton function', () => {
+  it('should have a openFormButton function', () => {
     const fixture = TestBed.createComponent(MyProductsComponent);
     fixture.detectChanges();
     const component = fixture.componentInstance;
-    expect(component.createFormButton).toBeDefined();
+    expect(component.openFormButton).toBeDefined();
+  });
+
+  it('should have a closeFormButton function', () => {
+    const fixture = TestBed.createComponent(MyProductsComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.closeFormButton).toBeDefined();
   });
 
   it('should have a eventProduct function', () => {
