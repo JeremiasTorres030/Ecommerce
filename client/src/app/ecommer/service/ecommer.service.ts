@@ -35,8 +35,10 @@ export class EcommerService {
 
   constructor(private http: HttpClient) {}
 
-  getAllProducts(): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(`${this.API_URL}product/get/all`);
+  getProductsByName(productName: string): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(
+      `${this.API_URL}product/name/${productName}`
+    );
   }
 
   getProductsByUser(userId: number): Observable<ProductResponse> {

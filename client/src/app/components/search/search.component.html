@@ -1,0 +1,27 @@
+<div class="searchFormComponent relative">
+  <form [formGroup]="searchForm">
+    <input
+      type="text"
+      formControlName="searchValue"
+      class="h-10 rounded-md px-2 w-44 focus:outline-none rounded-tr-none rounded-br-none rounded-bl-none"
+    />
+    <button
+      type="submit"
+      class="text-black bg-white h-10 rounded-md px-1 rounded-tl-none rounded-bl-none rounded-br-none"
+    >
+      Buscar
+    </button>
+  </form>
+
+  <div class="searchList absolute w-full">
+    <div
+      *ngFor="let product of suggestions"
+      class="bg-gray-50 flex hover:bg-gray-100 cursor-pointer"
+      [routerLink]="['/product', product.id]"
+      (click)="selectProduct()"
+    >
+      <img [src]="product.image" [alt]="product.name" class="w-10" />
+      <h1 class="text-black text-2xl">{{ product.name }}</h1>
+    </div>
+  </div>
+</div>

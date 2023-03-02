@@ -1,12 +1,22 @@
 <div class="userComponent">
-  <div class="user">
-    <h1>{{ userData.first_name }} {{ userData.last_name }}</h1>
+  <div class="user flex flex-col items-center mb-1 p-3">
+    <img
+      src="../../../../assets/images/user.png"
+      [alt]="userData.first_name"
+      class="max-w-[150px]"
+    />
+    <h1 class="font-semibold text-1xl">
+      {{ userData.first_name }} {{ userData.last_name }}
+    </h1>
+    <h1 class="font-semibold text-1xl">{{ userData.email }}</h1>
   </div>
-  <div class="products flex flex-col">
-    <h1>Productos</h1>
-    <app-product-card
-      *ngFor="let product of userProducts"
-      [product]="product"
-    ></app-product-card>
+  <div class="products flex flex-col items-center justify-center gap-2">
+    <h1 class="font-semibold text-2xl">Productos</h1>
+    <div class="flex items-center justify-center flex-wrap gap-2">
+      <app-product-card
+        *ngFor="let product of userProducts"
+        [product]="product"
+      ></app-product-card>
+    </div>
   </div>
 </div>

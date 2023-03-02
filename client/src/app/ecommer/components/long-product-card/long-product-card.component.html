@@ -8,12 +8,12 @@
       [routerLink]="['/product', product.id]"
       >{{ product.name }}</a
     >
-    <p
-      class="productSeller font-medium text-md my-2"
+    <a
+      class="productSeller font-medium text-md my-2 block"
       [routerLink]="['/user', product.sellerId]"
     >
       {{ product.seller }}
-    </p>
+    </a>
     <p class="productPrice font-semibold text-2xl">${{ product.price }}</p>
     <button
       class="removeProduct p-2 rounded-md bg-blue-400 text-white mt-6"

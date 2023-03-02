@@ -13,9 +13,9 @@ from rest_framework.parsers import MultiPartParser
 # Create your views here.
 
 
-class ProductAllView(APIView):
-    def get(self,request,format=None):
-        producto = ProductModel.objects.all()
+class ProductName(APIView):
+    def get(self,request,format=None, productName=""):
+        producto = ProductModel.objects.filter(name__contains=productName)
         serializer = ProductSerializer(producto,many=True)
         if serializer.is_valid:
             return Response({

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
 
@@ -9,19 +8,12 @@ import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  public searchForm = this.fb.group({
-    searchValue: ['', [Validators.required]],
-  });
-
   public token: string = '';
   public timer!: ReturnType<typeof setTimeout>;
   public activateUseMenu: boolean = false;
   public username: string = '';
-  constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private ecommerService: EcommerService
-  ) {}
+
+  constructor(private router: Router, private ecommerService: EcommerService) {}
 
   ngOnInit(): void {
     this.ecommerService.loginEvent.subscribe((res) => {
@@ -44,8 +36,6 @@ export class NavbarComponent implements OnInit {
       },
     });
   }
-
-  submitForm(): void {}
 
   logOut(): void {
     this.ecommerService.logOutUser(this.token).subscribe();

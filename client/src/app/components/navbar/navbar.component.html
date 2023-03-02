@@ -7,16 +7,7 @@
     class="icon w-20 h-20 cursor-pointer"
     [routerLink]="['/']"
   />
-  <form [formGroup]="searchForm" (ngSubmit)="submitForm()" class="relative">
-    <input
-      type="text"
-      formControlName="searchValue"
-      class="h-10 rounded-md px-2 w-44 focus:outline-none"
-    />
-    <button type="submit" class="text-black bg-white h-10 rounded-md px-1">
-      Buscar
-    </button>
-  </form>
+  <app-search></app-search>
   <div class="flex">
     <a class="cartButton text-white" routerLink="/cart">Carrito</a>
     <a

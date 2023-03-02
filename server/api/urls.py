@@ -1,10 +1,10 @@
 from django.urls import path
-from api.views import UnicProductView, CategoryView, ProductAllView,UnicUserView , UserView,UserLoginView, UserTokenView, ProductView, SubCategoryView,UserProductsView
+from api.views import UnicProductView, CategoryView, ProductName,UnicUserView , UserView,UserLoginView, UserTokenView, ProductView, SubCategoryView,UserProductsView
 from knox.views import LogoutView
 
 urlpatterns = [
     path("product/",ProductView.as_view()),
-    path("product/get/all",ProductAllView.as_view()),
+    path("product/name/<str:productName>",ProductName.as_view()),
     path("category/<str:categoryName>",CategoryView.as_view()),
     path("sub-category/<str:subCategoryName>",SubCategoryView.as_view()),
     path("product/<str:productId>",UnicProductView.as_view()),
