@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
     email: '',
     id: 0,
     username: '',
+    image: '',
   };
 
   constructor(

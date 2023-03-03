@@ -15,6 +15,8 @@ export class LoginComponent {
     password: ['', [Validators.required]],
   });
 
+  public customError: string = '';
+
   constructor(
     private fb: FormBuilder,
     private ecommerService: EcommerService,
@@ -30,6 +32,10 @@ export class LoginComponent {
             if (res.token) {
               this.router.navigateByUrl('/');
             }
+          },
+          error: () => {
+            this.customError =
+              'El nombre de usuario o la contraseña son incorrectos';
           },
         });
     }

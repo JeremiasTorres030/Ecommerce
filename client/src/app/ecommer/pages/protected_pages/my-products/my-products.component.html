@@ -1,10 +1,14 @@
 <div class="myProductsComponent flex flex-col gap-3">
   <h1 class="text-center mt-5 font-semibold text-2xl">Mis productos</h1>
-  <app-create-product *ngIf="createForm && !editForm"></app-create-product>
+  <app-create-product
+    *ngIf="createForm && !editForm"
+    (productSubmitSuccess)="productSucces()"
+  ></app-create-product>
   <app-create-product
     *ngIf="!createForm && editForm"
     [editForm]="true"
     [product]="product"
+    (productSubmitSuccess)="productSucces()"
   ></app-create-product>
   <button
     (click)="openFormButton()"

@@ -1,9 +1,9 @@
 <div class="userComponent">
   <div class="user flex flex-col items-center mb-1 p-3">
     <img
-      src="../../../../assets/images/user.png"
+      [src]="userData.image"
       [alt]="userData.first_name"
-      class="max-w-[150px]"
+      class="max-w-[150px] rounded-full"
     />
     <h1 class="font-semibold text-1xl">
       {{ userData.first_name }} {{ userData.last_name }}
@@ -16,6 +16,7 @@
       <app-product-card
         *ngFor="let product of userProducts"
         [product]="product"
+        [routerLink]="['/product', product.id]"
       ></app-product-card>
     </div>
   </div>

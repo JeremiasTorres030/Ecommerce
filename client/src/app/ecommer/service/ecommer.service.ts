@@ -25,6 +25,7 @@ export class EcommerService {
     first_name: '',
     last_name: '',
     email: '',
+    image: '',
   };
 
   get userGet() {
@@ -73,6 +74,7 @@ export class EcommerService {
           first_name: '',
           id: 0,
           last_name: '',
+          image: '',
         };
       })
     );
@@ -116,6 +118,7 @@ export class EcommerService {
             first_name: res.user.first_name,
             last_name: res.user.last_name,
             email: res.user.email,
+            image: res.user.image,
           };
           localStorage.setItem('token', res.token);
           this.loginEvent.emit(res.token);

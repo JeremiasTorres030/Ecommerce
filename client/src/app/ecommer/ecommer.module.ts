@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './pages/home/home.component';
 import { EcommerRoutingModule } from './ecommer-routing.module';
@@ -36,6 +37,11 @@ import { BuyComponent } from './pages/buy/buy.component';
     CreateProductComponent,
     BuyComponent,
   ],
-  imports: [CommonModule, EcommerRoutingModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    EcommerRoutingModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
+  ],
 })
 export class EcommerModule {}

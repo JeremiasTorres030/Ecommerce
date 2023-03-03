@@ -1,11 +1,16 @@
 <div class="loginComponent flex flex-col items-center justify-center">
   <h1 class="mt-5 font-semibold text-3xl">Iniciar sesion</h1>
+  <label *ngIf="customError" class="text-red-700">
+    {{ customError }}
+  </label>
   <form
     [formGroup]="loginForm"
     (ngSubmit)="submitForm()"
-    class="flex flex-col gap-2 mt-3"
+    class="flex flex-col mt-3"
   >
+    <label>Nombre de usuario</label>
     <label
+      class="text-red-700"
       *ngIf="
         loginForm.get('username')?.errors && loginForm.get('username')?.touched
       "
@@ -17,7 +22,9 @@
       placeholder="Nombre de usuario"
       class="w-full border-2 rounded-lg p-1"
     />
+    <label class="mt-3">Contraseña</label>
     <label
+      class="text-red-700"
       *ngIf="
         loginForm.get('password')?.errors && loginForm.get('password')?.touched
       "
@@ -29,7 +36,11 @@
       formControlName="password"
       placeholder="Contraseña"
     />
-    <button type="submit" class="p-2 rounded-md bg-blue-400 text-white my-1">
+    <button
+      type="submit"
+      class="p-2 rounded-md bg-blue-400 text-white my-3 disabled:bg-gray-400"
+      [disabled]="loginForm.invalid"
+    >
       Iniciar sesion
     </button>
   </form>

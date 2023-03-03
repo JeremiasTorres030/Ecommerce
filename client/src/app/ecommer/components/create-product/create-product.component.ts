@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { EcommerService } from '../../service/ecommer.service';
 import { Categories, Product } from '../../types/types';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-create-product',
   templateUrl: './create-product.component.html',
@@ -20,6 +19,7 @@ export class CreateProductComponent implements OnInit {
     seller: '',
     sub_category: '',
   };
+  @Output() productSubmitSuccess = new EventEmitter();
   public createForm = this.fb.group({
     name: ['', [Validators.required]],
     price: [0, [Validators.required, Validators.min(1)]],
@@ -43,7 +43,7 @@ export class CreateProductComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private ecommerService: EcommerService,
-    private router: Router
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -126,7 +126,17 @@ export class CreateProductComponent implements OnInit {
           .editProduct(formData as unknown as Product)
           .subscribe({
             next: (res) => {
-              console.log(res);
+              if (res.ok) {
+                this.productSubmitSuccess.emit();
+                this.snackBar.open('Producto editado con exito ✅', undefined, {
+                  duration: 2000,
+                });
+              }
+            },
+            error: () => {
+              this.snackBar.open('Ha ocurrido un error ⚠', undefined, {
+                duration: 2000,
+              });
             },
           });
 
@@ -138,8 +148,16 @@ export class CreateProductComponent implements OnInit {
         .subscribe({
           next: (res) => {
             if (res.ok) {
-              this.router.navigateByUrl('');
+              this.productSubmitSuccess.emit();
+              this.snackBar.open('Producto creado con exito ✅', undefined, {
+                duration: 2000,
+              });
             }
+          },
+          error: () => {
+            this.snackBar.open('Ha ocurrido un error ⚠', undefined, {
+              duration: 2000,
+            });
           },
         });
     }

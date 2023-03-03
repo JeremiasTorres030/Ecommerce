@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SearchComponent } from './components/search/search.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, NavbarComponent, SearchComponent],
@@ -14,6 +15,7 @@ import { SearchComponent } from './components/search/search.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

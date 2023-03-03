@@ -1,3 +1,0 @@
--Agregar la edicion 
--imagen del vendedor Custom user
--estilizar

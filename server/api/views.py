@@ -1,4 +1,4 @@
-from api.models import ProductModel
+from api.models import ProductModel, CustomUserModel
 from api.serializers import ProductSerializer , UnicUserSerializer,UserSerializer
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.auth import AuthToken
@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import IsAuthenticated
 from knox.auth import TokenAuthentication
 from rest_framework.parsers import MultiPartParser
+import cloudinary
 # Create your views here.
 
 
@@ -37,6 +38,7 @@ class UnicProductView(APIView):
         permission_classes = (IsAuthenticated,)
         product = ProductModel.objects.filter(id=productId)
         if product:
+            product[0].image.delete()
             product.delete()
             return Response({
                 "msg":"Producto eliminado con exito",
@@ -76,8 +78,10 @@ class UserProductsView(APIView):
 class UnicUserView(APIView):
     def get(self,request,format=None,userId=""):
         user = User.objects.filter(id = userId)
+        customUser = CustomUserModel.objects.filter(user = userId)
         serializer = UnicUserSerializer(user,many=True)
-        if serializer.is_valid :
+        if serializer.is_valid and customUser:
+            serializer.data[0]['image'] = customUser[0].image.url
             return Response({'data':serializer.data,"ok":True},status=status.HTTP_200_OK)
         return Response({"msg":"Hubo un error","ok":False},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
@@ -99,10 +103,27 @@ class UnicUserView(APIView):
                     "ok":False,
                     "msg":"El correo ya esta en uso."
                 },status=status.HTTP_226_IM_USED)
-            
-            user.update(first_name = request.data['first_name'],last_name = request.data['last_name'],username = request.data['username'],email = request.data['email'])
-            return Response({"msg":"Usuario editado con exito", "ok":True},status=status.HTTP_200_OK)
-        
+            if request.data['image'] != "null" and request.data['password'] != "null":
+                customUserPassword = CustomUserModel.objects.filter(user = userId)
+                new_imagePasword = f"{request.data['image']}{request.data['username']}"
+                new_passwordImage = make_password(request.data["password"])
+                customUserPassword[0].image.delete()
+                imageUploadPassword = cloudinary.uploader.upload(request.data["image"], public_id=f'ecommer/images/{new_imagePasword}')
+                customUserPassword.update(image=imageUploadPassword["public_id"])
+                user.update(first_name = request.data['first_name'],last_name = request.data['last_name'],username = request.data['username'],email = request.data['email'],password = new_passwordImage)
+                return Response({"msg":"Usuario editado con exito", "ok":True},status=status.HTTP_200_OK)
+            if request.data['image'] != "null":
+                customUser = CustomUserModel.objects.filter(user = userId)
+                new_image = f"{request.data['image']}{request.data['username']}"
+                customUser[0].image.delete()
+                imageUpload = cloudinary.uploader.upload(request.data["image"], public_id=f'ecommer/images/{new_image}')
+                customUser.update(image=imageUpload["public_id"])
+                user.update(first_name = request.data['first_name'],last_name = request.data['last_name'],username = request.data['username'],email = request.data['email'])
+                return Response({"msg":"Usuario editado con exito", "ok":True},status=status.HTTP_200_OK)
+            if request.data["password"] != 'null':
+                new_password = make_password(request.data["password"])
+                user.update(first_name = request.data['first_name'],last_name = request.data['last_name'],username = request.data['username'],email = request.data['email'],password=new_password)
+                return Response({"msg":"Usuario editado con exito", "ok":True},status=status.HTTP_200_OK)
         return Response({"msg":"Hubo un error", "ok":False},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class UserView(APIView):
@@ -150,11 +171,13 @@ class UserTokenView(APIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     def get(self,request,format=None):
+        customUser = CustomUserModel.objects.filter(user=request.user.id)
         return Response({
                     "username":request.user.username,
                     "first_name":request.user.first_name,
                     "last_name":request.user.last_name,
                     "email":request.user.email,
+                    'image':customUser[0].image.url,
                     "id":request.user.id,
                 }, status=status.HTTP_200_OK)
 class ProductView(APIView):
@@ -174,12 +197,21 @@ class ProductView(APIView):
             "ok":False
         },status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    def put(self,request,format=None):        
+    def put(self,request,format=None):
+        product = ProductModel.objects.filter(id=request.data["id"])
+        if product:
+            image_name = f"{request.data['name']}{ request.data['id']}"
+            product[0].image.delete()
+            image = cloudinary.uploader.upload(request.data["image"], public_id=f'ecommer/images/{image_name}')
+            product.update(image=image["public_id"],name=request.data["name"],sub_category=request.data['sub_category'],category=request.data['category'],price=request.data["price"])
             return Response({
                 "ok":True,
                 "msg":"Producto editado con exito"
             },status=status.HTTP_200_OK)
-
+        return Response({
+            "ok":False,
+            "msg":"No se econtro el producto"
+        },status=status.HTTP_400_BAD_REQUEST)
 
 
 

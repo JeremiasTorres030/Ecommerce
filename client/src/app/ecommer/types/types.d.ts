@@ -28,6 +28,7 @@ export interface User {
   last_name: string;
   id: number;
   email: string;
+  image: string;
 }
 
 export interface UserResponse {

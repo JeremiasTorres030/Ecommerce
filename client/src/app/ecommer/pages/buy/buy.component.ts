@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',
@@ -51,7 +52,11 @@ export class BuyComponent implements OnInit {
     name: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.buyForm.get('number')?.valueChanges.subscribe((res) => {
@@ -67,7 +72,12 @@ export class BuyComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.buyForm.valid);
+    setTimeout(() => {
+      this.snackBar.open('Compra realizada con exito ✅', undefined, {
+        duration: 2000,
+      });
+      this.router.navigateByUrl('');
+    }, 2000);
   }
 
   onkeyDown(e: KeyboardEvent): void {

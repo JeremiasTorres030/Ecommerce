@@ -108,4 +108,13 @@ export class ProductComponent implements OnInit {
       this.inCart = false;
     }
   }
+
+  buyNow(): void {
+    if (this.inCart) {
+      this.router.navigateByUrl('/buy');
+      return;
+    }
+    this.addTo('cartList');
+    this.router.navigateByUrl('/buy');
+  }
 }

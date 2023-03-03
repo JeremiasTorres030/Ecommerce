@@ -1,10 +1,19 @@
 <div class="profileComponent flex flex-col items-center justify-center p-4">
   <h1 class="text-3xl font-medium">Editar Perfil</h1>
   <form [formGroup]="editForm" class="flex flex-col" (ngSubmit)="submitForm()">
+    <img [src]="userImage" class="max-w-[150px] rounded-full mx-auto" />
     <h1 class="text-center mt-3 text-red-700">{{ customError }}</h1>
     <div class="flex gap-5 mt-3">
       <div class="flex flex-col justify-center">
         <label>Nombre</label>
+        <label
+          class="text-red-700"
+          *ngIf="
+            editForm.get('first_name')?.errors &&
+            editForm.get('first_name')?.touched
+          "
+          >Ingrese un nombre valido</label
+        >
         <input
           type="text"
           formControlName="first_name"
@@ -14,6 +23,14 @@
       </div>
       <div class="flex flex-col justify-center">
         <label>Apellido</label>
+        <label
+          class="text-red-700"
+          *ngIf="
+            editForm.get('last_name')?.errors &&
+            editForm.get('last_name')?.touched
+          "
+          >Ingrese un apellido valido</label
+        >
         <input
           type="text"
           formControlName="last_name"
@@ -24,6 +41,14 @@
     </div>
     <div class="flex flex-col justify-center mt-3">
       <label>Nombre de usuario</label>
+      <label
+        class="text-red-700"
+        *ngIf="
+          editForm.get('username')?.errors && editForm.get('username')?.touched
+        "
+        >Ingrese un nombre de usuario valido</label
+      >
+
       <input
         type="text"
         formControlName="username"
@@ -33,6 +58,12 @@
     </div>
     <div class="flex flex-col justify-center mt-3">
       <label>Correo electronico</label>
+      <label
+        class="text-red-700"
+        *ngIf="editForm.get('email')?.errors && editForm.get('email')?.touched"
+        >Ingrese un correo valido</label
+      >
+
       <input
         type="email"
         formControlName="email"
@@ -40,6 +71,16 @@
         class="w-full border-2 rounded-lg p-1"
       />
     </div>
+    <div class="flex flex-col justify-center mt-3">
+      <label>Imagen de perfl</label>
+      <input
+        class="fileInput w-full border-2 rounded-lg p-1"
+        type="file"
+        placeholder="Imagen del producto"
+        (change)="onChangeFile($event)"
+      />
+    </div>
+
     <div class="flex flex-col justify-center mt-3">
       <label>Contraseña</label>
       <input
@@ -52,7 +93,7 @@
 
     <button
       type="submit"
-      class="ml-auto p-2 rounded-md bg-blue-400 text-white my-1"
+      class="ml-auto p-2 rounded-md bg-blue-400 text-white my-1 disabled:bg-gray-400"
       [disabled]="editForm.invalid"
     >
       Editar

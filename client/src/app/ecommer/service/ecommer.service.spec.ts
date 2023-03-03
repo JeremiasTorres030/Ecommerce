@@ -176,7 +176,6 @@ describe('EcommerService', () => {
 
     service.getUser('1').subscribe({
       next: (res) => {
-        console.log(res);
         expect(res).toEqual(expectedResponse);
       },
     });

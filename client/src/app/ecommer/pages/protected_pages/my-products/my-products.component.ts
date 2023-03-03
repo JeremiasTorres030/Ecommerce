@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
 import { Product } from 'src/app/ecommer/types/types';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-my-products',
   templateUrl: './my-products.component.html',
@@ -21,7 +21,10 @@ export class MyProductsComponent implements OnInit {
     sub_category: '',
   };
 
-  constructor(private ecommerService: EcommerService) {}
+  constructor(
+    private ecommerService: EcommerService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.getProducts();
@@ -56,9 +59,9 @@ export class MyProductsComponent implements OnInit {
   }
 
   editProduct(product: Product): void {
+    this.product = product;
     this.createForm = false;
     this.editForm = true;
-    this.product = product;
   }
 
   deleteProduct(id: string): void {
@@ -66,8 +69,21 @@ export class MyProductsComponent implements OnInit {
       next: (res) => {
         if (res.ok) {
           this.getProducts();
+          this.snackBar.open('Producto eliminado con exito ✅', undefined, {
+            duration: 2000,
+          });
         }
       },
+      error: () => {
+        this.snackBar.open('Ha ocurrido un error ⚠', undefined, {
+          duration: 2000,
+        });
+      },
     });
+  }
+
+  productSucces(): void {
+    this.getProducts();
+    this.closeFormButton();
   }
 }
