@@ -1,15 +1,17 @@
 <div
-  class="navbarComponent flex justify-center items-center bg-slate-800 max-w-full"
+  class="navbarComponent bg-slate-800 w-screen relative h-20 flex items-center justify-center gap-1"
 >
-  <img
-    src="../../../../assets/images/Amazon_icon.png"
-    alt="icon page"
-    class="icon w-20 h-20 cursor-pointer"
+  <div class="w-10"></div>
+  <a
     [routerLink]="['/']"
-  />
-  <app-search></app-search>
+    class="icon text-5xl mx-0 text-white font-bold absolute left-5 top-2 underline decoration-orange-500"
+    >E</a
+  >
+  <app-search class=""></app-search>
   <div class="flex">
-    <a class="cartButton text-white" routerLink="/cart">Carrito</a>
+    <a class="cartButton text-white hover:underline" routerLink="/cart"
+      >Carrito</a
+    >
     <a
       class="loginButton text-white ml-2"
       *ngIf="token === ''"
@@ -18,11 +20,15 @@
       Iniciar Sesion
     </a>
     <div class="relative">
-      <button class="text-white ml-2" (click)="userMenu()" *ngIf="token !== ''">
+      <button
+        class="text-white ml-2 hover:underline"
+        (click)="userMenu()"
+        *ngIf="token !== ''"
+      >
         {{ username }}
       </button>
       <div
-        class="userMenu absolute bg-slate-200 text-black flex flex-col w-32 mt-1 -left-10 border-2 rounded-md"
+        class="userMenu absolute bg-slate-200 text-black flex flex-col w-32 mt-1 -left-14 border-2 rounded-md"
         *ngIf="activateUseMenu"
       >
         <button class="profileButton p-1" (click)="profile()">Perfil</button>

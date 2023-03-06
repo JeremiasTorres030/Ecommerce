@@ -90,7 +90,7 @@ export class CategoryComponent implements OnInit {
           categoryImg: '../../../assets/icons/mouse-svgrepo-com.svg',
         },
         {
-          categoryName: 'Teclados',
+          categoryName: 'Teclados y Pianos',
           categoryImg:
             '../../../assets/icons/keyboard-shortcuts-svgrepo-com.svg',
         },
@@ -123,7 +123,7 @@ export class CategoryComponent implements OnInit {
           categoryImg: '../../../assets/icons/gym-workout-svgrepo-com.svg',
         },
         {
-          categoryName: 'Bancas',
+          categoryName: 'Bancos',
           categoryImg: '../../../assets/icons/bench-press-5-svgrepo-com.svg',
         },
         {
@@ -171,7 +171,7 @@ export class CategoryComponent implements OnInit {
           categoryImg: '../../../assets/icons/microphone-2-svgrepo-com.svg',
         },
         {
-          categoryName: 'Pianos',
+          categoryName: 'Teclados y Pianos',
           categoryImg: '../../../assets/icons/piano-svgrepo-com.svg',
         },
       ],
@@ -181,11 +181,11 @@ export class CategoryComponent implements OnInit {
           categoryImg: '../../../assets/icons/shoes-4-svgrepo-com.svg',
         },
         {
-          categoryName: 'Camisetas',
+          categoryName: 'Remeras',
           categoryImg: '../../../assets/icons/clothes-svgrepo-com.svg',
         },
         {
-          categoryName: 'Gorras',
+          categoryName: 'Gorros',
           categoryImg: '../../../assets/icons/hat-svgrepo-com.svg',
         },
         {

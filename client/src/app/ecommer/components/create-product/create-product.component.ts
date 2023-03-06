@@ -23,7 +23,7 @@ export class CreateProductComponent implements OnInit {
   public createForm = this.fb.group({
     name: ['', [Validators.required]],
     price: [0, [Validators.required, Validators.min(1)]],
-    image: [null, [Validators.required]],
+    image: [null],
     category: ['', [Validators.required]],
     sub_category: ['', [Validators.required]],
     seller: [this.ecommerService.userGet.id, [Validators.required]],
@@ -38,8 +38,9 @@ export class CreateProductComponent implements OnInit {
     'Ropa',
   ];
 
+  public customError: string = '';
   public subCategories: Array<string> = [];
-
+  public customText: string = 'Publicar';
   constructor(
     private fb: FormBuilder,
     private ecommerService: EcommerService,
@@ -47,18 +48,21 @@ export class CreateProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if (this.editForm) {
+      this.customText = 'Editar';
+    }
     this.createForm.get('category')?.valueChanges.subscribe((value) => {
       this.createForm.get('sub_category')?.setValue('');
       const subCategoryValues: any = {
         Muebles: ['Escritorios', 'Mesas', 'Sillas', 'Camas', 'Estanterias'],
         Computacion: [
           'Mouse',
-          'Teclados',
+          'Teclados y Pianos',
           'Monitores',
           'Auriculares',
           'Computadoras',
         ],
-        Deportes: ['Pelotas', 'Pesos', 'Maquinas', 'Bancas', 'Suplementos'],
+        Deportes: ['Pelotas', 'Pesos', 'Maquinas', 'Bancos', 'Suplementos'],
         Electrodomesticos: [
           'Microondas',
           'Lavarropas',
@@ -71,9 +75,9 @@ export class CreateProductComponent implements OnInit {
           'Bajos',
           'Baterias',
           'Microfonos',
-          'Pianos',
+          'Teclados y Pianos',
         ],
-        Ropa: ['Zapatillas', 'Camisetas', 'Gorras', 'Pantalones', 'Abrigos'],
+        Ropa: ['Zapatillas', 'Remeras', 'Gorros', 'Pantalones', 'Abrigos'],
       };
       if (value) {
         this.subCategories = subCategoryValues[value];
@@ -154,12 +158,16 @@ export class CreateProductComponent implements OnInit {
               });
             }
           },
-          error: () => {
+          error: (res) => {
+            if (this.createForm.get('image')?.value === null) {
+              this.customError = 'Ingrese la imagen del producto';
+            }
             this.snackBar.open('Ha ocurrido un error ⚠', undefined, {
               duration: 2000,
             });
           },
         });
+      return;
     }
   }
 }

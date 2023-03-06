@@ -1,5 +1,5 @@
 <div class="createProductComponent flex flex-col items-center justify-center">
-  <h1 class="text-center mt-5 font-semibold text-2xl">Publicar producto</h1>
+  <h1 class="text-center font-semibold text-2xl">{{ customText }} producto</h1>
   <form
     [formGroup]="createForm"
     class="flex flex-col"
@@ -22,13 +22,8 @@
       />
     </div>
     <div class="flex flex-col">
-      <label
-        class="text-red-700"
-        *ngIf="
-          createForm.get('image')?.errors && createForm.get('image')?.touched
-        "
-      >
-        Ingrese la imagen del producto
+      <label class="text-red-700" *ngIf="customError">
+        {{ customError }}
       </label>
       <input
         class="fileInput w-full border-2 mt-3 rounded-lg p-1"
@@ -80,7 +75,7 @@
       class="mt-3 p-2 rounded-md bg-blue-400 text-white my-1 disabled:bg-gray-400"
       [disabled]="createForm.invalid"
     >
-      Crear
+      {{ customText }}
     </button>
   </form>
 </div>

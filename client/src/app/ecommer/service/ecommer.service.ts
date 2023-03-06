@@ -121,7 +121,10 @@ export class EcommerService {
             image: res.user.image,
           };
           localStorage.setItem('token', res.token);
-          this.loginEvent.emit(res.token);
+          this.loginEvent.emit({
+            token: res.token,
+            username: res.user.username,
+          });
         })
       );
   }

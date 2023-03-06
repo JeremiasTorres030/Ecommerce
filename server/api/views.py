@@ -145,6 +145,8 @@ class UserView(APIView):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            user = User.objects.filter(id=serializer.data['id'])
+            customUser = CustomUserModel.objects.create(user=user[0])
             return Response({"ok":True,"msg":"Usuario creado con exito"},status=status.HTTP_201_CREATED)
         return Response({"msg":"Hubo un error", "ok":False},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
@@ -186,6 +188,11 @@ class ProductView(APIView):
     parser_classes = [MultiPartParser]
     def post(self,request,format=None):
         serializer = ProductSerializer(data=request.data)
+        if request.data['image'] == 'null':
+            return Response({
+                "ok":False,
+                "msg": 'Ingrese la imagen de producto'
+            },status=status.HTTP_400_BAD_REQUEST)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response({
@@ -199,11 +206,17 @@ class ProductView(APIView):
 
     def put(self,request,format=None):
         product = ProductModel.objects.filter(id=request.data["id"])
-        if product:
+        if product and request.data["image"] != 'null':
             image_name = f"{request.data['name']}{ request.data['id']}"
             product[0].image.delete()
             image = cloudinary.uploader.upload(request.data["image"], public_id=f'ecommer/images/{image_name}')
             product.update(image=image["public_id"],name=request.data["name"],sub_category=request.data['sub_category'],category=request.data['category'],price=request.data["price"])
+            return Response({
+                "ok":True,
+                "msg":"Producto editado con exito"
+            },status=status.HTTP_200_OK)
+        if product and request.data['image'] == 'null':
+            product.update(name=request.data["name"],sub_category=request.data['sub_category'],category=request.data['category'],price=request.data["price"])
             return Response({
                 "ok":True,
                 "msg":"Producto editado con exito"

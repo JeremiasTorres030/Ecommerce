@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
 import { User } from 'src/app/ecommer/types/types';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -26,7 +27,8 @@ export class ProfileComponent {
   constructor(
     private fb: FormBuilder,
     private ecommerService: EcommerService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router
   ) {}
   onChangeFile(event: Event): void {
     const element = event.currentTarget as HTMLInputElement;
@@ -51,6 +53,7 @@ export class ProfileComponent {
       this.ecommerService.editUser(formData as unknown as User).subscribe({
         next: (res) => {
           if (res.ok) {
+            this.router.navigateByUrl('');
             this.snackBar.open('Perfil editado con exito ✅', undefined, {
               duration: 2000,
             });

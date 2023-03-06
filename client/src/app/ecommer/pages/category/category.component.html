@@ -1,4 +1,4 @@
-<div class="categoryComponent px-10">
+<div class="categoryComponent pl-5">
   <h1 class="categoryTitle font-semibold text-3xl mt-5">{{ title }}</h1>
   <div class="subCategories flex items-center justify-center flex-wrap">
     <app-category-card [category]="goBack" routerLink=""></app-category-card>
@@ -20,7 +20,7 @@
 
   <div
     *ngIf="productsList.length !== 0"
-    class="products mt-6 flex items-center justify-start"
+    class="products mt-6 flex items-center justify-start flex-wrap"
   >
     <app-product-card
       *ngFor="let product of productsList"

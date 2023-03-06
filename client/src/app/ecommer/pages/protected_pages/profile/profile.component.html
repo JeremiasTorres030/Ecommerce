@@ -1,7 +1,10 @@
 <div class="profileComponent flex flex-col items-center justify-center p-4">
   <h1 class="text-3xl font-medium">Editar Perfil</h1>
   <form [formGroup]="editForm" class="flex flex-col" (ngSubmit)="submitForm()">
-    <img [src]="userImage" class="max-w-[150px] rounded-full mx-auto" />
+    <img
+      [src]="userImage"
+      class="max-w-[150px] rounded-full mx-auto w-full h-full max-h-[200px]"
+    />
     <h1 class="text-center mt-3 text-red-700">{{ customError }}</h1>
     <div class="flex gap-5 mt-3">
       <div class="flex flex-col justify-center">

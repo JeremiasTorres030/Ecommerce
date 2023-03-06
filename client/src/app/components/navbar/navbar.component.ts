@@ -17,7 +17,8 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.ecommerService.loginEvent.subscribe((res) => {
-      this.token = res;
+      this.token = res.token;
+      this.username = res.username;
     });
 
     const localToken = localStorage.getItem('token') ?? '';

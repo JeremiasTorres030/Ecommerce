@@ -13,7 +13,10 @@
     </button>
   </form>
 
-  <div class="searchList absolute w-full">
+  <div
+    *ngIf="suggestions.length !== 0"
+    class="searchList absolute w-full h-72 overflow-scroll overflow-x-hidden"
+  >
     <div
       *ngFor="let product of suggestions"
       class="bg-gray-50 flex hover:bg-gray-100 cursor-pointer"

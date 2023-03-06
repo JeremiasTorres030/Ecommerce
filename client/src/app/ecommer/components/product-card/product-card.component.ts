@@ -23,6 +23,7 @@ export class ProductCardComponent {
       type: 'Edit',
       value: this.product,
     });
+    window.scrollTo(0, 0);
   }
 
   deleteButton(): void {
