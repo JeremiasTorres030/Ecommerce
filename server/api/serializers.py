@@ -9,7 +9,7 @@ class ProductSerializer (ModelSerializer):
 class UnicUserSerializer (ModelSerializer):
     class Meta:
         model=User
-        fields = ['first_name','last_name','username','email']
+        fields = ['first_name','last_name','username','email','id']
 
 class UserSerializer (ModelSerializer):
     class Meta:

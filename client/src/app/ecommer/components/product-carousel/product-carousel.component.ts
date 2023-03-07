@@ -9,6 +9,7 @@ import { Categories, Product } from '../../types/types';
 })
 export class ProductCarouselComponent implements OnChanges {
   @Input() public categoryName: string = '';
+  @Input() public subCategoryName: string = '';
   @Input() public productId: number = 0;
   @Input() public subCategory: boolean = false;
   public moreProducts: Array<Product> = [];
@@ -20,9 +21,10 @@ export class ProductCarouselComponent implements OnChanges {
         .getProductsBySubCategory(this.categoryName)
         .subscribe({
           next: (res) => {
-            this.moreProducts = res.data.filter(
+            this.moreProducts = res.results.products.filter(
               ({ id }) => id !== this.productId
             );
+            this.moreProducts.length = 4;
           },
         });
       return;
@@ -32,9 +34,11 @@ export class ProductCarouselComponent implements OnChanges {
       .getProductsByCategory(this.categoryName as Categories)
       .subscribe({
         next: (res) => {
-          this.moreProducts = res.data.filter(
-            ({ id }) => id !== this.productId
+          this.moreProducts = res.results.products.filter(
+            ({ id, sub_category }) =>
+              id !== this.productId && sub_category !== this.subCategoryName
           );
+          this.moreProducts.length = 4;
         },
       });
   }

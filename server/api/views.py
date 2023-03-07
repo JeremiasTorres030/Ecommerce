@@ -10,6 +10,7 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.permissions import IsAuthenticated
 from knox.auth import TokenAuthentication
 from rest_framework.parsers import MultiPartParser
+from api.paginators import ProductSetPagination
 import cloudinary
 # Create your views here.
 
@@ -53,25 +54,31 @@ class UnicProductView(APIView):
 class CategoryView(APIView):
     def get(self,request,format=None , categoryName=""):
         producto = ProductModel.objects.filter(category = categoryName)
-        serializer = ProductSerializer(producto,many=True)
+        paginator = ProductSetPagination()
+        results = paginator.paginate_queryset(producto,request)
+        serializer = ProductSerializer(results,many=True)
         if serializer.is_valid:
-            return Response({'data':serializer.data,"ok":True},status=status.HTTP_200_OK)
+            return paginator.get_paginated_response({'products':serializer.data,"ok":True})
         return Response({"msg":"Hubo un error","ok":False},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class SubCategoryView(APIView):
     def get(self,request,format=None , subCategoryName=""):
         producto = ProductModel.objects.filter(sub_category = subCategoryName)
-        serializer = ProductSerializer(producto,many=True)
+        paginator = ProductSetPagination()
+        results = paginator.paginate_queryset(producto,request)
+        serializer = ProductSerializer(results,many=True)
         if serializer.is_valid :
-            return Response({'data':serializer.data,"ok":True},status=status.HTTP_200_OK)
+            return paginator.get_paginated_response({'products':serializer.data,"ok":True})
         return Response({"msg":"Hubo un error","ok":False},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 class UserProductsView(APIView):
     def get(self,request,format=None , userId=""):
         producto = ProductModel.objects.filter(seller = userId)
-        serializer = ProductSerializer(producto,many=True)
+        paginator = ProductSetPagination()
+        results = paginator.paginate_queryset(producto,request)
+        serializer = ProductSerializer(results,many=True)
         if serializer.is_valid:
-            return Response({'data':serializer.data,"ok":True},status=status.HTTP_200_OK)
+            return paginator.get_paginated_response({'products':serializer.data,"ok":True})
         return Response({"msg":"Hubo un error","ok":False},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 

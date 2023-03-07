@@ -70,6 +70,8 @@ CORS_ALLOWED_ORIGINS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
+    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffSetPagination',
+    'PAGES_SIZE':16,
 }
 
 ROOT_URLCONF = 'server.urls'

@@ -8,6 +8,7 @@ import {
   loginResponse,
   Product,
   ProductResponse,
+  ProductsPaginated,
   ProductWithSellerId,
   User,
   userForm,
@@ -42,24 +43,70 @@ export class EcommerService {
     );
   }
 
-  getProductsByUser(userId: number): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(
-      `${this.API_URL}user/products/${userId}`
-    );
+  getProductsByUser(
+    userId: number,
+    page: string = '1'
+  ): Observable<ProductsPaginated> {
+    return this.http
+      .get<ProductsPaginated>(
+        `${this.API_URL}user/products/${userId}?p=${page}`
+      )
+      .pipe(
+        map((res) => {
+          for (let i = 0; i < res.results.products.length; i++) {
+            res.results.products[i].image = `${res.results.products[
+              i
+            ].image.slice(0, 50)}h_300,w_300${res.results.products[
+              i
+            ].image.slice(49)}`;
+          }
+          return res;
+        })
+      );
   }
 
-  getProductsByCategory(categoryName: Categories): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(
-      `${this.API_URL}category/${categoryName}`
-    );
+  getProductsByCategory(
+    categoryName: Categories,
+    page: string = '1'
+  ): Observable<ProductsPaginated> {
+    return this.http
+      .get<ProductsPaginated>(
+        `${this.API_URL}category/${categoryName}?p=${page}`
+      )
+      .pipe(
+        map((res) => {
+          for (let i = 0; i < res.results.products.length; i++) {
+            res.results.products[i].image = `${res.results.products[
+              i
+            ].image.slice(0, 50)}h_300,w_300${res.results.products[
+              i
+            ].image.slice(49)}`;
+          }
+          return res;
+        })
+      );
   }
 
   getProductsBySubCategory(
-    SubCategoryName: string
-  ): Observable<ProductResponse> {
-    return this.http.get<ProductResponse>(
-      `${this.API_URL}sub-category/${SubCategoryName}`
-    );
+    SubCategoryName: string,
+    page: string = '1'
+  ): Observable<ProductsPaginated> {
+    return this.http
+      .get<ProductsPaginated>(
+        `${this.API_URL}sub-category/${SubCategoryName}?p=${page}`
+      )
+      .pipe(
+        map((res) => {
+          for (let i = 0; i < res.results.products.length; i++) {
+            res.results.products[i].image = `${res.results.products[
+              i
+            ].image.slice(0, 50)}h_300,w_300${res.results.products[
+              i
+            ].image.slice(49)}`;
+          }
+          return res;
+        })
+      );
   }
 
   getUser(userId: string): Observable<User> {
@@ -80,22 +127,28 @@ export class EcommerService {
     );
   }
 
-  getProduct(productId: number): Observable<ProductWithSellerId> {
+  getProduct(
+    productId: number,
+    withSeller: boolean = true
+  ): Observable<ProductWithSellerId | Product> {
     return this.http
       .get<ProductResponse>(`${this.API_URL}product/${productId}`)
       .pipe(
         map((res) => {
-          let product = res.data[0];
-          let productTransform: ProductWithSellerId = {
-            ...product,
-            sellerId: product.seller,
-          };
-          this.getUser(productTransform.seller).subscribe({
-            next: (res) => {
-              productTransform.seller = `${res.first_name} ${res.last_name}`;
-            },
-          });
-          return productTransform;
+          if (withSeller) {
+            let product = res.data[0];
+            let productTransform: ProductWithSellerId = {
+              ...product,
+              sellerId: product.seller,
+            };
+            this.getUser(productTransform.seller).subscribe({
+              next: (res) => {
+                productTransform.seller = `${res.first_name} ${res.last_name}`;
+              },
+            });
+            return productTransform;
+          }
+          return res.data[0];
         })
       );
   }

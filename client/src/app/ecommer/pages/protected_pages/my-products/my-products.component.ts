@@ -8,6 +8,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./my-products.component.css'],
 })
 export class MyProductsComponent implements OnInit {
+  public nextPage: string | null = '';
+  public previousPage: string | null = '';
   public userProducts: Array<Product> = [];
   public createForm: boolean = false;
   public editForm: boolean = false;
@@ -30,14 +32,29 @@ export class MyProductsComponent implements OnInit {
     this.getProducts();
   }
 
-  getProducts(): void {
+  getProducts(page: string = '1'): void {
     this.ecommerService
-      .getProductsByUser(this.ecommerService.userGet.id)
+      .getProductsByUser(this.ecommerService.userGet.id, page)
       .subscribe({
         next: (res) => {
-          this.userProducts = res.data;
+          if (res.results.ok) {
+            this.nextPage = res.next;
+            this.previousPage = res.previous;
+            this.userProducts = res.results.products;
+          }
         },
       });
+  }
+  previousPageButton(): void {
+    if (this.previousPage === null) return;
+    this.getProducts(this.previousPage);
+    window.scrollTo(0, 0);
+  }
+
+  nextPageButton(): void {
+    if (this.nextPage === null) return;
+    this.getProducts(this.nextPage);
+    window.scrollTo(0, 0);
   }
 
   openFormButton(): void {

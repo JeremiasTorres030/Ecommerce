@@ -11,6 +11,8 @@ import { Product, User } from '../../types/types';
 })
 export class UserComponent implements OnInit {
   public userProducts: Array<Product> = [];
+  public nextPage: string | null = '';
+  public previousPage: string | null = '';
   public userData: User = {
     first_name: '',
     last_name: '',
@@ -29,20 +31,42 @@ export class UserComponent implements OnInit {
     this.activatedRoute.params
       .pipe(
         tap(({ userId }) => {
-          this.ecommerService.getProductsByUser(userId).subscribe({
+          this.ecommerService.getUser(userId).subscribe({
             next: (res) => {
-              this.userProducts = res.data;
+              if (res.email) {
+                this.userData = res;
+              }
             },
           });
         }),
         tap(({ userId }) => {
-          this.ecommerService.getUser(userId).subscribe({
-            next: (res) => {
-              this.userData = res;
-            },
-          });
+          this.getProducts(userId);
         })
       )
       .subscribe();
+  }
+
+  getProducts(userId: number, page: string = '1'): void {
+    this.ecommerService.getProductsByUser(userId, page).subscribe({
+      next: (res) => {
+        if (res.results.ok) {
+          this.previousPage = res.previous;
+          this.nextPage = res.next;
+          this.userProducts = res.results.products;
+        }
+      },
+    });
+  }
+
+  previousPageButton(): void {
+    if (this.previousPage === null) return;
+    this.getProducts(this.userData.id, this.previousPage);
+    window.scrollTo(0, 0);
+  }
+
+  nextPageButton(): void {
+    if (this.nextPage === null) return;
+    this.getProducts(this.userData.id, this.nextPage);
+    window.scrollTo(0, 0);
   }
 }

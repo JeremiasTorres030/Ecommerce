@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
     if (lastVisitedJson) {
       let lastVisitedList: Array<Product> = JSON.parse(lastVisitedJson);
       lastVisitedList.forEach(({ id }) => {
-        this.ecommerService.getProduct(id).subscribe({
+        this.ecommerService.getProduct(id, false).subscribe({
           error: () => {
             this.lastVisited = lastVisitedList.filter(
               (product) => product.id !== id

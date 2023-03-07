@@ -4,10 +4,12 @@
   <img
     [src]="product.image"
     [alt]="product.name"
-    class="w-full h-full max-w-[300px] max-h-[200px] rounded-md"
+    class="w-full h-full max-w-[200px] max-h-[300px] rounded-md mx-auto"
   />
 
-  <h1 class="productPrice text-2xl font-semibold">${{ product.price }}</h1>
+  <h1 class="productPrice text-2xl font-semibold">
+    ${{ product.price | number : "1.0-0" }}
+  </h1>
   <h2 class="productName text-lg">{{ product.name }}</h2>
   <div *ngIf="userButtons" class="flex gap-1">
     <button class="editButton text-green-700" (click)="editButton()">

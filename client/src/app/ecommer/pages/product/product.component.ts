@@ -34,7 +34,7 @@ export class ProductComponent implements OnInit {
         tap(({ productId }) => {
           this.ecommerService.getProduct(productId).subscribe({
             next: (res) => {
-              this.product = res;
+              this.product = res as ProductWithSellerId;
               this.inCartCheck();
               this.loading = false;
               this.addTo('lastVisited');
@@ -60,8 +60,13 @@ export class ProductComponent implements OnInit {
       });
       if (exist === undefined) {
         if (list === 'lastVisited' && localProducts.length === 5) {
+          let customImage: Product = this.product;
+          customImage.image = `${this.product.image.slice(
+            0,
+            50
+          )}h_300,w_300${this.product.image.slice(49)}`;
           localProducts.shift();
-          localProducts.push(this.product);
+          localProducts.push(customImage);
           localStorage.setItem(list, JSON.stringify(localProducts));
           return;
         }
@@ -72,7 +77,12 @@ export class ProductComponent implements OnInit {
       }
       return;
     }
-    localProducts.push(this.product);
+    let customImage: Product = this.product;
+    customImage.image = `${this.product.image.slice(
+      0,
+      50
+    )}h_300,w_300${this.product.image.slice(49)}`;
+    localProducts.push(customImage);
     localStorage.setItem(list, JSON.stringify(localProducts));
     if (list === 'cartList') {
       this.inCart = true;

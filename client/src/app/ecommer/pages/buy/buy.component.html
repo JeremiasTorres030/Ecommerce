@@ -2,6 +2,7 @@
   <app-cart [removeButtons]="true"></app-cart>
   <div
     class="buyComponent flex flex-col items-center justify-center text-center"
+    *ngIf="token !== ''"
   >
     <h1 class="mt-5 font-semibold text-3xl text-center">Comprar</h1>
     <form [formGroup]="buyForm" (ngSubmit)="submitForm()" class="flex flex-col">
@@ -87,5 +88,11 @@
         Comprar
       </button>
     </form>
+  </div>
+  <div *ngIf="token === ''" class="flex flex-wrap flex-col">
+    <h1 class="text-2xl">Inicie sesion para comprar productos.</h1>
+    <a routerLink="/login" class="p-2 rounded-md bg-blue-400 text-white mr-auto"
+      >Iniciar sesion</a
+    >
   </div>
 </div>

@@ -23,8 +23,10 @@
       [routerLink]="['/product', product.id]"
       (click)="selectProduct()"
     >
-      <img [src]="product.image" [alt]="product.name" class="w-10" />
-      <h1 class="text-black text-2xl">{{ product.name }}</h1>
+      <img [src]="product.image" [alt]="product.name" class="w-10 h-10" />
+      <h1 class="text-black font-bold text-base m-auto text-center">
+        {{ product.name }}
+      </h1>
     </div>
   </div>
 </div>

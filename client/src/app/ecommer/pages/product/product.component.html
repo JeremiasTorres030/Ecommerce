@@ -2,14 +2,14 @@
   class="productComponent flex flex-col items-center justify-center"
   *ngIf="!loading"
 >
-  <div class="flex mt-8 px-20">
+  <div class="flex mt-8 px-20 flex-wrap items-center justify-center">
     <img
       [src]="product.image"
       [alt]="product.name"
-      class="w-96 h-auto max-h-[470px] rounded-lg rounded-tr-none rounded-br-none"
+      class="w-auto h-auto max-h-[470px] rounded-lg rounded-tr-none rounded-br-none"
     />
     <div class="text-center p-4">
-      <h1 class="productName text-4xl font-bold">{{ product.name }}</h1>
+      <h1 class="productName text-4xl font-bold m-auto">{{ product.name }}</h1>
       <a
         class="productSeller font-medium text-lg my-2"
         [routerLink]="['/user', product.sellerId]"
@@ -19,20 +19,20 @@
       <p class="productPrice font-semibold text-3xl">${{ product.price }}</p>
       <div class="flex flex-col mt-10">
         <button
-          class="buyNow p-2 rounded-md bg-blue-400 text-white my-1"
+          class="buyNow p-2 rounded-md bg-blue-400 text-white my-1 w-36 mx-auto"
           (click)="buyNow()"
         >
           Comprar ahora
         </button>
         <button
-          class="addToCart p-2 rounded-md bg-blue-400 text-white my-2"
+          class="addToCart p-2 rounded-md bg-blue-400 text-white my-2 w-36 mx-auto"
           (click)="addTo()"
           *ngIf="!inCart"
         >
           Añadir al carrito
         </button>
         <button
-          class="removeFromCart p-2 rounded-md bg-blue-400 text-white my-2"
+          class="removeFromCart p-2 rounded-md bg-blue-400 text-white my-2 w-36 mx-auto"
           (click)="removeFromCart()"
           *ngIf="inCart"
         >
@@ -44,6 +44,7 @@
   <app-product-carousel
     [categoryName]="product.category"
     [productId]="product.id"
+    [subCategoryName]="product.sub_category"
   ></app-product-carousel>
   <app-product-carousel
     [categoryName]="product.sub_category"

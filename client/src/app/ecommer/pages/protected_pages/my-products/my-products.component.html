@@ -32,4 +32,21 @@
       (userButtonClicked)="eventProduct($event)"
     ></app-product-card>
   </div>
+  <div class="flex items-center justify-center mt-5 gap-2">
+    <button
+      *ngIf="previousPage !== null"
+      (click)="previousPageButton()"
+      class="p-2 rounded-md bg-blue-400 text-white"
+    >
+      Anterior
+    </button>
+
+    <button
+      *ngIf="nextPage !== null"
+      (click)="nextPageButton()"
+      class="p-2 rounded-md bg-blue-400 text-white"
+    >
+      Siguiente
+    </button>
+  </div>
 </div>

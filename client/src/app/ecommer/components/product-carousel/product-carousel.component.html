@@ -2,7 +2,7 @@
   <h1 class="categoryTitle text-center my-2 font-semibold text-2xl">
     Mas {{ categoryName | lowercase }}
   </h1>
-  <div class="flex">
+  <div class="flex flex-wrap justify-center items-center">
     <app-product-card
       *ngFor="let product of moreProducts"
       [product]="product"

@@ -64,3 +64,12 @@ export type Categories =
   | 'Deportes'
   | 'Electrodomesticos'
   | 'Instrumentos';
+
+export interface ProductsPaginated {
+  next: null | string;
+  previous: null | string;
+  results: {
+    products: Array<Product>;
+    ok: boolean;
+  };
+}

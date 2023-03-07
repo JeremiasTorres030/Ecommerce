@@ -12,6 +12,8 @@ import { Category, Product } from '../../types/types';
 export class CategoryComponent implements OnInit {
   public title: string = '';
   public productsList: Array<Product> = [];
+  public nextPage: string | null = '';
+  public previousPage: string | null = '';
   public subCategories: Array<Category> = [];
   public goBack: Category = {
     categoryName: 'Volver',
@@ -26,38 +28,79 @@ export class CategoryComponent implements OnInit {
   ngOnInit(): void {
     this.activeRoute.data.subscribe((value) => {
       if (value['subCategory']) {
-        this.activeRoute.params
-          .pipe(
-            tap(({ categoryName }) => {
-              this.EcommerService.getProductsBySubCategory(
-                categoryName
-              ).subscribe({
-                next: (res) => {
-                  this.productsList = res.data;
-                },
-              });
-            })
-          )
-          .subscribe(({ categoryName }) => {
-            this.title = categoryName;
-          });
+        this.bySubCategory();
         return;
       }
-      this.activeRoute.params
-        .pipe(
-          tap(({ categoryName }) => {
-            this.EcommerService.getProductsByCategory(categoryName).subscribe({
-              next: (res) => {
-                this.productsList = res.data;
-              },
-            });
-          })
-        )
-        .subscribe(({ categoryName }) => {
-          this.title = categoryName;
-          this.subCategoryLists(categoryName);
-        });
+      this.byCategory();
     });
+  }
+
+  nextPageButton(): void {
+    if (this.nextPage === null) return;
+    if (this.subCategories === undefined) {
+      window.scrollTo(0, 0);
+      this.bySubCategory(this.nextPage);
+      return;
+    }
+    window.scrollTo(0, 0);
+    this.byCategory(this.nextPage);
+  }
+  previousPageButton(): void {
+    if (this.previousPage === null) return;
+    if (this.subCategories === undefined) {
+      window.scrollTo(0, 0);
+      this.bySubCategory(this.previousPage);
+      return;
+    }
+    window.scrollTo(0, 0);
+
+    this.byCategory(this.previousPage);
+  }
+
+  byCategory(page: string = '1'): void {
+    this.activeRoute.params
+      .pipe(
+        tap(({ categoryName }) => {
+          this.EcommerService.getProductsByCategory(
+            categoryName,
+            page
+          ).subscribe({
+            next: (res) => {
+              if (res.results.ok) {
+                this.productsList = res.results.products;
+                this.nextPage = res.next;
+                this.previousPage = res.previous;
+              }
+            },
+          });
+        })
+      )
+      .subscribe(({ categoryName }) => {
+        this.title = categoryName;
+        this.subCategoryLists(categoryName);
+      });
+  }
+  bySubCategory(page: string = '1'): void {
+    this.activeRoute.params
+      .pipe(
+        tap(({ categoryName }) => {
+          this.EcommerService.getProductsBySubCategory(
+            categoryName,
+            page
+          ).subscribe({
+            next: (res) => {
+              if (res.results.ok) {
+                this.productsList = res.results.products;
+                this.nextPage = res.next;
+                this.previousPage = res.previous;
+              }
+            },
+          });
+        })
+      )
+      .subscribe(({ categoryName }) => {
+        this.title = categoryName;
+      });
   }
 
   subCategoryLists(categoryName: string): void {
