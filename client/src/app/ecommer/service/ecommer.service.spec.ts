@@ -10,7 +10,7 @@ import {
   genericResponse,
   loginResponse,
   Product,
-  ProductResponse,
+  ProductsPaginated,
   User,
   userForm,
   userFormRegister,
@@ -38,10 +38,6 @@ describe('EcommerService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should have a getAllProducts function', () => {
-    expect(service.getAllProducts).toBeDefined();
-  });
-
   it('should have a getUser function', () => {
     expect(service.getUser).toBeDefined();
   });
@@ -66,73 +62,42 @@ describe('EcommerService', () => {
     expect(service.logOutUser).toBeDefined();
   });
 
-  it('getAllProducts should return an array of products', () => {
-    const expectedResponse: ProductResponse = {
-      data: [
-        {
-          id: 3,
-          name: 'Objeto ropa',
-          price: 123123,
-          image: '/images/Trousers-colourisolated_A2tU4ZN.jpg',
-          category: 'Ropa',
-          seller: 'test',
-          sub_category: 'test',
-        },
-        {
-          id: 4,
-          name: 'Objeto Computacion',
-          price: 123123,
-          image: '/images/1641232063339_400x400.jpg',
-          category: 'Computacion',
-          seller: 'test',
-          sub_category: 'test',
-        },
-      ],
-      ok: true,
-    };
-
-    service.getAllProducts().subscribe({
-      next: (res) => {
-        expect(res).toEqual(expectedResponse);
-      },
-    });
-
-    const req = httpMock.expectOne(`${environment.API_URL}product/get/all`);
-    req.flush(expectedResponse);
-  });
-
   it('getProductsByCategory should return an array of Ropa products', () => {
-    const expectedResponse: ProductResponse = {
-      data: [
-        {
-          id: 0,
-          name: 'test',
-          price: 0,
-          image: 'test',
-          category: 'Ropa',
-          sub_category: 'test',
-          seller: 'test',
-        },
-        {
-          id: 0,
-          name: 'test',
-          price: 0,
-          image: 'test',
-          category: 'Ropa',
-          sub_category: 'test',
-          seller: 'test',
-        },
-        {
-          id: 0,
-          name: 'test',
-          price: 0,
-          image: 'test',
-          category: 'Ropa',
-          sub_category: 'test',
-          seller: 'test',
-        },
-      ],
-      ok: true,
+    const expectedResponse: ProductsPaginated = {
+      next: '0',
+      previous: '0',
+      results: {
+        ok: true,
+        products: [
+          {
+            id: 0,
+            name: 'test',
+            price: 0,
+            image: 'test',
+            category: 'Ropa',
+            sub_category: 'test',
+            seller: 'test',
+          },
+          {
+            id: 0,
+            name: 'test',
+            price: 0,
+            image: 'test',
+            category: 'Ropa',
+            sub_category: 'test',
+            seller: 'test',
+          },
+          {
+            id: 0,
+            name: 'test',
+            price: 0,
+            image: 'test',
+            category: 'Ropa',
+            sub_category: 'test',
+            seller: 'test',
+          },
+        ],
+      },
     };
 
     const categoryName: Categories = 'Ropa';
@@ -140,14 +105,14 @@ describe('EcommerService', () => {
     service.getProductsByCategory(categoryName).subscribe({
       next: (res) => {
         expect(res).toEqual(expectedResponse);
-        res.data.forEach(({ category }) => {
+        res.results.products.forEach(({ category }) => {
           expect(category).toEqual(categoryName);
         });
       },
     });
 
     const req = httpMock.expectOne(
-      `${environment.API_URL}category/${categoryName}`
+      `${environment.API_URL}category/${categoryName}?p=1`
     );
     req.flush(expectedResponse);
   });
@@ -156,6 +121,7 @@ describe('EcommerService', () => {
     const serverResponse: UserResponse = {
       data: [
         {
+          image: 'test',
           username: 'test',
           first_name: 'test',
           last_name: 'test',
@@ -172,6 +138,7 @@ describe('EcommerService', () => {
       last_name: 'test',
       email: 'test',
       id: 0,
+      image: 'test',
     };
 
     service.getUser('1').subscribe({
@@ -217,6 +184,7 @@ describe('EcommerService', () => {
         email: 'test',
         first_name: 'test',
         last_name: 'test',
+        image: 'test',
       },
     };
 
@@ -242,6 +210,7 @@ describe('EcommerService', () => {
       first_name: 'test',
       last_name: 'test',
       email: 'test',
+      image: 'test',
     };
 
     service.tokenVerification('testToken').subscribe({
@@ -256,20 +225,23 @@ describe('EcommerService', () => {
 
   it('getProductsByUser should return a array of products ', () => {
     const userId = 0;
-
-    const expectedResponse: ProductResponse = {
-      data: [
-        {
-          id: 0,
-          category: '',
-          image: '',
-          name: '',
-          price: 0,
-          seller: '',
-          sub_category: '',
-        },
-      ],
-      ok: true,
+    const expectedResponse: ProductsPaginated = {
+      next: '1',
+      previous: '2',
+      results: {
+        ok: true,
+        products: [
+          {
+            id: 0,
+            category: '',
+            image: '',
+            name: '',
+            price: 0,
+            seller: '',
+            sub_category: '',
+          },
+        ],
+      },
     };
 
     service.getProductsByUser(0).subscribe({
@@ -279,7 +251,7 @@ describe('EcommerService', () => {
     });
 
     const req = httpMock.expectOne(
-      `${environment.API_URL}user/products/${userId}`
+      `${environment.API_URL}user/products/${userId}?p=1`
     );
     req.flush(expectedResponse);
   });
@@ -287,19 +259,23 @@ describe('EcommerService', () => {
   it('getProductsBySubCategory should return a array of products ', () => {
     const SubCategoryName = 'Mouse';
 
-    const expectedResponse: ProductResponse = {
-      data: [
-        {
-          id: 0,
-          category: '',
-          image: '',
-          name: '',
-          price: 0,
-          seller: '',
-          sub_category: '',
-        },
-      ],
-      ok: true,
+    const expectedResponse: ProductsPaginated = {
+      next: '1',
+      previous: '1',
+      results: {
+        products: [
+          {
+            id: 0,
+            category: '',
+            image: '',
+            name: '',
+            price: 0,
+            seller: '',
+            sub_category: '',
+          },
+        ],
+        ok: true,
+      },
     };
 
     service.getProductsBySubCategory(SubCategoryName).subscribe({
@@ -309,7 +285,7 @@ describe('EcommerService', () => {
     });
 
     const req = httpMock.expectOne(
-      `${environment.API_URL}sub-category/${SubCategoryName}`
+      `${environment.API_URL}sub-category/${SubCategoryName}?p=1`
     );
     req.flush(expectedResponse);
   });

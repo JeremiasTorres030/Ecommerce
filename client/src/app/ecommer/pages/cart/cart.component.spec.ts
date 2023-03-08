@@ -111,7 +111,7 @@ describe('CartComponent', () => {
     });
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const button = compiled.querySelector('button.buy');
+    const button = compiled.querySelector('a.buy');
     expect(button).toBeTruthy();
   });
 

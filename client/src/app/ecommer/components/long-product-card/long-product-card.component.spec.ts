@@ -67,7 +67,7 @@ describe('LongProductCardComponent', () => {
     const fixture = TestBed.createComponent(LongProductCardComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const productSeller = compiled.querySelector('p.productSeller')?.innerHTML;
+    const productSeller = compiled.querySelector('a.productSeller')?.innerHTML;
     expect(productSeller).toEqual(productTest.seller);
   });
 
@@ -98,10 +98,8 @@ describe('LongProductCardComponent', () => {
     fixture.detectChanges();
     const component = fixture.componentInstance;
     const spyRemoveFunction = spyOn(component, 'removeProduct');
-
     const debug = fixture.debugElement;
     debug.query(By.css('.removeProduct')).triggerEventHandler('click');
-
     expect(spyRemoveFunction).toHaveBeenCalledTimes(1);
   });
 });

@@ -1,15 +1,22 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ProfileComponent } from './profile.component';
 
 describe('ProfileComponent', () => {
+  let snackBar: MatSnackBar;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProfileComponent],
-      imports: [ReactiveFormsModule, HttpClientTestingModule],
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+      ],
     }).compileComponents();
+    snackBar = TestBed.inject(MatSnackBar);
   });
 
   it('should create', () => {
@@ -47,6 +54,6 @@ describe('ProfileComponent', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
     const inputs = compiled.querySelectorAll('input');
-    expect(inputs.length).toBe(5);
+    expect(inputs.length).toBe(6);
   });
 });

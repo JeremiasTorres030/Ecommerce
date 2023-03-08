@@ -75,6 +75,13 @@ describe('ProductCarouselComponent', () => {
     expect(component.productId).toBeDefined();
   });
 
+  it('should have a subCategoryName variable', () => {
+    const fixture = TestBed.createComponent(ProductCarouselComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.subCategoryName).toBeDefined();
+  });
+
   it('should have a subCategory variable', () => {
     const fixture = TestBed.createComponent(ProductCarouselComponent);
     fixture.detectChanges();

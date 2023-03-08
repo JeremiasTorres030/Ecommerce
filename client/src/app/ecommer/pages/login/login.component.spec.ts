@@ -40,6 +40,13 @@ describe('LoginComponent', () => {
     expect(component.loginForm).toBeDefined();
   });
 
+  it('should have a customError variable', () => {
+    const fixture = TestBed.createComponent(LoginComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.customError).toBeDefined();
+  });
+
   it('should have a submitForm function', () => {
     const fixture = TestBed.createComponent(LoginComponent);
     fixture.detectChanges();

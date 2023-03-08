@@ -50,6 +50,20 @@ describe('CategoryComponent', () => {
     expect(component.productsList).toBeDefined();
   });
 
+  it('should have a nextPage variable', () => {
+    const fixture = TestBed.createComponent(CategoryComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.nextPage).toBeDefined();
+  });
+
+  it('should have a previousPage variable', () => {
+    const fixture = TestBed.createComponent(CategoryComponent);
+    fixture.detectChanges();
+    const component = fixture.componentInstance;
+    expect(component.previousPage).toBeDefined();
+  });
+
   it('should have a subCategories variable', () => {
     const fixture = TestBed.createComponent(CategoryComponent);
     fixture.detectChanges();
@@ -75,13 +89,6 @@ describe('CategoryComponent', () => {
     expect(h1?.innerHTML).toEqual(component.title);
   });
 
-  it('should call getProductsByCategory once ', () => {
-    const ecommerSpy = spyOn(ecommerService, 'getProductsByCategory');
-    const fixture = TestBed.createComponent(CategoryComponent);
-    fixture.detectChanges();
-    expect(ecommerSpy).toHaveBeenCalledTimes(1);
-  });
-
   it('should render sub categories div', () => {
     const fixture = TestBed.createComponent(CategoryComponent);
     fixture.detectChanges();
@@ -96,5 +103,13 @@ describe('CategoryComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const div = compiled.querySelector('div.products');
     expect(div).toBeTruthy();
+  });
+
+  it('should call byCategory once ', () => {
+    const fixture = TestBed.createComponent(CategoryComponent);
+    const component = fixture.componentInstance;
+    const spy = spyOn(component, 'byCategory');
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledTimes(1);
   });
 });

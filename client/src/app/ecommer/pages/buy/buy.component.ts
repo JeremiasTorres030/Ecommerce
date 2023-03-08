@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { EcommerService } from '../../service/ecommer.service';
 @Component({
   selector: 'app-buy',
   templateUrl: './buy.component.html',
@@ -61,7 +60,6 @@ export class BuyComponent implements OnInit {
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token') ?? '';
-
     this.buyForm.get('number')?.valueChanges.subscribe((res) => {
       if (
         (res?.length === 4 && this.lastKey !== 'Backspace') ||

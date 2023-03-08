@@ -134,4 +134,11 @@ describe('HomeComponent', () => {
       );
     });
   });
+
+  it('should call getItems of local storage once ', () => {
+    const fixture = TestBed.createComponent(HomeComponent);
+    const spy = spyOn(localStorage, 'getItem');
+    fixture.detectChanges();
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
 });

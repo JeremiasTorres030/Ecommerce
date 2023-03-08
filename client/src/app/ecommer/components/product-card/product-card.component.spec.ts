@@ -8,7 +8,7 @@ describe('ProductCardComponent', () => {
     id: 0,
     image: 'imagen.png',
     name: 'Pantalon gris largo',
-    price: '$150',
+    price: ' $150 ',
     seller: '1',
   };
   beforeEach(async () => {

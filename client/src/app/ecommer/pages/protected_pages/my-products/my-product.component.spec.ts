@@ -1,14 +1,21 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MyProductsComponent } from './my-products.component';
 
 describe('MyProductsComponent', () => {
+  let snackBar: MatSnackBar;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [MyProductsComponent],
-      imports: [ReactiveFormsModule, HttpClientTestingModule],
+      imports: [
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        MatSnackBarModule,
+      ],
     }).compileComponents();
+    snackBar = TestBed.inject(MatSnackBar);
   });
 
   it('should create', () => {

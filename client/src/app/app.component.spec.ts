@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SearchComponent } from './components/search/search.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -14,7 +15,7 @@ describe('AppComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
       ],
-      declarations: [AppComponent, NavbarComponent],
+      declarations: [AppComponent, NavbarComponent, SearchComponent],
     }).compileComponents();
   });
 

@@ -10,7 +10,7 @@ import { EcommerService } from 'src/app/ecommer/service/ecommer.service';
 export class NavbarComponent implements OnInit {
   public token: string = '';
   public timer!: ReturnType<typeof setTimeout>;
-  public activateUseMenu: boolean = false;
+  public activateUserMenu: boolean = false;
   public username: string = '';
 
   constructor(private router: Router, private ecommerService: EcommerService) {}
@@ -42,24 +42,24 @@ export class NavbarComponent implements OnInit {
     this.ecommerService.logOutUser(this.token).subscribe();
     localStorage.removeItem('token');
     this.token = '';
-    this.activateUseMenu = false;
+    this.activateUserMenu = false;
     this.router.navigateByUrl('/');
   }
   profile(): void {
-    this.activateUseMenu = false;
+    this.activateUserMenu = false;
     this.router.navigateByUrl('/profile/view');
   }
 
   myProducts(): void {
-    this.activateUseMenu = false;
+    this.activateUserMenu = false;
     this.router.navigateByUrl('/profile/my-products');
   }
 
   userMenu(): void {
-    this.activateUseMenu = !this.activateUseMenu;
+    this.activateUserMenu = !this.activateUserMenu;
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
-      this.activateUseMenu = false;
+      this.activateUserMenu = false;
     }, 10000);
   }
 }

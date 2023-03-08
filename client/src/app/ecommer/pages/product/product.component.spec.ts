@@ -97,7 +97,7 @@ describe('ProductComponent', () => {
     fixture.componentInstance.loading = false;
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    const productSeller = compiled.querySelector('p.productSeller')?.innerHTML;
+    const productSeller = compiled.querySelector('a.productSeller')?.innerHTML;
     expect(productSeller).toEqual(productTest.seller);
   });
 

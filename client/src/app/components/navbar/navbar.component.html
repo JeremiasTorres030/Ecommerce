@@ -3,11 +3,11 @@
 >
   <div class="w-10"></div>
   <a
-    [routerLink]="['/']"
     class="icon text-5xl mx-0 text-white font-bold absolute left-5 top-2 underline decoration-orange-500"
+    routerLink="/"
     >E</a
   >
-  <app-search class=""></app-search>
+  <app-search></app-search>
   <div class="flex">
     <a class="cartButton text-white hover:underline" routerLink="/cart"
       >Carrito</a
@@ -29,7 +29,7 @@
       </button>
       <div
         class="userMenu absolute bg-slate-200 text-black flex flex-col w-32 mt-1 -left-14 border-2 rounded-md"
-        *ngIf="activateUseMenu"
+        *ngIf="activateUserMenu"
       >
         <button class="profileButton p-1" (click)="profile()">Perfil</button>
         <button
