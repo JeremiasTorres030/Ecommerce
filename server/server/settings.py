@@ -68,7 +68,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-   'http://localhost:4200',
+   'https://ecommerce-production-e985.up.railway.app/api'
 ]
 
 REST_FRAMEWORK = {
