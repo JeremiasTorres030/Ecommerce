@@ -68,13 +68,13 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-   'https://ecommerce-production-e985.up.railway.app/api'
+    'https://ecommerce-eyag.onrender.com'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
-    'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffSetPagination',
-    'PAGES_SIZE':16,
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffSetPagination',
+    'PAGES_SIZE': 16,
 }
 
 ROOT_URLCONF = 'server.urls'
@@ -83,7 +83,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-        os.path.join(BASE_DIR,'client/build')
+            os.path.join(BASE_DIR, 'client/build')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -151,10 +151,10 @@ STATICFILES_STORAGE = 'spa.storage.SPAStaticFilesStorage'
 STATIC_URL = '/static/'
 
 if DEBUG == False:
-    STATIC_ROOT= os.path.join(BASE_DIR,'client/build')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'client/build')
 else:
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR,'client/build')
+        os.path.join(BASE_DIR, 'client/build')
     ]
 
 # Default primary key field type
@@ -170,6 +170,6 @@ MEDIA_URL = '/ecommer/'
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-REST_KNOX ={
+REST_KNOX = {
     'TOKEN_TTL': None,
 }
